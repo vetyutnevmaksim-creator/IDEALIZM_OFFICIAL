@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Книга | ИДЕАЛИЗМ</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root { --dark-bg: #0a0a0a; --darker-bg: #050505; --accent: #ffffff; }
+        body { font-family: 'Helvetica Neue', Arial, sans-serif; background: var(--darker-bg); color: #fff; line-height: 1.6; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        
+        header { background: rgba(10, 10, 10, 0.95); padding: 20px 0; position: fixed; width: 100%; top: 0; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .header-container { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.5em; font-weight: bold; letter-spacing: 3px; color: var(--accent); text-decoration: none; }
+        nav ul { list-style: none; display: flex; }
+        nav li { margin-left: 35px; }
+        nav a { color: #ccc; text-decoration: none; text-transform: uppercase; letter-spacing: 1.5px; transition: color 0.3s ease; font-size: 0.9em; }
+        nav a:hover { color: var(--accent); }
+
+        .content { margin-top: 120px; padding: 50px 0; min-height: 80vh; }
+        .book-hero { text-align: center; padding: 50px 0; }
+        .book-cover { max-width: 300px; margin: 0 auto 40px; }
+        .book-cover img { 
+            width: 100%; 
+            height: auto; 
+            border: 2px solid var(--accent);
+            box-shadow: 0 10px 30px rgba(255,255,255,0.1);
+        }
+        .book-description { max-width: 600px; margin: 0 auto; line-height: 1.8; }
+        
+        .purchase-options { display: flex; justify-content: center; gap: 30px; margin-top: 40px; }
+        .purchase-option { flex: 1; max-width: 250px; text-align: center; padding: 25px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); }
+        .purchase-option h3 { color: var(--accent); margin-bottom: 15px; font-size: 1.1em; font-weight: 300; letter-spacing: 1px; }
+        .purchase-option p { color: #ccc; font-size: 0.9em; margin-bottom: 20px; line-height: 1.5; }
+        
+        .buy-button { 
+            background: transparent; 
+            color: var(--accent); 
+            border: 2px solid var(--accent); 
+            padding: 12px 30px; 
+            font-size: 0.9em; 
+            cursor: pointer; 
+            transition: all 0.3s ease; 
+            text-decoration: none;
+            display: inline-block;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .buy-button:hover { background: var(--accent); color: var(--dark-bg); }
+
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            .purchase-options { flex-direction: column; align-items: center; }
+            .purchase-option { max-width: 100%; width: 100%; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-container">
+            <a href="index.html" class="logo">ИДЕАЛИЗМ</a>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Главная</a></li>
+                    <li><a href="policy.html">Политика</a></li>
+                    <li><a href="book.html" style="color: var(--accent);">Книга</a></li>
+                    <li><a href="shop.html">Магазин</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container content">
+        <div class="book-hero">
+            <!-- ОБЛОЖКА КНИГИ - ВСТАВЬТЕ ВАШЕ ФОТО ЗДЕСЬ -->
+            <div class="book-cover">
+                <img src="путь/к/вашему/фото/обложка.jpg" alt="Обложка книги ИДЕАЛИСТ - Максим Ветютнев">
+            </div>
+            
+            <div class="book-description">
+                <h1 style="color: var(--accent); margin-bottom: 30px; font-size: 2.5em;">ИДЕАЛИСТ</h1>
+                <p style="color: #ccc; font-size: 1.1em; margin-bottom: 30px;">
+                    Философский труд о движении к абсолютному идеалу. Основано на личном эксперименте 
+                    и практическом применении принципов идеализма в современных условиях.
+                </p>
+                
+                <!-- Два варианта покупки -->
+                <div class="purchase-options">
+                    <div class="purchase-option">
+                        <h3>Электронная версия</h3>
+                        <p>Читайте в цифровом формате на любом устройстве</p>
+                        <a href="https://www.litres.ru/book/maksim-vetutnev-33423019/idealist-71982055/" 
+                           class="buy-button" 
+                           target="_blank">
+                           Купить
+                        </a>
+                    </div>
+                    
+                    <div class="purchase-option">
+                        <h3>Печатная версия</h3>
+                        <p>Твердый переплет, бумажное издание</p>
+                        <a href="https://ridero.ru/books/idealist_3/" 
+                           class="buy-button" 
+                           target="_blank">
+                           Купить
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Магазин | ИДЕАЛИЗМ</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root { --dark-bg: #0a0a0a; --darker-bg: #050505; --accent: #ffffff; }
+        body { font-family: 'Helvetica Neue', Arial, sans-serif; background: var(--darker-bg); color: #fff; line-height: 1.6; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        
+        header { background: rgba(10, 10, 10, 0.95); padding: 20px 0; position: fixed; width: 100%; top: 0; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .header-container { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.5em; font-weight: bold; letter-spacing: 3px; color: var(--accent); text-decoration: none; }
+        nav ul { list-style: none; display: flex; }
+        nav li { margin-left: 35px; }
+        nav a { color: #ccc; text-decoration: none; text-transform: uppercase; letter-spacing: 1.5px; transition: color 0.3s ease; font-size: 0.9em; }
+        nav a:hover { color: var(--accent); }
+
+        .content { margin-top: 120px; padding: 50px 0; min-height: 80vh; }
+        .products-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 40px; margin-top: 50px; }
+        .product-card { background: rgba(255,255,255,0.05); padding: 30px; border-radius: 10px; text-align: center; backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1); }
+        .product-card h3 { color: var(--accent); margin-bottom: 15px; }
+        .product-price { color: #ccc; font-size: 1.2em; margin-bottom: 20px; }
+        .buy-btn { background: transparent; color: var(--accent); border: 1px solid var(--accent); padding: 10px 25px; cursor: pointer; transition: all 0.3s ease; }
+        .buy-btn:hover { background: var(--accent); color: var(--dark-bg); }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-container">
+            <a href="index.html" class="logo">ИДЕАЛИЗМ</a>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Главная</a></li>
+                    <li><a href="policy.html">Политика</a></li>
+                    <li><a href="book.html">Книга</a></li>
+                    <li><a href="shop.html" style="color: var(--accent);">Магазин</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container content">
+        <h1 style="color: var(--accent); text-align: center; margin-bottom: 20px; font-size: 2.5em;">Магазин Идеалиста</h1>
+        <p style="text-align: center; color: #ccc; margin-bottom: 50px;">Атрибуты для движения к абсолютному</p>
+        
+        <div class="products-grid">
+            <div class="product-card">
+                <h3>Футболка "Идеалист"</h3>
+                <div style="background: #333; height: 200px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; color: #999;">
+                    Изображение товара
+                </div>
+                <p class="product-price">2 500 ₽</p>
+                <button class="buy-btn">ДОБАВИТЬ В КОРЗИНУ</button>
+            </div>
+            
+            <div class="product-card">
+                <h3>Свитшот "Прогрессивность"</h3>
+                <div style="background: #333; height: 200px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; color: #999;">
+                    Изображение товара
+                </div>
+                <p class="product-price">4 500 ₽</p>
+                <button class="buy-btn">ДОБАВИТЬ В КОРЗИНУ</button>
+            </div>
+
+            <div class="product-card">
+                <h3>Эко-сумка "Максимизация"</h3>
+                <div style="background: #333; height: 200px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; color: #999;">
+                    Изображение товара
+                </div>
+                <p class="product-price">1 200 ₽</p>
+                <button class="buy-btn">ДОБАВИТЬ В КОРЗИНУ</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
