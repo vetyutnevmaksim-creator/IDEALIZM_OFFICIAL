@@ -603,6 +603,108 @@
         font-size: 1.8em;
     }
 }        
+  /* === БУРГЕР-МЕНЮ === */
+.menu-toggle {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    gap: 4px;
+    padding: 5px;
+    z-index: 1001;
+}
+
+.menu-toggle span {
+    width: 25px;
+    height: 2px;
+    background: var(--accent);
+    transition: all 0.3s ease;
+}
+
+/* Анимация бургера в крестик */
+.menu-toggle.active span:nth-child(1) {
+    transform: rotate(45deg) translate(6px, 6px);
+}
+
+.menu-toggle.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.menu-toggle.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(6px, -6px);
+}
+
+/* Стили для мобильного меню */
+@media (max-width: 768px) {
+    .menu-toggle {
+        display: flex;
+        position: absolute;
+        top: 25px;
+        right: 20px;
+    }
+    
+    #main-menu {
+        position: fixed;
+        top: 0;
+        left: -100%;
+        width: 80%;
+        max-width: 300px;
+        height: 100vh;
+        background: rgba(5, 5, 5, 0.98);
+        backdrop-filter: blur(20px);
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        padding-top: 100px;
+        transition: left 0.3s ease;
+        z-index: 1000;
+        border-right: 1px solid rgba(255,255,255,0.1);
+    }
+    
+    #main-menu.active {
+        left: 0;
+    }
+    
+    #main-menu li {
+        margin: 20px 0;
+        opacity: 0;
+        transform: translateX(-50px);
+        transition: all 0.3s ease;
+    }
+    
+    #main-menu.active li {
+        opacity: 1;
+        transform: translateX(0);
+    }
+    
+    /* Задержка для анимации пунктов меню */
+    #main-menu.active li:nth-child(1) { transition-delay: 0.1s; }
+    #main-menu.active li:nth-child(2) { transition-delay: 0.15s; }
+    #main-menu.active li:nth-child(3) { transition-delay: 0.2s; }
+    #main-menu.active li:nth-child(4) { transition-delay: 0.25s; }
+    #main-menu.active li:nth-child(5) { transition-delay: 0.3s; }
+    #main-menu.active li:nth-child(6) { transition-delay: 0.35s; }
+    
+    #main-menu a {
+        font-size: 1.1em;
+        padding: 12px 30px;
+        display: block;
+        border: 1px solid rgba(255,255,255,0.1);
+        border-radius: 25px;
+        min-width: 200px;
+        text-align: center;
+        transition: all 0.3s ease;
+    }
+    
+    #main-menu a:hover {
+        background: rgba(255,255,255,0.1);
+        border-color: var(--accent);
+    }
+    
+    /* На мобильных скрываем обычное меню */
+    nav ul:not(#main-menu) {
+        display: none;
+    }
+}      
         /* Анимации */
         @keyframes fadeInUp {
             from {
@@ -635,11 +737,12 @@
     <div class="container header-container">
         <a href="index.html" class="logo">ИДЕАЛИЗМ</a>
         <nav>
-            <ul>
+            <ul id="main-menu">
                 <li><a href="index.html">Главная</a></li>
                 <li><a href="policy.html">Политика</a></li>
                 <li><a href="book.html">Книга</a></li>
                 <li><a href="shop.html">Магазин</a></li>
+                <li><a href="cart.html">Корзина</a></li>
                 <li><a href="community.html">Сообщество</a></li>
             </ul>
         </nav>
@@ -648,8 +751,13 @@
             <span>🛒</span>
             <span id="cart-count" class="cart-count">0</span>
         </div>
+        <!-- ДОБАВЛЯЕМ КНОПКУ БУРГЕР-МЕНЮ -->
+        <div class="menu-toggle" id="mobile-menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
     </div>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </header>
 
     <section class="hero" id="philosophy">
@@ -847,6 +955,32 @@ function updateCartCount() {
 document.addEventListener('DOMContentLoaded', function() {
     updateCartCount();
 });
+// БУРГЕР-МЕНЮ
+document.addEventListener('DOMContentLoaded', function() {
+    const mobileMenu = document.getElementById('mobile-menu');
+    const mainMenu = document.getElementById('main-menu');
+    
+    if (mobileMenu && mainMenu) {
+        mobileMenu.addEventListener('click', function() {
+            // Переключаем классы
+            mobileMenu.classList.toggle('active');
+            mainMenu.classList.toggle('active');
+            
+            // Блокируем прокрутку тела при открытом меню
+            document.body.style.overflow = mainMenu.classList.contains('active') ? 'hidden' : '';
+        });
+        
+        // Закрываем меню при клике на ссылку
+        const menuLinks = mainMenu.querySelectorAll('a');
+        menuLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                mobileMenu.classList.remove('active');
+                mainMenu.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+        });
+    }
+});        
     </script>
 </body>
 </html>
