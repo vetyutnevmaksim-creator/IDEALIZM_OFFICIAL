@@ -457,7 +457,33 @@
             margin-top: 40px;
             color: #999;
         }
+/* Стили для иконки корзины */
+.cart-icon {
+    position: relative;
+    font-size: 1.5em;
+    padding: 10px;
+    transition: all 0.3s ease;
+}
 
+.cart-icon:hover {
+    transform: scale(1.1);
+}
+
+.cart-count {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: var(--accent);
+    color: var(--dark-bg);
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    font-size: 0.7em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
         /* Анимации */
         @keyframes fadeInUp {
             from {
