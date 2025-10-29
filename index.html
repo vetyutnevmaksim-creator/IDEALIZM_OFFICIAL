@@ -484,6 +484,125 @@
     justify-content: center;
     font-weight: bold;
 }
+/* АДАПТИВНОСТЬ ДЛЯ МОБИЛЬНЫХ УСТРОЙСТВ */
+@media (max-width: 768px) {
+    .container {
+        padding: 0 15px;
+    }
+    
+    /* Шапка */
+    .header-container {
+        flex-direction: column;
+        padding: 15px 0;
+    }
+    
+    .logo {
+        font-size: 1.3em;
+        margin-bottom: 15px;
+    }
+    
+    nav ul {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px;
+    }
+    
+    nav li {
+        margin-left: 15px;
+        margin-right: 15px;
+        margin-bottom: 10px;
+    }
+    
+    nav a {
+        font-size: 0.8em;
+        letter-spacing: 1px;
+    }
+    
+    /* Герой секция */
+    .hero-content h1 {
+        font-size: 2.5em;
+        letter-spacing: 3px;
+        margin-bottom: 20px;
+    }
+    
+    .hero-content .subtitle {
+        font-size: 1.2em;
+        letter-spacing: 2px;
+        margin-bottom: 30px;
+    }
+    
+    .cta-button {
+        padding: 15px 30px;
+        font-size: 0.8em;
+    }
+    
+    /* Секции */
+    .about-idealism,
+    .principles {
+        padding: 80px 0;
+    }
+    
+    .about-title {
+        font-size: 2em;
+        margin-bottom: 40px;
+    }
+    
+    .paradox-block {
+        padding: 30px 20px;
+    }
+    
+    .paradox-text {
+        font-size: 1.1em;
+    }
+    
+    .principles h2 {
+        font-size: 2em;
+        margin-bottom: 50px;
+    }
+    
+    .principles-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+    
+    .principle-card {
+        padding: 30px 20px;
+    }
+    
+    /* Футер */
+    .social-links {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .social-links a {
+        text-align: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-content h1 {
+        font-size: 2em;
+    }
+    
+    .hero-content .subtitle {
+        font-size: 1em;
+    }
+    
+    nav ul {
+        gap: 10px;
+    }
+    
+    nav li {
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+    
+    .about-title,
+    .principles h2 {
+        font-size: 1.8em;
+    }
+}        
         /* Анимации */
         @keyframes fadeInUp {
             from {
@@ -530,6 +649,7 @@
             <span id="cart-count" class="cart-count">0</span>
         </div>
     </div>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </header>
 
     <section class="hero" id="philosophy">
