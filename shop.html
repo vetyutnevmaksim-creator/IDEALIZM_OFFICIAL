@@ -21,23 +21,22 @@
         .products-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 40px; margin-top: 50px; }
         .product-card { background: rgba(255,255,255,0.05); padding: 30px; border-radius: 10px; text-align: center; backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1); }
         
-        /* ОБНОВЛЕННЫЕ СТИЛИ ДЛЯ ИЗОБРАЖЕНИЙ */
+        /* ДОБАВЛЯЕМ СТИЛИ ДЛЯ ИЗОБРАЖЕНИЙ */
         .product-cover { 
             width: 100%;
-            height: 250px; /* Фиксированная высота */
+            height: 250px;
             margin: 0 auto 20px;
             overflow: hidden;
             display: flex;
             align-items: center;
             justify-content: center;
-            background: #333; /* Цвет фона если изображение не загрузится */
+            background: #333;
         }
         .product-cover img { 
             width: 100%; 
             height: 100%; 
-            object-fit: cover; /* Важно: обрезает и масштабирует изображение */
+            object-fit: cover;
             border: 2px solid var(--accent);
-            box-shadow: 0 10px 30px rgba(255,255,255,0.1);
         }
         
         .product-card h3 { color: var(--accent); margin-bottom: 15px; }
@@ -56,6 +55,7 @@
                     <li><a href="policy.html">Политика</a></li>
                     <li><a href="book.html">Книга</a></li>
                     <li><a href="shop.html" style="color: var(--accent);">Магазин</a></li>
+                    <li><a href="cart.html">Корзина</a></li> <!-- ДОБАВЛЯЕМ ССЫЛКУ НА КОРЗИНУ -->
                 </ul>
             </nav>
         </div>
@@ -69,7 +69,8 @@
             <div class="product-card">
                 <h3>Футболка "Идеалист"</h3>
                 <div class="product-cover">
-                    <img src="tshirt.jpg">
+                    <!-- ЗАМЕНИТЕ НА ВАШЕ ИЗОБРАЖЕНИЕ -->
+                    <img src="tshirt.jpg" alt="Футболка Идеалист">
                 </div>
                 <p class="product-price">2 500 ₽</p>
                 <button class="buy-btn">ДОБАВИТЬ В КОРЗИНУ</button>
@@ -78,7 +79,8 @@
             <div class="product-card">
                 <h3>Свитшот "Прогрессивность"</h3>
                 <div class="product-cover">
-                    <img src="Sweetshort.png"> <!-- Замените на правильное имя файла -->
+                    <!-- ЗАМЕНИТЕ НА ВАШЕ ИЗОБРАЖЕНИЕ -->
+                    <img src="sweatshirt.jpg" alt="Свитшот Прогрессивность">
                 </div>
                 <p class="product-price">4 500 ₽</p>
                 <button class="buy-btn">ДОБАВИТЬ В КОРЗИНУ</button>
@@ -87,12 +89,96 @@
             <div class="product-card">
                 <h3>Эко-сумка "Максимизация"</h3>
                 <div class="product-cover">
-                    <img src="Eco-bag.png">
+                    <!-- ЗАМЕНИТЕ НА ВАШЕ ИЗОБРАЖЕНИЕ -->
+                    <img src="ecobag.png" alt="Эко-сумка Максимизация">
                 </div>
                 <p class="product-price">1 200 ₽</p>
                 <button class="buy-btn">ДОБАВИТЬ В КОРЗИНУ</button>
             </div>
         </div>
     </div>
+
+    <!-- ДОБАВЛЯЕМ СКРИПТ ДЛЯ КОРЗИНЫ -->
+    <script>
+        // Функция для добавления товара в корзину
+        function addToCart(productName, productPrice, productImage) {
+            // Получаем текущую корзину из localStorage
+            const cart = JSON.parse(localStorage.getItem('idealism_cart')) || [];
+            
+            // Проверяем, есть ли товар уже в корзине
+            const existingItem = cart.find(item => item.name === productName);
+            
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({
+                    name: productName,
+                    price: productPrice,
+                    image: productImage,
+                    quantity: 1
+                });
+            }
+            
+            // Сохраняем обновленную корзину
+            localStorage.setItem('idealism_cart', JSON.stringify(cart));
+            
+            // Показываем уведомление
+            showNotification('Товар добавлен в корзину!');
+        }
+        
+        // Функция для показа уведомления
+        function showNotification(message) {
+            // Создаем элемент уведомления
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 100px;
+                right: 20px;
+                background: rgba(255,255,255,0.1);
+                backdrop-filter: blur(20px);
+                color: white;
+                padding: 15px 25px;
+                border-radius: 10px;
+                border: 1px solid rgba(255,255,255,0.2);
+                z-index: 10000;
+                transform: translateX(400px);
+                transition: transform 0.3s ease;
+                font-size: 0.9em;
+            `;
+            notification.textContent = message;
+            
+            document.body.appendChild(notification);
+            
+            // Анимация появления
+            setTimeout(() => {
+                notification.style.transform = 'translateX(0)';
+            }, 100);
+            
+            // Автоматическое скрытие через 3 секунды
+            setTimeout(() => {
+                notification.style.transform = 'translateX(400px)';
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 300);
+            }, 3000);
+        }
+        
+        // Добавляем обработчики событий для кнопок
+        document.addEventListener('DOMContentLoaded', function() {
+            const buyButtons = document.querySelectorAll('.buy-btn');
+            
+            buyButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const productCard = this.closest('.product-card');
+                    const productName = productCard.querySelector('h3').textContent;
+                    const productPriceText = productCard.querySelector('.product-price').textContent;
+                    const productPrice = parseInt(productPriceText.replace(/\s|₽/g, ''));
+                    const productImage = productCard.querySelector('img').src;
+                    
+                    addToCart(productName, productPrice, productImage);
+                });
+            });
+        });
+    </script>
 </body>
 </html>
