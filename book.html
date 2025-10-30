@@ -82,6 +82,11 @@
 }
 
 @media (max-width: 768px) {
+    /* Скрываем обычное меню на мобильных */
+    nav ul:not(#main-menu) {
+        display: none !important;
+    }
+    
     .menu-toggle {
         display: flex !important;
         position: absolute;
@@ -144,6 +149,15 @@
     #main-menu a:hover {
         background: rgba(255,255,255,0.1);
         border-color: var(--accent);
+    }
+    
+    .purchase-options { 
+        flex-direction: column; 
+        align-items: center; 
+    }
+    .purchase-option { 
+        max-width: 100%; 
+        width: 100%; 
     }
 }
     </style>
