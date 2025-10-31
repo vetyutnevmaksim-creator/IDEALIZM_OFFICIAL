@@ -177,6 +177,10 @@
                 display: flex;
             }
             
+            nav ul {
+                display: none;
+            }
+            
             #main-menu {
                 position: fixed;
                 top: 0;
@@ -197,6 +201,7 @@
             
             #main-menu.active {
                 left: 0;
+                display: flex;
             }
             
             #main-menu li {
@@ -232,11 +237,6 @@
             #main-menu a:hover {
                 background: rgba(255,255,255,0.1);
                 border-color: var(--accent);
-            }
-
-            /* Hide desktop menu on mobile */
-            nav ul:not(#main-menu) {
-                display: none !important;
             }
 
             /* Purchase options mobile */
