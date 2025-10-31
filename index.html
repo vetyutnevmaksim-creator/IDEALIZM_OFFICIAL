@@ -295,7 +295,130 @@
             color: var(--accent);
             font-weight: 500;
         }
+/* Объединенный блок Идеализма */
+.unified-idealism-block {
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 20px;
+    padding: 60px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(15px);
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s ease;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+}
 
+.unified-idealism-block.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.unified-idealism-block:hover {
+    border-color: var(--accent);
+    box-shadow: 0 25px 50px rgba(255, 255, 255, 0.1);
+}
+
+.main-paradox {
+    text-align: center;
+    margin-bottom: 50px;
+    padding-bottom: 40px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.paradox-text {
+    font-size: 1.4em;
+    line-height: 1.8;
+    color: #e0e0e0;
+    font-style: italic;
+}
+
+.idealism-essence {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+}
+
+.essence-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 25px;
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: all 0.3s ease;
+}
+
+.essence-item:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.1);
+    transform: translateY(-5px);
+}
+
+.essence-icon {
+    font-size: 2.5em;
+    flex-shrink: 0;
+    filter: drop-shadow(0 0 10px var(--accent-glow));
+}
+
+.essence-content h3 {
+    color: var(--accent);
+    font-size: 1.3em;
+    margin-bottom: 10px;
+    font-weight: 500;
+    letter-spacing: 1px;
+}
+
+.essence-content p {
+    color: #ccc;
+    line-height: 1.6;
+    font-size: 1.05em;
+}
+
+/* Адаптивность для объединенного блока */
+@media (max-width: 768px) {
+    .unified-idealism-block {
+        padding: 30px 20px;
+        margin: 0 10px;
+    }
+    
+    .paradox-text {
+        font-size: 1.2em;
+    }
+    
+    .idealism-essence {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .essence-item {
+        padding: 20px;
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .essence-icon {
+        font-size: 2em;
+    }
+}
+
+@media (max-width: 480px) {
+    .unified-idealism-block {
+        padding: 25px 15px;
+    }
+    
+    .paradox-text {
+        font-size: 1.1em;
+    }
+    
+    .essence-content h3 {
+        font-size: 1.2em;
+    }
+    
+    .essence-content p {
+        font-size: 1em;
+    }
+}
         /* Секция принципов */
         .principles {
             padding: 150px 0;
@@ -786,27 +909,31 @@
             <div class="about-content">
                 <h2 class="about-title">Что такое ИДЕАЛИЗМ?</h2>
                 
-                <div class="paradox-block">
-                    <p class="paradox-text">
-                        «21 век поставил человечество перед парадоксом: имея невиданный доступ к знаниям и технологиям, 
-                        люди всё чаще становятся пассивными потребителями цифрового контента. 
-                        <span class="quote-highlight">Идеализм — это ответ на этот вызов. Это философия создателя в эпоху потребителя.</span>»
-                    </p>
-                </div>
-                
-                <div class="idealism-quotes">
-                    <div class="quote-card">
-                        <p class="quote-text">
-                            «Идеализм выводит на первый план стремления и мысли людей. 
-                            <span class="quote-highlight">Ставит на первое место их внутреннюю составляющую.</span>»
+                <div class="unified-idealism-block">
+                    <div class="main-paradox">
+                        <p class="paradox-text">
+                            «21 век поставил человечество перед парадоксом: имея невиданный доступ к знаниям и технологиям, 
+                            люди всё чаще становятся пассивными потребителями цифрового контента. 
+                            <span class="quote-highlight">Идеализм — это ответ на этот вызов. Это философия создателя в эпоху потребителя.</span>»
                         </p>
                     </div>
                     
-                    <div class="quote-card">
-                        <p class="quote-text">
-                            «Идеализм - это про сознательную активность. 
-                            <span class="quote-highlight">Идеализм - это про цифровой суверенитет.</span>»
-                        </p>
+                    <div class="idealism-essence">
+                        <div class="essence-item">
+                            <div class="essence-icon">💭</div>
+                            <div class="essence-content">
+                                <h3>Внутренняя составляющая</h3>
+                                <p>Идеализм выводит на первый план стремления и мысли людей, ставя на первое место их внутреннюю составляющую</p>
+                            </div>
+                        </div>
+                        
+                        <div class="essence-item">
+                            <div class="essence-icon">⚡</div>
+                            <div class="essence-content">
+                                <h3>Сознательная активность</h3>
+                                <p>Идеализм - это про сознательную активность и цифровой суверенитет в современном мире</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -904,28 +1031,21 @@
                     entry.target.classList.add('visible');
                     
                     // Анимация для секции "Что такое идеализм"
-                    if (entry.target.id === 'about') {
-                        const aboutTitle = entry.target.querySelector('.about-title');
-                        const paradoxBlock = entry.target.querySelector('.paradox-block');
-                        const quoteCards = entry.target.querySelectorAll('.quote-card');
-                        
-                        setTimeout(() => {
-                            aboutTitle.style.opacity = "1";
-                            aboutTitle.style.transform = "translateY(0)";
-                        }, 200);
-                        
-                        setTimeout(() => {
-                            paradoxBlock.style.opacity = "1";
-                            paradoxBlock.style.transform = "translateY(0)";
-                        }, 500);
-                        
-                        quoteCards.forEach((card, index) => {
-                            setTimeout(() => {
-                                card.style.opacity = "1";
-                                card.style.transform = "translateY(0)";
-                            }, 800 + (index * 200));
-                        });
-                    }
+                   // В функции анимации замените блок для секции "about"
+if (entry.target.id === 'about') {
+    const aboutTitle = entry.target.querySelector('.about-title');
+    const unifiedBlock = entry.target.querySelector('.unified-idealism-block');
+    
+    setTimeout(() => {
+        aboutTitle.style.opacity = "1";
+        aboutTitle.style.transform = "translateY(0)";
+    }, 200);
+    
+    setTimeout(() => {
+        unifiedBlock.style.opacity = "1";
+        unifiedBlock.style.transform = "translateY(0)";
+    }, 500);
+}
                     
                     // Анимация для принципов
                     if (entry.target.id === 'principles') {
