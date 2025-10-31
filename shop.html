@@ -246,6 +246,31 @@
             background: rgba(255,255,255,0.1);
             border-color: var(--accent);
         }
+    /* Стили для футера и контактов */
+    .contact-item {
+        padding: 20px;
+        background: rgba(255,255,255,0.03);
+        border-radius: 10px;
+        border: 1px solid rgba(255,255,255,0.05);
+        transition: all 0.3s ease;
+    }
+    
+    .contact-item:hover {
+        background: rgba(255,255,255,0.05);
+        border-color: rgba(255,255,255,0.1);
+        transform: translateY(-2px);
+    }
+    
+    /* Адаптивность для футера */
+    @media (max-width: 768px) {
+        footer {
+            padding: 40px 0 20px;
+            margin-top: 60px;
+        }
+        
+        .contact-item {
+            padding: 15px;
+        }
     }
     </style>
 </head>
@@ -498,5 +523,40 @@
             }
         });
     </script>
+        <!-- ДОБАВЛЯЕМ ФУТЕР С КОНТАКТНЫМИ ДАННЫМИ -->
+    <footer style="background: var(--darker-bg); padding: 60px 0 30px; border-top: 1px solid rgba(255,255,255,0.1); margin-top: 80px;">
+        <div class="container">
+            <div style="text-align: center;">
+                <h3 style="color: var(--accent); margin-bottom: 30px; font-size: 1.5em;">Контактная информация</h3>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; margin-bottom: 40px;">
+                    <div class="contact-item">
+                        <h4 style="color: var(--accent); margin-bottom: 10px;">Телефон</h4>
+                        <p style="color: #ccc;">+7-937-537-31-21</p>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <h4 style="color: var(--accent); margin-bottom: 10px;">Email</h4>
+                        <p style="color: #ccc;">vetyutnev.maksim@gmail.com</p>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <h4 style="color: var(--accent); margin-bottom: 10px;">Адрес</h4>
+                        <p style="color: #ccc;">г. Москва, ул. Севильский бульвар, д.3</p>
+                    </div>
+                </div>
+                
+                <div style="background: rgba(255,255,255,0.05); padding: 20px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.1);">
+                    <h4 style="color: var(--accent); margin-bottom: 10px;">Реквизиты для оплаты</h4>
+                    <p style="color: #ccc; font-size: 1.1em;">ИНН: 123456789012</p>
+                    <p style="color: #999; font-size: 0.9em; margin-top: 10px;">*Требования ЮKassa для осуществления платежей</p>
+                </div>
+                
+                <p style="color: #999; margin-top: 40px; font-size: 0.9em;">
+                    &copy; 2025 ИДЕАЛИЗМ. Стремление. Процесс. Результат
+                </p>
+            </div>
+        </div>
+    </footer>
 </body>
 </html>
