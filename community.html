@@ -222,12 +222,15 @@
             font-size: 2em;
             letter-spacing: 3px;
             color: var(--accent);
+            text-align: center;
         }
         
         .social-links {
             display: flex;
+            justify-content: center;
             gap: 30px;
             margin: 20px 0;
+            flex-wrap: wrap;
         }
         
         .social-links a {
@@ -239,6 +242,7 @@
             padding: 8px 18px;
             border: 1px solid rgba(255, 255, 255, 0.2);
             border-radius: 20px;
+            text-align: center;
         }
         
         .social-links a:hover {
@@ -252,6 +256,7 @@
             font-size: 0.9em;
             margin-top: 30px;
             color: #999;
+            text-align: center;
         }
 
         /* BURGER MENU */
@@ -375,6 +380,16 @@
             .qr-section {
                 padding: 30px;
             }
+
+            /* Адаптивность для футера */
+            .social-links {
+                gap: 20px;
+            }
+            
+            .social-links a {
+                padding: 6px 15px;
+                font-size: 0.9em;
+            }
         }
 
         @media (max-width: 480px) {
@@ -392,6 +407,15 @@
             
             .qr-container {
                 max-width: 250px;
+            }
+
+            .social-links {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .footer-logo {
+                font-size: 1.8em;
             }
         }
     </style>
@@ -445,107 +469,31 @@
                 </p>
             </div>
             
-            <!-- ДОБАВЛЕНА СЕКЦИЯ QR-КОДА -->
-<div class="qr-section">
-    <div class="qr-container">
-        <img src="qr-code.jpeg" alt="Наше сообщество Идеалистов" class="qr-code">
-    </div>
-    <div class="qr-info">
-        <h3>Присоединяйтесь к нашему сообществу</h3>
-        <p>Станьте частью движения идеалистов. Вместе мы создаем пространство для роста и развития, где каждый может найти поддержку и вдохновение</p>
-        <a href="https://t.me/liveoncemax" class="telegram-link" target="_blank">Присоединиться в Telegram</a>
-    </div>
-</div>
-
-   <footer>
-    <div class="container footer-content">
-        <div class="footer-logo">ИДЕАЛИЗМ</div>
-        <div class="social-links">
-            <a href="https://www.instagram.com/idealizm_official?igsh=ODB6NXZueTNsNnk2&utm_source=qr" target="_blank">Instagram</a>
-            <a href="https://t.me/liveoncemax" target="_blank">Telegram</a>
-            <a href="https://vk.com/maksdreamer" target="_blank">VK</a>
+            <!-- СЕКЦИЯ С ФОТОГРАФИЕЙ -->
+            <div class="qr-section">
+                <div class="qr-container">
+                    <img src="qr-code.jpeg" alt="Наше сообщество Идеалистов" class="qr-code">
+                </div>
+                <div class="qr-info">
+                    <h3>Присоединяйтесь к нашему сообществу</h3>
+                    <p>Станьте частью движения идеалистов. Вместе мы создаем пространство для роста и развития, где каждый может найти поддержку и вдохновение</p>
+                    <a href="https://t.me/liveoncemax" class="telegram-link" target="_blank">Присоединиться в Telegram</a>
+                </div>
+            </div>
         </div>
-        <p class="copyright">&copy; 2025 ИДЕАЛИЗМ. Стремление. Процесс. Результат</p>
     </div>
-/* FOOTER */
-footer {
-    background: var(--darker-bg);
-    padding: 60px 0 30px;
-    text-align: center;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-}
 
-.footer-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 30px;
-}
-
-.footer-logo {
-    font-size: 2em;
-    letter-spacing: 3px;
-    color: var(--accent);
-    text-align: center;
-}
-
-.social-links {
-    display: flex;
-    justify-content: center;
-    gap: 30px;
-    margin: 20px 0;
-    flex-wrap: wrap;
-}
-
-.social-links a {
-    color: #ccc;
-    text-decoration: none;
-    transition: all 0.3s ease;
-    font-size: 1em;
-    letter-spacing: 1px;
-    padding: 8px 18px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 20px;
-    text-align: center;
-}
-
-.social-links a:hover {
-    color: var(--accent);
-    border-color: var(--accent);
-    transform: translateY(-2px);
-}
-
-.copyright {
-    opacity: 0.6;
-    font-size: 0.9em;
-    margin-top: 30px;
-    color: #999;
-    text-align: center;
-}
-
-/* Адаптивность для футера */
-@media (max-width: 768px) {
-    .social-links {
-        gap: 20px;
-    }
-    
-    .social-links a {
-        padding: 6px 15px;
-        font-size: 0.9em;
-    }
-}
-
-@media (max-width: 480px) {
-    .social-links {
-        flex-direction: column;
-        gap: 15px;
-    }
-    
-    .footer-logo {
-        font-size: 1.8em;
-    }
-}
-</footer>
+    <footer>
+        <div class="container footer-content">
+            <div class="footer-logo">ИДЕАЛИЗМ</div>
+            <div class="social-links">
+                <a href="https://www.instagram.com/idealizm_official?igsh=ODB6NXZueTNsNnk2&utm_source=qr" target="_blank">Instagram</a>
+                <a href="https://t.me/liveoncemax" target="_blank">Telegram</a>
+                <a href="https://vk.com/maksdreamer" target="_blank">VK</a>
+            </div>
+            <p class="copyright">&copy; 2025 ИДЕАЛИЗМ. Стремление. Процесс. Результат</p>
+        </div>
+    </footer>
 
     <script>
         // БУРГЕР-МЕНЮ
