@@ -76,6 +76,7 @@
             justify-content: space-between;
             align-items: center;
             padding: 20px 0;
+            position: relative;
         }
         
         .logo {
@@ -87,6 +88,7 @@
             text-decoration: none;
         }
         
+        /* ОСНОВНОЕ МЕНЮ */
         nav ul {
             list-style: none;
             display: flex;
@@ -124,6 +126,64 @@
         
         nav a:hover::after {
             width: 100%;
+        }
+
+        /* Стили для иконки корзины */
+        .cart-icon {
+            position: relative;
+            font-size: 1.5em;
+            padding: 10px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .cart-icon:hover {
+            transform: scale(1.1);
+        }
+
+        .cart-count {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background: var(--accent);
+            color: var(--dark-bg);
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            font-size: 0.7em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        /* БУРГЕР-МЕНЮ */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 4px;
+            padding: 5px;
+            z-index: 1001;
+        }
+
+        .menu-toggle span {
+            width: 25px;
+            height: 2px;
+            background: var(--accent);
+            transition: all 0.3s ease;
+        }
+
+        .menu-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(6px, 6px);
+        }
+
+        .menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .menu-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(6px, -6px);
         }
 
         /* Герой секция */
@@ -243,182 +303,86 @@
             transform: translateY(30px);
         }
         
-        .paradox-block {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 50px;
-            border-radius: 15px;
-            border-left: 4px solid var(--accent);
-            margin-bottom: 40px;
+        /* Объединенный блок Идеализма */
+        .unified-idealism-block {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 20px;
+            padding: 60px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(15px);
             opacity: 0;
             transform: translateY(30px);
+            transition: all 0.6s ease;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
         }
-        
+
+        .unified-idealism-block.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .unified-idealism-block:hover {
+            border-color: var(--accent);
+            box-shadow: 0 25px 50px rgba(255, 255, 255, 0.1);
+        }
+
+        .main-paradox {
+            text-align: center;
+            margin-bottom: 50px;
+            padding-bottom: 40px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
         .paradox-text {
-            font-size: 1.3em;
+            font-size: 1.4em;
             line-height: 1.8;
             color: #e0e0e0;
-            text-align: center;
             font-style: italic;
         }
-        
-        .idealism-quotes {
+
+        .idealism-essence {
             display: grid;
-            gap: 30px;
-            margin-top: 50px;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
         }
-        
-        .quote-card {
-            background: var(--card-bg);
-            padding: 35px;
-            border-radius: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            opacity: 0;
-            transform: translateY(30px);
+
+        .essence-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+            padding: 25px;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
             transition: all 0.3s ease;
         }
-        
-        .quote-card:hover {
+
+        .essence-item:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(255, 255, 255, 0.1);
             transform: translateY(-5px);
-            border-color: var(--accent);
         }
-        
-        .quote-text {
-            font-size: 1.2em;
-            line-height: 1.7;
-            color: #ccc;
-            margin-bottom: 20px;
+
+        .essence-icon {
+            font-size: 2.5em;
+            flex-shrink: 0;
+            filter: drop-shadow(0 0 10px var(--accent-glow));
         }
-        
-        .quote-highlight {
+
+        .essence-content h3 {
             color: var(--accent);
+            font-size: 1.3em;
+            margin-bottom: 10px;
             font-weight: 500;
+            letter-spacing: 1px;
         }
-/* Объединенный блок Идеализма */
-.unified-idealism-block {
-    background: rgba(255, 255, 255, 0.03);
-    border-radius: 20px;
-    padding: 60px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(15px);
-    opacity: 0;
-    transform: translateY(30px);
-    transition: all 0.6s ease;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
-}
 
-.unified-idealism-block.visible {
-    opacity: 1;
-    transform: translateY(0);
-}
+        .essence-content p {
+            color: #ccc;
+            line-height: 1.6;
+            font-size: 1.05em;
+        }
 
-.unified-idealism-block:hover {
-    border-color: var(--accent);
-    box-shadow: 0 25px 50px rgba(255, 255, 255, 0.1);
-}
-
-.main-paradox {
-    text-align: center;
-    margin-bottom: 50px;
-    padding-bottom: 40px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.paradox-text {
-    font-size: 1.4em;
-    line-height: 1.8;
-    color: #e0e0e0;
-    font-style: italic;
-}
-
-.idealism-essence {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 40px;
-}
-
-.essence-item {
-    display: flex;
-    align-items: flex-start;
-    gap: 20px;
-    padding: 25px;
-    background: rgba(255, 255, 255, 0.02);
-    border-radius: 15px;
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    transition: all 0.3s ease;
-}
-
-.essence-item:hover {
-    background: rgba(255, 255, 255, 0.05);
-    border-color: rgba(255, 255, 255, 0.1);
-    transform: translateY(-5px);
-}
-
-.essence-icon {
-    font-size: 2.5em;
-    flex-shrink: 0;
-    filter: drop-shadow(0 0 10px var(--accent-glow));
-}
-
-.essence-content h3 {
-    color: var(--accent);
-    font-size: 1.3em;
-    margin-bottom: 10px;
-    font-weight: 500;
-    letter-spacing: 1px;
-}
-
-.essence-content p {
-    color: #ccc;
-    line-height: 1.6;
-    font-size: 1.05em;
-}
-
-/* Адаптивность для объединенного блока */
-@media (max-width: 768px) {
-    .unified-idealism-block {
-        padding: 30px 20px;
-        margin: 0 10px;
-    }
-    
-    .paradox-text {
-        font-size: 1.2em;
-    }
-    
-    .idealism-essence {
-        grid-template-columns: 1fr;
-        gap: 20px;
-    }
-    
-    .essence-item {
-        padding: 20px;
-        flex-direction: column;
-        text-align: center;
-    }
-    
-    .essence-icon {
-        font-size: 2em;
-    }
-}
-
-@media (max-width: 480px) {
-    .unified-idealism-block {
-        padding: 25px 15px;
-    }
-    
-    .paradox-text {
-        font-size: 1.1em;
-    }
-    
-    .essence-content h3 {
-        font-size: 1.2em;
-    }
-    
-    .essence-content p {
-        font-size: 1em;
-    }
-}
         /* Секция принципов */
         .principles {
             padding: 150px 0;
@@ -580,266 +544,7 @@
             margin-top: 40px;
             color: #999;
         }
-/* Стили для иконки корзины */
-.cart-icon {
-    position: relative;
-    font-size: 1.5em;
-    padding: 10px;
-    transition: all 0.3s ease;
-}
 
-.cart-icon:hover {
-    transform: scale(1.1);
-}
-
-.cart-count {
-    position: absolute;
-    top: 0;
-    right: 0;
-    background: var(--accent);
-    color: var(--dark-bg);
-    border-radius: 50%;
-    width: 20px;
-    height: 20px;
-    font-size: 0.7em;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: bold;
-}
-/* АДАПТИВНОСТЬ ДЛЯ МОБИЛЬНЫХ УСТРОЙСТВ */
-@media (max-width: 768px) {
-    .container {
-        padding: 0 15px;
-    }
-    
-    /* Шапка */
-    .header-container {
-        flex-direction: column;
-        padding: 15px 0;
-    }
-    
-    .logo {
-        font-size: 1.3em;
-        margin-bottom: 15px;
-    }
-    
-    nav ul {
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 15px;
-    }
-    
-    nav li {
-        margin-left: 15px;
-        margin-right: 15px;
-        margin-bottom: 10px;
-    }
-    
-    nav a {
-        font-size: 0.8em;
-        letter-spacing: 1px;
-    }
-    
-    /* Герой секция */
-    .hero-content h1 {
-        font-size: 2.5em;
-        letter-spacing: 3px;
-        margin-bottom: 20px;
-    }
-    
-    .hero-content .subtitle {
-        font-size: 1.2em;
-        letter-spacing: 2px;
-        margin-bottom: 30px;
-    }
-    
-    .cta-button {
-        padding: 15px 30px;
-        font-size: 0.8em;
-    }
-    
-    /* Секции */
-    .about-idealism,
-    .principles {
-        padding: 80px 0;
-    }
-    
-    .about-title {
-        font-size: 2em;
-        margin-bottom: 40px;
-    }
-    
-    .paradox-block {
-        padding: 30px 20px;
-    }
-    
-    .paradox-text {
-        font-size: 1.1em;
-    }
-    
-    .principles h2 {
-        font-size: 2em;
-        margin-bottom: 50px;
-    }
-    
-    .principles-grid {
-        grid-template-columns: 1fr;
-        gap: 30px;
-    }
-    
-    .principle-card {
-        padding: 30px 20px;
-    }
-    
-    /* Футер */
-    .social-links {
-        flex-direction: column;
-        gap: 15px;
-    }
-    
-    .social-links a {
-        text-align: center;
-    }
-}
-
-@media (max-width: 480px) {
-    .hero-content h1 {
-        font-size: 2em;
-    }
-    
-    .hero-content .subtitle {
-        font-size: 1em;
-    }
-    
-    nav ul {
-        gap: 10px;
-    }
-    
-    nav li {
-        margin-left: 10px;
-        margin-right: 10px;
-    }
-    
-    .about-title,
-    .principles h2 {
-        font-size: 1.8em;
-    }
-}        
-/* === БУРГЕР-МЕНЮ === */
-.menu-toggle {
-    display: none;
-    flex-direction: column;
-    cursor: pointer;
-    gap: 4px;
-    padding: 5px;
-    z-index: 1001;
-}
-
-.menu-toggle span {
-    width: 25px;
-    height: 2px;
-    background: var(--accent);
-    transition: all 0.3s ease;
-}
-
-/* Анимация бургера в крестик */
-.menu-toggle.active span:nth-child(1) {
-    transform: rotate(45deg) translate(6px, 6px);
-}
-
-.menu-toggle.active span:nth-child(2) {
-    opacity: 0;
-}
-
-.menu-toggle.active span:nth-child(3) {
-    transform: rotate(-45deg) translate(6px, -6px);
-}
-
-/* Стили для мобильного меню */
-@media (max-width: 768px) {
-    .menu-toggle {
-        display: flex;
-        position: absolute;
-        top: 25px;
-        right: 20px;
-    }
-    
-    #main-menu {
-        position: fixed;
-        top: 0;
-        left: -100%;
-        width: 100%; /* Занимаем всю ширину */
-        max-width: 100%;
-        height: 100vh;
-        background: rgba(5, 5, 5, 0.98);
-        backdrop-filter: blur(20px);
-        flex-direction: column;
-        justify-content: flex-start;
-        align-items: center;
-        padding: 80px 15px 20px; /* Добавим отступы по бокам */
-        transition: left 0.3s ease;
-        z-index: 1000;
-        overflow-y: auto;
-    }
-    
-    #main-menu.active {
-        left: 0;
-    }
-    
-    #main-menu li {
-        margin: 12px 0;
-        opacity: 0;
-        transform: translateX(-50px);
-        transition: all 0.3s ease;
-        width: 100%;
-        max-width: 280px;
-        text-align: center;
-    }
-    
-    #main-menu.active li {
-        opacity: 1;
-        transform: translateX(0);
-    }
-    
-    /* Задержка для анимации пунктов меню */
-    #main-menu.active li:nth-child(1) { transition-delay: 0.1s; }
-    #main-menu.active li:nth-child(2) { transition-delay: 0.15s; }
-    #main-menu.active li:nth-child(3) { transition-delay: 0.2s; }
-    #main-menu.active li:nth-child(4) { transition-delay: 0.25s; }
-    #main-menu.active li:nth-child(5) { transition-delay: 0.3s; }
-    #main-menu.active li:nth-child(6) { transition-delay: 0.35s; }
-    
-    #main-menu a {
-        font-size: 0.9em; /* Еще уменьшаем шрифт */
-        padding: 12px 15px;
-        display: block;
-        border: 1px solid rgba(255,255,255,0.1);
-        border-radius: 15px; /* Уменьшаем радиус */
-        width: 100%;
-        text-align: center;
-        transition: all 0.3s ease;
-        word-wrap: break-word;
-        white-space: nowrap; /* Запрещаем перенос */
-        overflow: hidden;
-        text-overflow: ellipsis; /* Добавляем многоточие если не помещается */
-    }
-    
-    #main-menu a:hover {
-        background: rgba(255,255,255,0.1);
-        border-color: var(--accent);
-    }
-    
-    /* На мобильных скрываем обычное меню */
-    nav ul:not(#main-menu) {
-        display: none;
-    }
-    
-    /* Скрываем иконку корзины в мобильной версии */
-    .cart-icon {
-        display: none;
-    }
-}
         /* Анимации */
         @keyframes fadeInUp {
             from {
@@ -862,6 +567,185 @@
             opacity: 1;
             transform: translateY(0);
         }
+
+        /* МОБИЛЬНЫЕ СТИЛИ */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 15px;
+            }
+            
+            /* Шапка */
+            .header-container {
+                padding: 15px 0;
+            }
+            
+            .logo {
+                font-size: 1.3em;
+            }
+            
+            /* Бургер-меню */
+            .menu-toggle {
+                display: flex;
+                position: absolute;
+                top: 50%;
+                right: 0;
+                transform: translateY(-50%);
+            }
+            
+            /* Основное меню - скрываем на мобильных */
+            nav ul {
+                display: none;
+            }
+            
+            /* Мобильное меню */
+            #main-menu {
+                position: fixed;
+                top: 0;
+                left: -100%;
+                width: 80%;
+                max-width: 300px;
+                height: 100vh;
+                background: rgba(5, 5, 5, 0.98);
+                backdrop-filter: blur(20px);
+                flex-direction: column;
+                justify-content: flex-start;
+                align-items: center;
+                padding-top: 100px;
+                transition: left 0.3s ease;
+                z-index: 1000;
+                border-right: 1px solid rgba(255,255,255,0.1);
+            }
+            
+            #main-menu.active {
+                left: 0;
+                display: flex;
+            }
+            
+            #main-menu li {
+                margin: 20px 0;
+                opacity: 0;
+                transform: translateX(-50px);
+                transition: all 0.3s ease;
+            }
+            
+            #main-menu.active li {
+                opacity: 1;
+                transform: translateX(0);
+            }
+            
+            #main-menu.active li:nth-child(1) { transition-delay: 0.1s; }
+            #main-menu.active li:nth-child(2) { transition-delay: 0.15s; }
+            #main-menu.active li:nth-child(3) { transition-delay: 0.2s; }
+            #main-menu.active li:nth-child(4) { transition-delay: 0.25s; }
+            #main-menu.active li:nth-child(5) { transition-delay: 0.3s; }
+            #main-menu.active li:nth-child(6) { transition-delay: 0.35s; }
+            
+            #main-menu a {
+                font-size: 1.1em;
+                padding: 12px 30px;
+                display: block;
+                border: 1px solid rgba(255,255,255,0.1);
+                border-radius: 25px;
+                min-width: 200px;
+                text-align: center;
+                transition: all 0.3s ease;
+            }
+            
+            #main-menu a:hover {
+                background: rgba(255,255,255,0.1);
+                border-color: var(--accent);
+            }
+            
+            /* Скрываем иконку корзины в мобильной версии */
+            .cart-icon {
+                display: none;
+            }
+            
+            /* Герой секция */
+            .hero-content h1 {
+                font-size: 2.5em;
+                letter-spacing: 3px;
+                margin-bottom: 20px;
+            }
+            
+            .hero-content .subtitle {
+                font-size: 1.2em;
+                letter-spacing: 2px;
+                margin-bottom: 30px;
+            }
+            
+            .cta-button {
+                padding: 15px 30px;
+                font-size: 0.8em;
+            }
+            
+            /* Секции */
+            .about-idealism,
+            .principles {
+                padding: 80px 0;
+            }
+            
+            .about-title {
+                font-size: 2em;
+                margin-bottom: 40px;
+            }
+            
+            .unified-idealism-block {
+                padding: 30px 20px;
+            }
+            
+            .paradox-text {
+                font-size: 1.1em;
+            }
+            
+            .idealism-essence {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .essence-item {
+                padding: 20px;
+            }
+            
+            .principles h2 {
+                font-size: 2em;
+                margin-bottom: 50px;
+            }
+            
+            .principles-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            
+            .principle-card {
+                padding: 30px 20px;
+            }
+            
+            /* Футер */
+            .social-links {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .social-links a {
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-content h1 {
+                font-size: 2em;
+            }
+            
+            .hero-content .subtitle {
+                font-size: 1em;
+            }
+            
+            .about-title,
+            .principles h2 {
+                font-size: 1.8em;
+            }
+        }
     </style>
 </head>
 <body>
@@ -869,31 +753,43 @@
     <div class="parallax-bg"></div>
 
     <header>
-    <div class="container header-container">
-        <a href="index.html" class="logo">ИДЕАЛИЗМ</a>
-        <nav>
-            <ul id="main-menu">
-                <li><a href="index.html">Главная</a></li>
-                <li><a href="policy.html">Политика</a></li>
-                <li><a href="book.html">Книга</a></li>
-                <li><a href="shop.html">Магазин</a></li>
-                <li><a href="cart.html">Корзина</a></li>
-                <li><a href="community.html">Сообщество</a></li>
-            </ul>
-        </nav>
-        <!-- ДОБАВЛЯЕМ ИКОНКУ КОРЗИНЫ -->
-        <div class="cart-icon" onclick="location.href='cart.html'" style="cursor: pointer;">
-            <span>🛒</span>
-            <span id="cart-count" class="cart-count">0</span>
+        <div class="container header-container">
+            <a href="index.html" class="logo">ИДЕАЛИЗМ</a>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Главная</a></li>
+                    <li><a href="policy.html">Политика</a></li>
+                    <li><a href="book.html">Книга</a></li>
+                    <li><a href="shop.html">Магазин</a></li>
+                    <li><a href="cart.html">Корзина</a></li>
+                    <li><a href="community.html">Сообщество</a></li>
+                </ul>
+                
+                <!-- МОБИЛЬНОЕ МЕНЮ -->
+                <ul id="main-menu">
+                    <li><a href="index.html">Главная</a></li>
+                    <li><a href="policy.html">Политика</a></li>
+                    <li><a href="book.html">Книга</a></li>
+                    <li><a href="shop.html">Магазин</a></li>
+                    <li><a href="cart.html">Корзина</a></li>
+                    <li><a href="community.html">Сообщество</a></li>
+                </ul>
+            </nav>
+            
+            <!-- ИКОНКА КОРЗИНЫ -->
+            <div class="cart-icon" onclick="location.href='cart.html'">
+                <span>🛒</span>
+                <span id="cart-count" class="cart-count">0</span>
+            </div>
+            
+            <!-- КНОПКА БУРГЕР-МЕНЮ -->
+            <div class="menu-toggle" id="mobile-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
         </div>
-        <!-- ДОБАВЛЯЕМ КНОПКУ БУРГЕР-МЕНЮ -->
-        <div class="menu-toggle" id="mobile-menu">
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
-    </div>
-</header>
+    </header>
 
     <section class="hero" id="philosophy">
         <div class="hero-content">
@@ -1031,21 +927,20 @@
                     entry.target.classList.add('visible');
                     
                     // Анимация для секции "Что такое идеализм"
-                   // В функции анимации замените блок для секции "about"
-if (entry.target.id === 'about') {
-    const aboutTitle = entry.target.querySelector('.about-title');
-    const unifiedBlock = entry.target.querySelector('.unified-idealism-block');
-    
-    setTimeout(() => {
-        aboutTitle.style.opacity = "1";
-        aboutTitle.style.transform = "translateY(0)";
-    }, 200);
-    
-    setTimeout(() => {
-        unifiedBlock.style.opacity = "1";
-        unifiedBlock.style.transform = "translateY(0)";
-    }, 500);
-}
+                    if (entry.target.id === 'about') {
+                        const aboutTitle = entry.target.querySelector('.about-title');
+                        const unifiedBlock = entry.target.querySelector('.unified-idealism-block');
+                        
+                        setTimeout(() => {
+                            aboutTitle.style.opacity = "1";
+                            aboutTitle.style.transform = "translateY(0)";
+                        }, 200);
+                        
+                        setTimeout(() => {
+                            unifiedBlock.style.opacity = "1";
+                            unifiedBlock.style.transform = "translateY(0)";
+                        }, 500);
+                    }
                     
                     // Анимация для принципов
                     if (entry.target.id === 'principles') {
@@ -1071,48 +966,46 @@ if (entry.target.id === 'about') {
         document.querySelectorAll('.section-animate').forEach(section => {
             observer.observe(section);
         });
-        // Функция для обновления счетчика корзины
-function updateCartCount() {
-    const cart = JSON.parse(localStorage.getItem('idealism_cart')) || [];
-    const totalCount = cart.reduce((sum, item) => sum + item.quantity, 0);
-    const cartCount = document.getElementById('cart-count');
-    
-    if (cartCount) {
-        cartCount.textContent = totalCount;
-        cartCount.style.display = totalCount > 0 ? 'flex' : 'none';
-    }
-}
 
-// Обновляем счетчик при загрузке страницы
-document.addEventListener('DOMContentLoaded', function() {
-    updateCartCount();
-});
-// БУРГЕР-МЕНЮ
-document.addEventListener('DOMContentLoaded', function() {
-    const mobileMenu = document.getElementById('mobile-menu');
-    const mainMenu = document.getElementById('main-menu');
-    
-    if (mobileMenu && mainMenu) {
-        mobileMenu.addEventListener('click', function() {
-            // Переключаем классы
-            mobileMenu.classList.toggle('active');
-            mainMenu.classList.toggle('active');
+        // Функция для обновления счетчика корзины
+        function updateCartCount() {
+            const cart = JSON.parse(localStorage.getItem('idealism_cart')) || [];
+            const totalCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+            const cartCount = document.getElementById('cart-count');
             
-            // Блокируем прокрутку тела при открытом меню
-            document.body.style.overflow = mainMenu.classList.contains('active') ? 'hidden' : '';
+            if (cartCount) {
+                cartCount.textContent = totalCount;
+                cartCount.style.display = totalCount > 0 ? 'flex' : 'none';
+            }
+        }
+
+        // Обновляем счетчик при загрузке страницы
+        document.addEventListener('DOMContentLoaded', function() {
+            updateCartCount();
         });
-        
-        // Закрываем меню при клике на ссылку
-        const menuLinks = mainMenu.querySelectorAll('a');
-        menuLinks.forEach(link => {
-            link.addEventListener('click', function() {
-                mobileMenu.classList.remove('active');
-                mainMenu.classList.remove('active');
-                document.body.style.overflow = '';
-            });
+
+        // БУРГЕР-МЕНЮ
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            const mainMenu = document.getElementById('main-menu');
+            
+            if (mobileMenu && mainMenu) {
+                mobileMenu.addEventListener('click', function() {
+                    mobileMenu.classList.toggle('active');
+                    mainMenu.classList.toggle('active');
+                    document.body.style.overflow = mainMenu.classList.contains('active') ? 'hidden' : '';
+                });
+                
+                const menuLinks = mainMenu.querySelectorAll('a');
+                menuLinks.forEach(link => {
+                    link.addEventListener('click', function() {
+                        mobileMenu.classList.remove('active');
+                        mainMenu.classList.remove('active');
+                        document.body.style.overflow = '';
+                    });
+                });
+            }
         });
-    }
-});        
     </script>
 </body>
 </html>
