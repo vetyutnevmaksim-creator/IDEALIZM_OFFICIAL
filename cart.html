@@ -730,46 +730,94 @@
         }
         
         // Функция для отправки заказа
-        function submitOrder(event) {
-            event.preventDefault();
-            
-            const cart = JSON.parse(localStorage.getItem('idealism_cart')) || [];
-            if (cart.length === 0) {
-                alert('Корзина пуста!');
-                return;
-            }
-            
-            const formData = new FormData(document.getElementById('order-form'));
-            const orderData = {
-                customer: {
-                    name: formData.get('name'),
-                    surname: formData.get('surname'),
-                    email: formData.get('email'),
-                    phone: formData.get('phone'),
-                    address: formData.get('address'),
-                    comment: formData.get('comment'),
-                    payment_method: formData.get('payment_method')
-                },
-                cart: cart,
-                total: document.getElementById('total').textContent,
-                order_date: new Date().toLocaleString('ru-RU')
-            };
-            
-            // Показываем уведомление
-            showNotification('Заказ отправлен! Мы свяжемся с вами в ближайшее время.');
-            
-            // Здесь будет отправка на сервер/Telegram/Email
-            console.log('Данные заказа:', orderData);
-            
-            // Очищаем корзину после заказа
-            localStorage.removeItem('idealism_cart');
-            
-            // Показываем сообщение об успехе
-            setTimeout(() => {
-                alert('Заказ успешно оформлен! Номер заказа: #' + Math.random().toString(36).substr(2, 9).toUpperCase());
-                loadCart();
-            }, 1000);
-        }
+function submitOrder(event) {
+    event.preventDefault();
+    
+    const cart = JSON.parse(localStorage.getItem('idealism_cart')) || [];
+    if (cart.length === 0) {
+        alert('Корзина пуста!');
+        return;
+    }
+    
+    const formData = new FormData(document.getElementById('order-form'));
+    const orderData = {
+        customer: {
+            name: formData.get('name'),
+            surname: formData.get('surname'),
+            email: formData.get('email'),
+            phone: formData.get('phone'),
+            address: formData.get('address'),
+            comment: formData.get('comment'),
+            payment_method: formData.get('payment_method')
+        },
+        cart: cart,
+        total: document.getElementById('total').textContent,
+        order_date: new Date().toLocaleString('ru-RU')
+    };
+    
+    // Показываем уведомление
+    showNotification('Заказ отправлен! Мы свяжемся с вами в ближайшее время.');
+    
+    // Отправляем в Telegram
+    sendToTelegram(orderData);
+    
+    // Очищаем корзину после заказа
+    localStorage.removeItem('idealism_cart');
+    
+    // Показываем сообщение об успехе
+    setTimeout(() => {
+        alert('Заказ успешно оформлен! Номер заказа: #' + Math.random().toString(36).substr(2, 9).toUpperCase());
+        loadCart();
+    }, 1000);
+}
+
+// Функция отправки в Telegram
+function sendToTelegram(orderData) {
+    // ЗАМЕНИ ЭТИ ДАННЫЕ НА СВОИ!
+    const botToken = '7102610236:AAH0u6fVjEXAMPLE'; // Токен от @BotFather
+    const chatId = '123456789'; // Твой Chat ID
+    
+    // Формируем сообщение
+    let message = `🛍️ *НОВЫЙ ЗАКАЗ* 🛍️\\n\\n`;
+    message += `*Клиент:* ${orderData.customer.name} ${orderData.customer.surname}\\n`;
+    message += `*Телефон:* ${orderData.customer.phone}\\n`;
+    message += `*Email:* ${orderData.customer.email}\\n`;
+    message += `*Адрес:* ${orderData.customer.address}\\n`;
+    message += `*Способ оплаты:* ${orderData.customer.payment_method}\\n`;
+    
+    if (orderData.customer.comment) {
+        message += `*Комментарий:* ${orderData.customer.comment}\\n`;
+    }
+    
+    message += `\\n*Товары:*\\n`;
+    orderData.cart.forEach(item => {
+        message += `- ${item.name} (${item.size || 'без размера'}) x${item.quantity} - ${item.price * item.quantity}₽\\n`;
+    });
+    
+    message += `\\n*Итого:* ${orderData.total}\\n`;
+    message += `*Дата:* ${orderData.order_date}\\n`;
+    message += `*ID заказа:* #${Math.random().toString(36).substr(2, 9).toUpperCase()}`;
+    
+    // Отправляем запрос в Telegram
+    fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            chat_id: chatId,
+            text: message,
+            parse_mode: 'Markdown'
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log('Сообщение отправлено в Telegram:', data);
+    })
+    .catch(error => {
+        console.error('Ошибка отправки в Telegram:', error);
+    });
+}
         
         // Функция для показа уведомления
         function showNotification(message) {
