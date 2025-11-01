@@ -129,6 +129,11 @@
         .item-price { 
             color: #ccc; 
         }
+        .item-size {
+            color: #999;
+            font-size: 0.9em;
+            margin-top: 5px;
+        }
         .item-quantity { 
             display: flex; 
             align-items: center; 
@@ -358,6 +363,10 @@
         font-size: 1.1em;
     }
     
+    .item-size {
+        font-size: 0.85em;
+    }
+    
     .item-quantity {
         justify-content: center;
         margin: 0;
@@ -513,6 +522,7 @@
                         <div class="item-details">
                             <h3>${item.name}</h3>
                             <p class="item-price">${item.price.toLocaleString()} ₽</p>
+                            ${item.size ? `<p class="item-size">Размер: ${item.size}</p>` : ''}
                         </div>
                     </div>
                     <div style="display: flex; align-items: center;">
