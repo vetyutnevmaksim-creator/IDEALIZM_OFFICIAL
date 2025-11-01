@@ -773,29 +773,28 @@ function submitOrder(event) {
 
 // Функция отправки в Telegram
 function sendToTelegram(orderData) {
-    // ЗАМЕНИ ЭТИ ДАННЫЕ НА СВОИ!
-    const botToken = '8104087941:AAEnnNfCu7p-xQ3dT0MH64JEpVfnNHekhO8'; // Токен от @BotFather
-    const chatId = '1300812670'; // Твой Chat ID
+    const botToken = '8104087941:AAEnnNfCu7p-xQ3dT0MH64JEpVfnNHekhO8';
+    const chatId = '1300812670';
     
-    // Формируем сообщение
-    let message = `🛍️ *НОВЫЙ ЗАКАЗ* 🛍️\\n\\n`;
-    message += `*Клиент:* ${orderData.customer.name} ${orderData.customer.surname}\\n`;
-    message += `*Телефон:* ${orderData.customer.phone}\\n`;
-    message += `*Email:* ${orderData.customer.email}\\n`;
-    message += `*Адрес:* ${orderData.customer.address}\\n`;
-    message += `*Способ оплаты:* ${orderData.customer.payment_method}\\n`;
+    // Формируем сообщение - ЗАМЕНИ \\n на \n
+    let message = `🛍️ *НОВЫЙ ЗАКАЗ* 🛍️\n\n`;
+    message += `*Клиент:* ${orderData.customer.name} ${orderData.customer.surname}\n`;
+    message += `*Телефон:* ${orderData.customer.phone}\n`;
+    message += `*Email:* ${orderData.customer.email}\n`;
+    message += `*Адрес:* ${orderData.customer.address}\n`;
+    message += `*Способ оплаты:* ${orderData.customer.payment_method}\n`;
     
     if (orderData.customer.comment) {
-        message += `*Комментарий:* ${orderData.customer.comment}\\n`;
+        message += `*Комментарий:* ${orderData.customer.comment}\n`;
     }
     
-    message += `\\n*Товары:*\\n`;
+    message += `\n*Товары:*\n`;
     orderData.cart.forEach(item => {
-        message += `- ${item.name} (${item.size || 'без размера'}) x${item.quantity} - ${item.price * item.quantity}₽\\n`;
+        message += `- ${item.name} (${item.size || 'без размера'}) x${item.quantity} - ${item.price * item.quantity}₽\n`;
     });
     
-    message += `\\n*Итого:* ${orderData.total}\\n`;
-    message += `*Дата:* ${orderData.order_date}\\n`;
+    message += `\n*Итого:* ${orderData.total}\n`;
+    message += `*Дата:* ${orderData.order_date}\n`;
     message += `*ID заказа:* #${Math.random().toString(36).substr(2, 9).toUpperCase()}`;
     
     // Отправляем запрос в Telegram
@@ -813,6 +812,9 @@ function sendToTelegram(orderData) {
     .then(response => response.json())
     .then(data => {
         console.log('Сообщение отправлено в Telegram:', data);
+        if (!data.ok) {
+            console.error('Ошибка Telegram:', data);
+        }
     })
     .catch(error => {
         console.error('Ошибка отправки в Telegram:', error);
