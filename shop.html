@@ -551,6 +551,35 @@ document.addEventListener('DOMContentLoaded', function() {
     window.addEventListener('resize', hideDesktopMenuOnMobile);
     window.addEventListener('orientationchange', hideDesktopMenuOnMobile);
 });
+ /* ЭКСТРЕННОЕ ИСПРАВЛЕНИЕ ДЛЯ БУРГЕР-МЕНЮ */
+@media (max-width: 768px) {
+    #main-menu {
+        z-index: 99999 !important;
+    }
+    
+    .menu-toggle {
+        z-index: 100000 !important;
+    }
+    
+    /* Принудительно опускаем все остальные элементы */
+    body *:not(#main-menu):not(.menu-toggle) {
+        z-index: 1 !important;
+    }
+    
+    /* Особенно для товаров */
+    .products-grid,
+    .product-card,
+    .product-cover,
+    .product-cover img {
+        z-index: 1 !important;
+        position: relative;
+    }
+    
+    /* Убедимся, что меню поверх всего */
+    #main-menu.active {
+        z-index: 99999 !important;
+    }
+}       
     </script>
                <!-- ДОБАВЛЯЕМ ФУТЕР С КОНТАКТНЫМИ ДАННЫМИ -->
     <footer style="background: var(--darker-bg); padding: 60px 0 30px; border-top: 1px solid rgba(255,255,255,0.1); margin-top: 80px;">
