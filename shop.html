@@ -652,7 +652,47 @@
                 });
             });
         }
+        // ИНИЦИАЛИЗАЦИЯ ВЫБОРА ЦВЕТА ДЛЯ БРАСЛЕТОВ
+const colorProducts = document.querySelectorAll('.product-card[data-color="true"]');
+
+colorProducts.forEach(product => {
+    const sizeSelector = product.querySelector('.size-selector');
+    const sizeOptions = product.querySelectorAll('.size-option');
+    const buyButton = product.querySelector('.buy-btn');
+    
+    // Показываем выбор цвета
+    sizeSelector.style.display = 'block';
+    
+    // Обработчики для выбора цвета
+    sizeOptions.forEach(option => {
+        option.addEventListener('click', function() {
+            // Снимаем выделение со всех вариантов
+            sizeOptions.forEach(opt => opt.classList.remove('selected'));
+            // Выделяем выбранный
+            this.classList.add('selected');
+            
+            // Активируем кнопку
+            buyButton.disabled = false;
+            buyButton.textContent = 'ДОБАВИТЬ В КОРЗИНУ';
+        });
+    });
+    
+    // Обработчик для кнопки покупки
+    buyButton.addEventListener('click', function() {
+        const selectedSizeOption = sizeSelector.querySelector('.size-option.selected');
         
+        if (selectedSizeOption) {
+            const productCard = this.closest('.product-card');
+            const productName = productCard.querySelector('h3').textContent;
+            const productPriceText = productCard.querySelector('.product-price').textContent;
+            const productPrice = parseInt(productPriceText.replace(/\s|₽/g, ''));
+            const productImage = productCard.querySelector('img').src;
+            const selectedColor = selectedSizeOption.getAttribute('data-size');
+            
+            addToCart(productName, productPrice, productImage, selectedColor);
+        }
+    });
+});
         document.addEventListener('DOMContentLoaded', function() {
             // Инициализируем выбор размеров
             initializeSizeSelectors();
