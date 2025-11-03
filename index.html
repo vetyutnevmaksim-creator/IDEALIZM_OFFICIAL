@@ -481,68 +481,134 @@
         color: #fff;
     }
 
-    /* Футер */
+    /* ФУТЕР */
     footer {
         background: var(--darker-bg);
-        padding: 80px 0 40px;
-        text-align: center;
-        border-top: 1px solid rgba(255, 255, 255, 0.1);
-        position: relative;
+        padding: 60px 0 30px;
+        border-top: 1px solid rgba(255,255,255,0.1);
+        margin-top: 80px;
     }
-    
-    footer::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 1px;
-        background: linear-gradient(90deg, transparent, var(--accent), transparent);
-    }
-    
+
     .footer-content {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 40px;
+        text-align: center;
     }
-    
-    .footer-logo {
-        font-size: 2.2em;
-        letter-spacing: 4px;
+
+    .footer-title {
         color: var(--accent);
-        text-shadow: 0 0 15px var(--accent-glow);
+        margin-bottom: 30px;
+        font-size: 1.5em;
     }
-    
-    .social-links {
-        display: flex;
-        gap: 40px;
-        margin: 30px 0;
+
+    .footer-contacts {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 30px;
+        margin-bottom: 40px;
     }
-    
-    .social-links a {
-        color: #ccc;
-        text-decoration: none;
-        transition: all 0.3s ease;
+
+    .contact-item h4 {
+        color: var(--accent);
+        margin-bottom: 10px;
         font-size: 1.1em;
-        letter-spacing: 1px;
-        padding: 10px 20px;
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        border-radius: 25px;
     }
-    
-    .social-links a:hover {
+
+    .contact-item p {
+        color: #ccc;
+    }
+
+    .inn-block {
+        background: rgba(255,255,255,0.05);
+        padding: 20px;
+        border-radius: 10px;
+        border: 1px solid rgba(255,255,255,0.1);
+        margin-bottom: 20px;
+    }
+
+    .footer-links {
+        margin: 20px 0;
+    }
+
+    .footer-links a {
+        color: #ccc;
+        margin: 0 15px;
+        text-decoration: none;
+        transition: color 0.3s ease;
+        font-size: 0.95em;
+    }
+
+    .footer-links a:hover {
         color: var(--accent);
-        border-color: var(--accent);
-        transform: translateY(-3px);
-        box-shadow: 0 5px 15px var(--accent-glow);
     }
-    
+
     .copyright {
-        opacity: 0.6;
-        font-size: 0.9em;
-        margin-top: 40px;
         color: #999;
+        margin-top: 40px;
+        font-size: 0.9em;
+    }
+
+    /* УВЕДОМЛЕНИЕ О COOKIES */
+    .cookies-notification {
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: rgba(10, 10, 10, 0.95);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 10px;
+        padding: 20px;
+        max-width: 500px;
+        width: 90%;
+        z-index: 10000;
+        backdrop-filter: blur(10px);
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+    }
+
+    .cookies-notification.show {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .cookies-content {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+    }
+
+    .cookies-text {
+        flex: 1;
+        color: #ccc;
+        font-size: 0.9em;
+        line-height: 1.5;
+    }
+
+    .cookies-text a {
+        color: var(--accent);
+        text-decoration: none;
+    }
+
+    .cookies-text a:hover {
+        text-decoration: underline;
+    }
+
+    .cookies-accept {
+        background: var(--accent);
+        color: var(--dark-bg);
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 0.9em;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        white-space: nowrap;
+    }
+
+    .cookies-accept:hover {
+        background: #e0e0e0;
+        transform: translateY(-2px);
     }
 
     /* Анимации */
@@ -720,15 +786,40 @@
         .principle-card {
             padding: 30px 20px;
         }
-        
-        /* Футер */
-        .social-links {
+
+        /* Адаптивный футер */
+        .footer-contacts {
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+
+        .footer-links {
+            display: flex;
             flex-direction: column;
+            gap: 10px;
+        }
+
+        .footer-links a {
+            margin: 5px 0;
+        }
+
+        /* Адаптивное уведомление о cookies */
+        .cookies-notification {
+            bottom: 10px;
+            left: 10px;
+            right: 10px;
+            transform: none;
+            width: auto;
+        }
+
+        .cookies-content {
+            flex-direction: column;
+            text-align: center;
             gap: 15px;
         }
-        
-        .social-links a {
-            text-align: center;
+
+        .cookies-accept {
+            width: 100%;
         }
     }
 
@@ -751,35 +842,36 @@
 <body>
     <!-- УЛУЧШЕННЫЙ ПАРАЛЛАКС ФОН -->
     <div class="parallax-bg"></div>
-<header>
-    <div class="container header-container">
-        <a href="index.html" class="logo">ИДЕАЛИЗМ</a>
-        <nav>
-            <!-- ОДНО МЕНЮ для всех устройств -->
-            <ul id="main-menu">
-                <li><a href="index.html">Главная</a></li>
-                <li><a href="policy.html">Политика</a></li>
-                <li><a href="book.html">Книга</a></li>
-                <li><a href="shop.html">Магазин</a></li>
-                <li><a href="cart.html">Корзина</a></li>
-                <li><a href="community.html">Сообщество</a></li>
-            </ul>
-        </nav>
-        
-        <!-- ИКОНКА КОРЗИНЫ -->
-        <div class="cart-icon" onclick="location.href='cart.html'">
-            <span>🛒</span>
-            <span id="cart-count" class="cart-count">0</span>
+
+    <header>
+        <div class="container header-container">
+            <a href="index.html" class="logo">ИДЕАЛИЗМ</a>
+            <nav>
+                <!-- ОДНО МЕНЮ для всех устройств -->
+                <ul id="main-menu">
+                    <li><a href="index.html" style="color: var(--accent);">Главная</a></li>
+                    <li><a href="policy.html">Политика</a></li>
+                    <li><a href="book.html">Книга</a></li>
+                    <li><a href="shop.html">Магазин</a></li>
+                    <li><a href="cart.html">Корзина</a></li>
+                    <li><a href="community.html">Сообщество</a></li>
+                </ul>
+            </nav>
+            
+            <!-- ИКОНКА КОРЗИНЫ -->
+            <div class="cart-icon" onclick="location.href='cart.html'">
+                <span>🛒</span>
+                <span id="cart-count" class="cart-count">0</span>
+            </div>
+            
+            <!-- КНОПКА БУРГЕР-МЕНЮ -->
+            <div class="menu-toggle" id="mobile-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
         </div>
-        
-        <!-- КНОПКА БУРГЕР-МЕНЮ -->
-        <div class="menu-toggle" id="mobile-menu">
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
-    </div>
-</header>
+    </header>
 
     <section class="hero" id="philosophy">
         <div class="hero-content">
@@ -864,17 +956,56 @@
         </div>
     </section>
 
+    <!-- ФУТЕР -->
     <footer class="section-animate">
-        <div class="container footer-content">
-            <div class="footer-logo">ИДЕАЛИЗМ</div>
-            <div class="social-links">
-                <a href="https://www.instagram.com/idealizm_official?igsh=ODB6NXZueTNsNnk2&utm_source=qr" target="_blank">Instagram</a>
-                <a href="https://t.me/liveoncemax" target="_blank">Telegram</a>
-                <a href="https://vk.com/maksdreamer" target="_blank">VK</a>
+        <div class="container">
+            <div class="footer-content">
+                <h3 class="footer-title">Контактная информация</h3>
+                
+                <div class="footer-contacts">
+                    <div class="contact-item">
+                        <h4>Телефон</h4>
+                        <p>+7-937-537-31-21</p>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <h4>Email</h4>
+                        <p>vetyutnev.maksim@gmail.com</p>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <h4>Адрес</h4>
+                        <p>г. Москва, ул. Севильский бульвар, д.3</p>
+                    </div>
+                </div>
+                
+                <div class="inn-block">
+                    <p>ИНН: 342701870105</p>
+                </div>
+
+                <!-- Ссылки на политику конфиденциальности -->
+                <div class="footer-links">
+                    <a href="privacy.html">Политика конфиденциальности</a>
+                    <a href="terms.html">Пользовательское соглашение</a>
+                </div>
+                
+                <p class="copyright">
+                    &copy; 2025 ИДЕАЛИЗМ. Стремление. Процесс. Результат
+                </p>
             </div>
-            <p class="copyright">&copy; 2025 ИДЕАЛИЗМ. Стремление. Процесс. Результат</p>
         </div>
     </footer>
+
+    <!-- УВЕДОМЛЕНИЕ О COOKIES -->
+    <div class="cookies-notification" id="cookiesNotification">
+        <div class="cookies-content">
+            <div class="cookies-text">
+                Мы используем файлы cookie для улучшения работы сайта. 
+                <a href="privacy.html">Узнать больше</a>
+            </div>
+            <button class="cookies-accept" id="cookiesAccept">Принять</button>
+        </div>
+    </div>
 
     <script>
         // Параллакс эффект
@@ -969,9 +1100,37 @@
             }
         }
 
+        // Уведомление о cookies
+        function showCookiesNotification() {
+            const cookiesAccepted = localStorage.getItem('cookies_accepted');
+            if (!cookiesAccepted) {
+                setTimeout(() => {
+                    const notification = document.getElementById('cookiesNotification');
+                    if (notification) {
+                        notification.classList.add('show');
+                    }
+                }, 2000);
+            }
+        }
+
+        function acceptCookies() {
+            localStorage.setItem('cookies_accepted', 'true');
+            const notification = document.getElementById('cookiesNotification');
+            if (notification) {
+                notification.classList.remove('show');
+            }
+        }
+
         // Обновляем счетчик при загрузке страницы
         document.addEventListener('DOMContentLoaded', function() {
             updateCartCount();
+            showCookiesNotification();
+
+            // Обработчик для кнопки принятия cookies
+            const cookiesAccept = document.getElementById('cookiesAccept');
+            if (cookiesAccept) {
+                cookiesAccept.addEventListener('click', acceptCookies);
+            }
         });
 
         // БУРГЕР-МЕНЮ
