@@ -1030,37 +1030,34 @@
 function initCookiesNotification() {
     console.log('Initializing cookies notification...');
     
-    // Для тестирования - раскомментируйте следующую строку:
-    localStorage.removeItem('cookies_accepted');
-    
     const cookiesAccepted = localStorage.getItem('cookies_accepted');
-            console.log('Cookies accepted status:', cookiesAccepted);
+    console.log('Cookies accepted status:', cookiesAccepted);
+    
+    if (!cookiesAccepted) {
+        console.log('Showing cookies notification');
+        const notification = document.getElementById('cookiesNotification');
+        const acceptButton = document.getElementById('cookiesAccept');
+        
+        if (notification && acceptButton) {
+            // Показываем уведомление через 1 секунду
+            setTimeout(() => {
+                notification.classList.add('show');
+                console.log('Cookies notification is now visible');
+            }, 1000);
             
-            if (!cookiesAccepted) {
-                console.log('Showing cookies notification');
-                const notification = document.getElementById('cookiesNotification');
-                const acceptButton = document.getElementById('cookiesAccept');
-                
-                if (notification && acceptButton) {
-                    // Показываем уведомление через 1 секунду
-                    setTimeout(() => {
-                        notification.classList.add('show');
-                        console.log('Cookies notification is now visible');
-                    }, 1000);
-                    
-                    // Обработчик для кнопки принятия
-                    acceptButton.addEventListener('click', function() {
-                        console.log('Cookies accepted by user');
-                        localStorage.setItem('cookies_accepted', 'true');
-                        notification.classList.remove('show');
-                    });
-                } else {
-                    console.error('Cookies notification elements not found!');
-                }
-            } else {
-                console.log('Cookies already accepted, notification hidden');
-            }
+            // Обработчик для кнопки принятия
+            acceptButton.addEventListener('click', function() {
+                console.log('Cookies accepted by user');
+                localStorage.setItem('cookies_accepted', 'true');
+                notification.classList.remove('show');
+            });
+        } else {
+            console.error('Cookies notification elements not found!');
         }
+    } else {
+        console.log('Cookies already accepted, notification hidden');
+    }
+}
 
         // Параллакс эффект
         window.addEventListener('scroll', function() {
