@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, shrink-to-fit=yes">
     <title>Магазин | ИДЕАЛИЗМ</title>
     <style>
-        /* Все существующие стили остаются без изменений */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         :root { --dark-bg: #0a0a0a; --darker-bg: #050505; --accent: #ffffff; }
         body { font-family: 'Helvetica Neue', Arial, sans-serif; background: var(--darker-bg); color: #fff; line-height: 1.6; }
@@ -22,10 +21,86 @@
         }
         .header-container { display: flex; justify-content: space-between; align-items: center; position: relative; }
         .logo { font-size: 1.5em; font-weight: bold; letter-spacing: 3px; color: var(--accent); text-decoration: none; }
-        nav ul { list-style: none; display: flex; }
+        
+        /* СТИЛИ ДЛЯ ДЕСКТОПНОГО МЕНЮ */
+        nav ul { 
+            list-style: none; 
+            display: flex; 
+            transition: all 0.3s ease;
+        }
         nav li { margin-left: 35px; }
         nav a { color: #ccc; text-decoration: none; text-transform: uppercase; letter-spacing: 1.5px; transition: color 0.3s ease; font-size: 0.9em; }
         nav a:hover { color: var(--accent); }
+
+        /* ✅ ДОБАВЛЕНО: СТИЛИ ДЛЯ БУРГЕР-МЕНЮ */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            padding: 5px;
+            z-index: 1001;
+        }
+
+        .menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background: var(--accent);
+            margin: 3px 0;
+            transition: 0.3s;
+            border-radius: 2px;
+        }
+
+        /* ✅ ДОБАВЛЕНО: Анимация бургер-меню */
+        .menu-toggle.active span:nth-child(1) {
+            transform: rotate(-45deg) translate(-5px, 6px);
+        }
+
+        .menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .menu-toggle.active span:nth-child(3) {
+            transform: rotate(45deg) translate(-5px, -6px);
+        }
+
+        /* ✅ ДОБАВЛЕНО: АДАПТИВНЫЕ СТИЛИ ДЛЯ МОБИЛЬНЫХ */
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: flex; /* Теперь бургер виден на телефонах! */
+            }
+
+            nav ul {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 80%;
+                height: 100vh;
+                background: var(--dark-bg);
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                padding: 50px 0;
+                transition: right 0.3s ease;
+                border-left: 1px solid rgba(255,255,255,0.1);
+            }
+
+            nav ul.active {
+                right: 0;
+            }
+
+            nav li {
+                margin: 15px 0;
+            }
+
+            nav a {
+                font-size: 1.1em;
+                padding: 10px 20px;
+            }
+
+            .header-container {
+                padding: 0 15px;
+            }
+        }
 
         .content { margin-top: 120px; padding: 50px 0; min-height: 80vh; position: relative; z-index: 1; }
         .products-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 40px; margin-top: 50px; position: relative; z-index: 1; }
@@ -34,7 +109,7 @@
         /* СТИЛИ ДЛЯ ВЫБОРА РАЗМЕРА */
         .size-selector {
             margin: 15px 0;
-            display: none; /* Скрыто по умолчанию */
+            display: none;
         }
         
         .size-options {
@@ -136,8 +211,6 @@
         .buy-btn:hover { background: var(--accent); color: var(--dark-bg); }
         .buy-btn:disabled { opacity: 0.5; cursor: not-allowed; border-color: #666; color: #666; }
         .buy-btn:disabled:hover { background: transparent; color: #666; }
-    
-    /* Все остальные стили остаются без изменений */
     </style>
 </head>
 <body>
@@ -154,6 +227,7 @@
                     <li><a href="community.html">Сообщество</a></li>
                 </ul>
             </nav>
+            <!-- ✅ БУРГЕР-МЕНЮ (уже есть в вашем коде) -->
             <div class="menu-toggle" id="mobile-menu">
                 <span></span>
                 <span></span>
@@ -300,27 +374,61 @@
                 <button class="buy-btn" disabled>ВЫБЕРИТЕ РАЗМЕР</button>
             </div>
 
-          <!-- БРАСЛЕТЫ С ВЫБОРОМ ЦВЕТА -->
-<div class="product-card" data-color="true">
-    <h3>Браслет "ИДЕАЛИСТ"</h3>
-    <div class="product-cover">
-        <img src="braslets.png" alt="Браслет Идеалист" loading="lazy">
-    </div>
-    <p class="product-price">250 ₽</p>
-    
-    <!-- БЛОК ВЫБОРА ЦВЕТА -->
-    <div class="size-selector">
-        <span class="size-label">Выберите цвет:</span>
-        <div class="size-options">
-            <div class="size-option" data-size="Черный" style="background: #000; color: white;">Ч</div>
-            <div class="size-option" data-size="Белый" style="background: #000; color: white;">Б</div>
+            <!-- БРАСЛЕТЫ С ВЫБОРОМ ЦВЕТА -->
+            <div class="product-card" data-color="true">
+                <h3>Браслет "ИДЕАЛИСТ"</h3>
+                <div class="product-cover">
+                    <img src="braslets.png" alt="Браслет Идеалист" loading="lazy">
+                </div>
+                <p class="product-price">250 ₽</p>
+                
+                <!-- БЛОК ВЫБОРА ЦВЕТА -->
+                <div class="size-selector">
+                    <span class="size-label">Выберите цвет:</span>
+                    <div class="size-options">
+                        <div class="size-option" data-size="Черный" style="background: #000; color: white;">Ч</div>
+                        <div class="size-option" data-size="Белый" style="background: #000; color: white;">Б</div>
+                    </div>
+                </div>
+                
+                <button class="buy-btn" disabled>ВЫБЕРИТЕ ЦВЕТ</button>
+            </div>
         </div>
     </div>
-    
-    <button class="buy-btn" disabled>ВЫБЕРИТЕ ЦВЕТ</button>
-</div>
-</div> <!-- закрывает products-grid -->
-</div> <!-- закрывает container content -->
+
+    <footer style="background: var(--darker-bg); padding: 60px 0 30px; border-top: 1px solid rgba(255,255,255,0.1); margin-top: 80px;">
+        <div class="container">
+            <div style="text-align: center;">
+                <h3 style="color: var(--accent); margin-bottom: 30px; font-size: 1.5em;">Контактная информация</h3>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; margin-bottom: 40px;">
+                    <div class="contact-item">
+                        <h4 style="color: var(--accent); margin-bottom: 10px;">Телефон</h4>
+                        <p style="color: #ccc;">+7-937-537-31-21</p>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <h4 style="color: var(--accent); margin-bottom: 10px;">Email</h4>
+                        <p style="color: #ccc;">vetyutnev.maksim@gmail.com</p>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <h4 style="color: var(--accent); margin-bottom: 10px;">Адрес</h4>
+                        <p style="color: #ccc;">г. Москва, ул. Севильский бульвар, д.3</p>
+                    </div>
+                </div>
+                
+                <div style="background: rgba(255,255,255,0.05); padding: 20px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.1);">
+                    <p style="color: #ccc; font-size: 1.1em;">ИНН: 342701870105</p>
+                </div>
+                
+                <p style="color: #999; margin-top: 40px; font-size: 0.9em;">
+                    &copy; 2025 ИДЕАЛИЗМ. Стремление. Процесс. Результат
+                </p>
+            </div>
+        </div>
+    </footer>
+
     <script>
         // Функция для добавления товара в корзину
         function addToCart(productName, productPrice, productImage, selectedSize = null) {
@@ -498,21 +606,10 @@
             optimizeImageLoading();
         });
 
-        // Бургер-меню (остается без изменений)
+        // ✅ БУРГЕР-МЕНЮ (исправленная версия)
         document.addEventListener('DOMContentLoaded', function() {
             const mobileMenu = document.getElementById('mobile-menu');
             const mainMenu = document.getElementById('main-menu');
-            
-            function hideDesktopMenuOnMobile() {
-                if (window.innerWidth <= 768) {
-                    const desktopMenus = document.querySelectorAll('nav ul');
-                    desktopMenus.forEach(menu => {
-                        if (!menu.id || menu.id !== 'main-menu') {
-                            menu.style.display = 'none';
-                        }
-                    });
-                }
-            }
             
             if (mobileMenu && mainMenu) {
                 mobileMenu.addEventListener('click', function() {
@@ -529,47 +626,8 @@
                         document.body.style.overflow = '';
                     });
                 });
-                
-                hideDesktopMenuOnMobile();
             }
-            
-            window.addEventListener('resize', hideDesktopMenuOnMobile);
-            window.addEventListener('orientationchange', hideDesktopMenuOnMobile);
         });
     </script>
-
-<footer style="background: var(--darker-bg); padding: 60px 0 30px; border-top: 1px solid rgba(255,255,255,0.1); margin-top: 80px;">
-    <!-- остальное содержимое футера -->
-        <div class="container">
-            <div style="text-align: center;">
-                <h3 style="color: var(--accent); margin-bottom: 30px; font-size: 1.5em;">Контактная информация</h3>
-                
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; margin-bottom: 40px;">
-                    <div class="contact-item">
-                        <h4 style="color: var(--accent); margin-bottom: 10px;">Телефон</h4>
-                        <p style="color: #ccc;">+7-937-537-31-21</p>
-                    </div>
-                    
-                    <div class="contact-item">
-                        <h4 style="color: var(--accent); margin-bottom: 10px;">Email</h4>
-                        <p style="color: #ccc;">vetyutnev.maksim@gmail.com</p>
-                    </div>
-                    
-                    <div class="contact-item">
-                        <h4 style="color: var(--accent); margin-bottom: 10px;">Адрес</h4>
-                        <p style="color: #ccc;">г. Москва, ул. Севильский бульвар, д.3</p>
-                    </div>
-                </div>
-                
-                <div style="background: rgba(255,255,255,0.05); padding: 20px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.1);">
-                    <p style="color: #ccc; font-size: 1.1em;">ИНН: 342701870105</p>
-                </div>
-                
-                <p style="color: #999; margin-top: 40px; font-size: 0.9em;">
-                    &copy; 2025 ИДЕАЛИЗМ. Стремление. Процесс. Результат
-                </p>
-            </div>
-        </div>
-    </footer>
 </body>
 </html>
