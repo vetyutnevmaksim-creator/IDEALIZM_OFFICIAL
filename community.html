@@ -48,6 +48,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            position: relative;
         }
         
         .logo {
@@ -203,60 +204,69 @@
             box-shadow: 0 10px 25px var(--accent-glow);
         }
 
-        /* FOOTER */
+        /* ФУТЕР */
         footer {
             background: var(--darker-bg);
             padding: 60px 0 30px;
-            text-align: center;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            border-top: 1px solid rgba(255,255,255,0.1);
+            margin-top: 80px;
         }
-        
+
         .footer-content {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 30px;
-        }
-        
-        .footer-logo {
-            font-size: 2em;
-            letter-spacing: 3px;
-            color: var(--accent);
             text-align: center;
         }
-        
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            margin: 20px 0;
-            flex-wrap: wrap;
+
+        .footer-title {
+            color: var(--accent);
+            margin-bottom: 30px;
+            font-size: 1.5em;
         }
-        
-        .social-links a {
+
+        .footer-contacts {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .contact-item h4 {
+            color: var(--accent);
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .contact-item p {
             color: #ccc;
+        }
+
+        .inn-block {
+            background: rgba(255,255,255,0.05);
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.1);
+            margin-bottom: 20px;
+        }
+
+        .footer-links {
+            margin: 20px 0;
+        }
+
+        .footer-links a {
+            color: #ccc;
+            margin: 0 15px;
             text-decoration: none;
-            transition: all 0.3s ease;
-            font-size: 1em;
-            letter-spacing: 1px;
-            padding: 8px 18px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 20px;
-            text-align: center;
+            transition: color 0.3s ease;
+            font-size: 0.95em;
         }
-        
-        .social-links a:hover {
+
+        .footer-links a:hover {
             color: var(--accent);
-            border-color: var(--accent);
-            transform: translateY(-2px);
         }
-        
+
         .copyright {
-            opacity: 0.6;
-            font-size: 0.9em;
-            margin-top: 30px;
             color: #999;
-            text-align: center;
+            margin-top: 40px;
+            font-size: 0.9em;
         }
 
         /* BURGER MENU */
@@ -267,6 +277,10 @@
             gap: 4px;
             padding: 5px;
             z-index: 1001;
+            position: absolute;
+            top: 50%;
+            right: 0;
+            transform: translateY(-50%);
         }
 
         .menu-toggle span {
@@ -292,9 +306,10 @@
         @media (max-width: 768px) {
             .menu-toggle {
                 display: flex;
-                position: absolute;
-                top: 25px;
-                right: 20px;
+            }
+            
+            nav ul {
+                display: none;
             }
             
             #main-menu {
@@ -317,6 +332,7 @@
             
             #main-menu.active {
                 left: 0;
+                display: flex;
             }
             
             #main-menu li {
@@ -381,14 +397,20 @@
                 padding: 30px;
             }
 
-            /* Адаптивность для футера */
-            .social-links {
+            /* Адаптивный футер */
+            .footer-contacts {
+                grid-template-columns: 1fr;
                 gap: 20px;
             }
-            
-            .social-links a {
-                padding: 6px 15px;
-                font-size: 0.9em;
+
+            .footer-links {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .footer-links a {
+                margin: 5px 0;
             }
         }
 
@@ -407,15 +429,6 @@
             
             .qr-container {
                 max-width: 250px;
-            }
-
-            .social-links {
-                flex-direction: column;
-                gap: 15px;
-            }
-            
-            .footer-logo {
-                font-size: 1.8em;
             }
         }
     </style>
@@ -483,15 +496,43 @@
         </div>
     </div>
 
+    <!-- ФУТЕР -->
     <footer>
-        <div class="container footer-content">
-            <div class="footer-logo">ИДЕАЛИЗМ</div>
-            <div class="social-links">
-                <a href="https://www.instagram.com/idealizm_official?igsh=ODB6NXZueTNsNnk2&utm_source=qr" target="_blank">Instagram</a>
-                <a href="https://t.me/liveoncemax" target="_blank">Telegram</a>
-                <a href="https://vk.com/maksdreamer" target="_blank">VK</a>
+        <div class="container">
+            <div class="footer-content">
+                <h3 class="footer-title">Контактная информация</h3>
+                
+                <div class="footer-contacts">
+                    <div class="contact-item">
+                        <h4>Телефон</h4>
+                        <p>+7-937-537-31-21</p>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <h4>Email</h4>
+                        <p>vetyutnev.maksim@gmail.com</p>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <h4>Адрес</h4>
+                        <p>г. Москва, ул. Севильский бульвар, д.3</p>
+                    </div>
+                </div>
+                
+                <div class="inn-block">
+                    <p>ИНН: 342701870105</p>
+                </div>
+
+                <!-- Ссылки на политику конфиденциальности -->
+                <div class="footer-links">
+                    <a href="privacy.html">Политика конфиденциальности</a>
+                    <a href="terms.html">Пользовательское соглашение</a>
+                </div>
+                
+                <p class="copyright">
+                    &copy; 2025 ИДЕАЛИЗМ. Стремление. Процесс. Результат
+                </p>
             </div>
-            <p class="copyright">&copy; 2025 ИДЕАЛИЗМ. Стремление. Процесс. Результат</p>
         </div>
     </footer>
 
