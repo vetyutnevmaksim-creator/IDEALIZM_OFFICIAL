@@ -359,6 +359,117 @@
             transform: rotate(-45deg) translate(6px, -6px);
         }
 
+        /* ФУТЕР */
+        footer {
+            background: var(--darker-bg);
+            padding: 60px 0 30px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            margin-top: 80px;
+        }
+
+        .footer-content {
+            text-align: center;
+        }
+
+        .footer-title {
+            color: var(--accent);
+            margin-bottom: 30px;
+            font-size: 1.5em;
+        }
+
+        .footer-contacts {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .contact-item h4 {
+            color: var(--accent);
+            margin-bottom: 10px;
+        }
+
+        .contact-item p {
+            color: #ccc;
+        }
+
+        .inn-block {
+            background: rgba(255,255,255,0.05);
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.1);
+            margin-bottom: 20px;
+        }
+
+        .footer-links {
+            margin: 20px 0;
+        }
+
+        .footer-links a {
+            color: #ccc;
+            margin: 0 15px;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent);
+        }
+
+        .copyright {
+            color: #999;
+            margin-top: 40px;
+            font-size: 0.9em;
+        }
+
+        /* УВЕДОМЛЕНИЕ О COOKIES */
+        .cookie-notification {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(10,10,10,0.95);
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.2);
+            z-index: 10000;
+            max-width: 500px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+        }
+
+        .cookie-text {
+            color: #ccc;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .cookie-accept {
+            background: var(--accent);
+            color: var(--dark-bg);
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-right: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .cookie-accept:hover {
+            background: rgba(255,255,255,0.9);
+        }
+
+        .cookie-more {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .cookie-more:hover {
+            color: var(--accent);
+        }
+
         @media (max-width: 768px) {
             .menu-toggle {
                 display: flex !important;
@@ -495,6 +606,31 @@
                 grid-template-columns: 1fr;
                 gap: 0;
             }
+
+            /* Адаптивный футер */
+            .footer-contacts {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .footer-links {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .footer-links a {
+                margin: 5px 0;
+            }
+
+            /* Адаптивное cookies уведомление */
+            .cookie-notification {
+                left: 20px;
+                right: 20px;
+                max-width: none;
+                transform: none;
+                bottom: 20px;
+            }
         }
 
         @media (max-width: 480px) {
@@ -549,7 +685,7 @@
                     <li><a href="community.html">Сообщество</a></li>
                 </ul>
             </nav>
-            <!-- ДОБАВЛЯЕМ КНОПКУ БУРГЕР-МЕНЮ -->
+            <!-- КНОПКА БУРГЕР-МЕНЮ -->
             <div class="menu-toggle" id="mobile-menu">
                 <span></span>
                 <span></span>
@@ -640,6 +776,53 @@
             <p>Ваша корзина пуста</p>
             <a href="shop.html" class="continue-shopping">Продолжить покупки</a>
         </div>
+    </div>
+
+    <!-- ФУТЕР -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <h3 class="footer-title">Контактная информация</h3>
+                
+                <div class="footer-contacts">
+                    <div class="contact-item">
+                        <h4>Телефон</h4>
+                        <p>+7-937-537-31-21</p>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <h4>Email</h4>
+                        <p>vetyutnev.maksim@gmail.com</p>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <h4>Адрес</h4>
+                        <p>г. Москва, ул. Севильский бульвар, д.3</p>
+                    </div>
+                </div>
+                
+                <div class="inn-block">
+                    <p>ИНН: 342701870105</p>
+                </div>
+
+                <!-- ССЫЛКИ НА ПОЛИТИКУ КОНФИДЕНЦИАЛЬНОСТИ -->
+                <div class="footer-links">
+                    <a href="privacy.html">Политика конфиденциальности</a>
+                    <a href="terms.html">Пользовательское соглашение</a>
+                </div>
+                
+                <p class="copyright">
+                    &copy; 2025 ИДЕАЛИЗМ. Стремление. Процесс. Результат
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- УВЕДОМЛЕНИЕ О COOKIES -->
+    <div id="cookie-notification" class="cookie-notification">
+        <p class="cookie-text">Мы используем cookies для работы корзины и улучшения сайта. Продолжая использовать сайт, вы соглашаетесь с этим.</p>
+        <button id="accept-cookies" class="cookie-accept">Принять</button>
+        <a href="privacy.html" class="cookie-more">Подробнее</a>
     </div>
 
     <script>
@@ -888,6 +1071,23 @@
                 }, 300);
             }, 3000);
         }
+
+        // COOKIES УВЕДОМЛЕНИЕ
+        document.addEventListener('DOMContentLoaded', function() {
+            const cookieNotification = document.getElementById('cookie-notification');
+            const acceptCookies = document.getElementById('accept-cookies');
+            
+            if (!localStorage.getItem('cookies_accepted')) {
+                setTimeout(() => {
+                    cookieNotification.style.display = 'block';
+                }, 1000);
+            }
+            
+            acceptCookies.addEventListener('click', function() {
+                localStorage.setItem('cookies_accepted', 'true');
+                cookieNotification.style.display = 'none';
+            });
+        });
         
         // Загружаем корзину когда страница загрузилась
         document.addEventListener('DOMContentLoaded', function() {
