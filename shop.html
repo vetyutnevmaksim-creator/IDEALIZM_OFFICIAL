@@ -6,10 +6,24 @@
     <title>Магазин | ИДЕАЛИЗМ</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        :root { --dark-bg: #0a0a0a; --darker-bg: #050505; --accent: #ffffff; }
-        body { font-family: 'Helvetica Neue', Arial, sans-serif; background: var(--darker-bg); color: #fff; line-height: 1.6; }
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        :root { 
+            --dark-bg: #0a0a0a; 
+            --darker-bg: #050505; 
+            --accent: #ffffff; 
+        }
+        body { 
+            font-family: 'Helvetica Neue', Arial, sans-serif; 
+            background: var(--darker-bg); 
+            color: #fff; 
+            line-height: 1.6; 
+        }
+        .container { 
+            max-width: 1200px; 
+            margin: 0 auto; 
+            padding: 0 20px; 
+        }
         
+        /* Шапка */
         header { 
             background: rgba(10, 10, 10, 0.95); 
             padding: 20px 0; 
@@ -19,20 +33,42 @@
             border-bottom: 1px solid rgba(255,255,255,0.1); 
             z-index: 1000;
         }
-        .header-container { display: flex; justify-content: space-between; align-items: center; position: relative; }
-        .logo { font-size: 1.5em; font-weight: bold; letter-spacing: 3px; color: var(--accent); text-decoration: none; }
+        .header-container { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            position: relative; 
+        }
+        .logo { 
+            font-size: 1.5em; 
+            font-weight: bold; 
+            letter-spacing: 3px; 
+            color: var(--accent); 
+            text-decoration: none; 
+        }
         
-        /* СТИЛИ ДЛЯ ДЕСКТОПНОГО МЕНЮ */
+        /* Навигация */
         nav ul { 
             list-style: none; 
             display: flex; 
             transition: all 0.3s ease;
         }
-        nav li { margin-left: 35px; }
-        nav a { color: #ccc; text-decoration: none; text-transform: uppercase; letter-spacing: 1.5px; transition: color 0.3s ease; font-size: 0.9em; }
-        nav a:hover { color: var(--accent); }
+        nav li { 
+            margin-left: 35px; 
+        }
+        nav a { 
+            color: #ccc; 
+            text-decoration: none; 
+            text-transform: uppercase; 
+            letter-spacing: 1.5px; 
+            transition: color 0.3s ease; 
+            font-size: 0.9em; 
+        }
+        nav a:hover { 
+            color: var(--accent); 
+        }
 
-        /* ✅ ДОБАВЛЕНО: СТИЛИ ДЛЯ БУРГЕР-МЕНЮ */
+        /* Бургер-меню */
         .menu-toggle {
             display: none;
             flex-direction: column;
@@ -50,7 +86,6 @@
             border-radius: 2px;
         }
 
-        /* ✅ ДОБАВЛЕНО: Анимация бургер-меню */
         .menu-toggle.active span:nth-child(1) {
             transform: rotate(-45deg) translate(-5px, 6px);
         }
@@ -63,10 +98,10 @@
             transform: rotate(45deg) translate(-5px, -6px);
         }
 
-        /* ✅ ДОБАВЛЕНО: АДАПТИВНЫЕ СТИЛИ ДЛЯ МОБИЛЬНЫХ */
+        /* Адаптив для мобильных */
         @media (max-width: 768px) {
             .menu-toggle {
-                display: flex; /* Теперь бургер виден на телефонах! */
+                display: flex;
             }
 
             nav ul {
@@ -102,11 +137,40 @@
             }
         }
 
-        .content { margin-top: 120px; padding: 50px 0; min-height: 80vh; position: relative; z-index: 1; }
-        .products-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 40px; margin-top: 50px; position: relative; z-index: 1; }
-        .product-card { background: rgba(255,255,255,0.05); padding: 30px; border-radius: 10px; text-align: center; backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1); position: relative; z-index: 1; }
+        /* Основной контент */
+        .content { 
+            margin-top: 120px; 
+            padding: 50px 0; 
+            min-height: 80vh; 
+            position: relative; 
+            z-index: 1; 
+        }
         
-        /* СТИЛИ ДЛЯ ВЫБОРА РАЗМЕРА */
+        /* Сетка товаров */
+        .products-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+            gap: 40px; 
+            margin-top: 50px; 
+            position: relative; 
+            z-index: 1; 
+        }
+        .product-card { 
+            background: rgba(255,255,255,0.05); 
+            padding: 30px; 
+            border-radius: 10px; 
+            text-align: center; 
+            backdrop-filter: blur(10px); 
+            border: 1px solid rgba(255,255,255,0.1); 
+            position: relative; 
+            z-index: 1; 
+            transition: transform 0.3s ease;
+        }
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        /* Выбор размера */
         .size-selector {
             margin: 15px 0;
             display: none;
@@ -152,6 +216,7 @@
             display: block;
         }
 
+        /* Изображения товаров */
         .product-cover { 
             width: 100%;
             height: 250px;
@@ -205,12 +270,126 @@
             opacity: 1;
         }
         
-        .product-card h3 { color: var(--accent); margin-bottom: 15px; }
-        .product-price { color: #ccc; font-size: 1.2em; margin-bottom: 20px; }
-        .buy-btn { background: transparent; color: var(--accent); border: 1px solid var(--accent); padding: 10px 25px; cursor: pointer; transition: all 0.3s ease; }
-        .buy-btn:hover { background: var(--accent); color: var(--dark-bg); }
-        .buy-btn:disabled { opacity: 0.5; cursor: not-allowed; border-color: #666; color: #666; }
-        .buy-btn:disabled:hover { background: transparent; color: #666; }
+        .product-card h3 { 
+            color: var(--accent); 
+            margin-bottom: 15px; 
+            font-size: 1.3em;
+        }
+        .product-price { 
+            color: #ccc; 
+            font-size: 1.2em; 
+            margin-bottom: 20px; 
+            font-weight: 300;
+        }
+        .buy-btn { 
+            background: transparent; 
+            color: var(--accent); 
+            border: 1px solid var(--accent); 
+            padding: 12px 25px; 
+            cursor: pointer; 
+            transition: all 0.3s ease; 
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.9em;
+            border-radius: 5px;
+        }
+        .buy-btn:hover { 
+            background: var(--accent); 
+            color: var(--dark-bg); 
+        }
+        .buy-btn:disabled { 
+            opacity: 0.5; 
+            cursor: not-allowed; 
+            border-color: #666; 
+            color: #666; 
+        }
+        .buy-btn:disabled:hover { 
+            background: transparent; 
+            color: #666; 
+        }
+
+        /* Футер */
+        footer {
+            background: var(--darker-bg);
+            padding: 60px 0 30px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            margin-top: 80px;
+        }
+
+        .footer-content {
+            text-align: center;
+        }
+
+        .footer-title {
+            color: var(--accent);
+            margin-bottom: 30px;
+            font-size: 1.5em;
+        }
+
+        .footer-contacts {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .contact-item h4 {
+            color: var(--accent);
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .contact-item p {
+            color: #ccc;
+        }
+
+        .inn-block {
+            background: rgba(255,255,255,0.05);
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.1);
+            margin-bottom: 20px;
+        }
+
+        .footer-links {
+            margin: 20px 0;
+        }
+
+        .footer-links a {
+            color: #ccc;
+            margin: 0 15px;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            font-size: 0.95em;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent);
+        }
+
+        .copyright {
+            color: #999;
+            margin-top: 40px;
+            font-size: 0.9em;
+        }
+
+        /* Адаптив футера */
+        @media (max-width: 768px) {
+            .footer-contacts {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .footer-links {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .footer-links a {
+                margin: 5px 0;
+            }
+        }
     </style>
 </head>
 <body>
@@ -227,7 +406,7 @@
                     <li><a href="community.html">Сообщество</a></li>
                 </ul>
             </nav>
-            <!-- ✅ БУРГЕР-МЕНЮ (уже есть в вашем коде) -->
+            <!-- Бургер-меню -->
             <div class="menu-toggle" id="mobile-menu">
                 <span></span>
                 <span></span>
@@ -238,7 +417,7 @@
 
     <div class="container content">
         <h1 style="color: var(--accent); text-align: center; margin-bottom: 20px; font-size: 2.5em;">Магазин Идеалиста</h1>
-        <p style="text-align: center; color: #ccc; margin-bottom: 50px;">Атрибуты для движения к абсолютному</p>
+        <p style="text-align: center; color: #ccc; margin-bottom: 50px; font-size: 1.1em;">Атрибуты для движения к абсолютному</p>
         
         <div class="products-grid">
             <!-- ФУТБОЛКА С ВЫБОРОМ РАЗМЕРА -->
@@ -281,7 +460,7 @@
                 <button class="buy-btn" disabled>ВЫБЕРИТЕ РАЗМЕР</button>
             </div>
 
-            <!-- ЭКО-СУМКА (БЕЗ РАЗМЕРА) -->
+            <!-- ЭКО-СУМКА -->
             <div class="product-card">
                 <h3>Эко-сумка "Максимизация"</h3>
                 <div class="product-cover">
@@ -291,7 +470,7 @@
                 <button class="buy-btn">ДОБАВИТЬ В КОРЗИНУ</button>
             </div>
             
-            <!-- РЮКЗАК (БЕЗ РАЗМЕРА) -->
+            <!-- РЮКЗАК -->
             <div class="product-card">
                 <h3>Рюкзак "Идеалист"</h3>
                 <div class="product-cover">
@@ -301,7 +480,7 @@
                 <button class="buy-btn">ДОБАВИТЬ В КОРЗИНУ</button>
             </div>
             
-            <!-- БЛОКНОТ (БЕЗ РАЗМЕРА) -->
+            <!-- БЛОКНОТ -->
             <div class="product-card">
                 <h3>Блокнот "Абсолют"</h3>
                 <div class="product-cover">
@@ -311,7 +490,7 @@
                 <button class="buy-btn">ДОБАВИТЬ В КОРЗИНУ</button>
             </div>
             
-            <!-- РУЧКА (БЕЗ РАЗМЕРА) -->
+            <!-- РУЧКА -->
             <div class="product-card">
                 <h3>Ручка "Совершенство"</h3>
                 <div class="product-cover">
@@ -321,7 +500,7 @@
                 <button class="buy-btn">ДОБАВИТЬ В КОРЗИНУ</button>
             </div>
             
-            <!-- КРУЖКА (БЕЗ РАЗМЕРА) -->
+            <!-- КРУЖКА -->
             <div class="product-card">
                 <h3>Кружка "Идеализм"</h3>
                 <div class="product-cover">
@@ -331,7 +510,7 @@
                 <button class="buy-btn">ДОБАВИТЬ В КОРЗИНУ</button>
             </div>
 
-            <!-- ЧЕХОЛ (БЕЗ РАЗМЕРА) -->
+            <!-- ЧЕХОЛ -->
             <div class="product-card">
                 <h3>Чехол "Идеализм"</h3>
                 <div class="product-cover">
@@ -341,7 +520,7 @@
                 <button class="buy-btn">ДОБАВИТЬ В КОРЗИНУ</button>
             </div>
 
-            <!-- ПОДАРОЧНЫЙ НАБОР (БЕЗ РАЗМЕРА) -->
+            <!-- ПОДАРОЧНЫЙ НАБОР -->
             <div class="product-card">
                 <h3>Подарочный набор "Идеалист"</h3>
                 <div class="product-cover">
@@ -354,7 +533,7 @@
                 <button class="buy-btn">ДОБАВИТЬ В КОРЗИНУ</button>
             </div>
 
-            <!-- СПОРТИВНЫЕ ШТАНЫ С ВЫБОРОМ РАЗМЕРА -->
+            <!-- СПОРТИВНЫЕ ШТАНЫ -->
             <div class="product-card" data-clothing="true">
                 <h3>Спортивные штаны "Идеалист"</h3>
                 <div class="product-cover">
@@ -374,7 +553,7 @@
                 <button class="buy-btn" disabled>ВЫБЕРИТЕ РАЗМЕР</button>
             </div>
 
-            <!-- БРАСЛЕТЫ С ВЫБОРОМ ЦВЕТА -->
+            <!-- БРАСЛЕТЫ -->
             <div class="product-card" data-color="true">
                 <h3>Браслет "ИДЕАЛИСТ"</h3>
                 <div class="product-cover">
@@ -382,7 +561,6 @@
                 </div>
                 <p class="product-price">250 ₽</p>
                 
-                <!-- БЛОК ВЫБОРА ЦВЕТА -->
                 <div class="size-selector">
                     <span class="size-label">Выберите цвет:</span>
                     <div class="size-options">
@@ -396,33 +574,40 @@
         </div>
     </div>
 
-    <footer style="background: var(--darker-bg); padding: 60px 0 30px; border-top: 1px solid rgba(255,255,255,0.1); margin-top: 80px;">
+    <!-- ФУТЕР -->
+    <footer>
         <div class="container">
-            <div style="text-align: center;">
-                <h3 style="color: var(--accent); margin-bottom: 30px; font-size: 1.5em;">Контактная информация</h3>
+            <div class="footer-content">
+                <h3 class="footer-title">Контактная информация</h3>
                 
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; margin-bottom: 40px;">
+                <div class="footer-contacts">
                     <div class="contact-item">
-                        <h4 style="color: var(--accent); margin-bottom: 10px;">Телефон</h4>
-                        <p style="color: #ccc;">+7-937-537-31-21</p>
+                        <h4>Телефон</h4>
+                        <p>+7-937-537-31-21</p>
                     </div>
                     
                     <div class="contact-item">
-                        <h4 style="color: var(--accent); margin-bottom: 10px;">Email</h4>
-                        <p style="color: #ccc;">vetyutnev.maksim@gmail.com</p>
+                        <h4>Email</h4>
+                        <p>vetyutnev.maksim@gmail.com</p>
                     </div>
                     
                     <div class="contact-item">
-                        <h4 style="color: var(--accent); margin-bottom: 10px;">Адрес</h4>
-                        <p style="color: #ccc;">г. Москва, ул. Севильский бульвар, д.3</p>
+                        <h4>Адрес</h4>
+                        <p>г. Москва, ул. Севильский бульвар, д.3</p>
                     </div>
                 </div>
                 
-                <div style="background: rgba(255,255,255,0.05); padding: 20px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.1);">
-                    <p style="color: #ccc; font-size: 1.1em;">ИНН: 342701870105</p>
+                <div class="inn-block">
+                    <p>ИНН: 342701870105</p>
+                </div>
+
+                <!-- Ссылки на политику конфиденциальности -->
+                <div class="footer-links">
+                    <a href="privacy.html">Политика конфиденциальности</a>
+                    <a href="terms.html">Пользовательское соглашение</a>
                 </div>
                 
-                <p style="color: #999; margin-top: 40px; font-size: 0.9em;">
+                <p class="copyright">
                     &copy; 2025 ИДЕАЛИЗМ. Стремление. Процесс. Результат
                 </p>
             </div>
@@ -512,7 +697,7 @@
             });
         }
         
-        // ИНИЦИАЛИЗАЦИЯ ВЫБОРА РАЗМЕРОВ И ЦВЕТОВ
+        // Инициализация выбора размеров и цветов
         function initializeSizeSelectors() {
             // Для одежды с размерами
             const clothingProducts = document.querySelectorAll('.product-card[data-clothing="true"]');
@@ -606,7 +791,7 @@
             optimizeImageLoading();
         });
 
-        // ✅ БУРГЕР-МЕНЮ (исправленная версия)
+        // Бургер-меню
         document.addEventListener('DOMContentLoaded', function() {
             const mobileMenu = document.getElementById('mobile-menu');
             const mainMenu = document.getElementById('main-menu');
