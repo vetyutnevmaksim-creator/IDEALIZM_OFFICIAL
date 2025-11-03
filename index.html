@@ -892,12 +892,12 @@
     </header>
 
     <section class="hero" id="philosophy">
-        <div class="hero-content">
-            <h1>ИДЕАЛИЗМ</h1>
-            <div class="subtitle">Стремление. Процесс. Результат</div>
-            <a href="#about" class="cta-button">Узнать больше</a>
-        </div>
-    </section>
+    <div class="hero-content">
+        <h1>ИДЕАЛИЗМ</h1>
+        <div class="subtitle">Стремление. Процесс. Результат</div>
+        <a href="#about" class="cta-button">Узнать больше</a>
+    </div>
+</section>
 
     <!-- НОВАЯ СЕКЦИЯ: Что такое ИДЕАЛИЗМ? -->
     <section class="about-idealism section-animate" id="about">
@@ -1138,9 +1138,9 @@
             });
         }, { threshold: 0.1 });
 
-        document.querySelectorAll('.section-animate').forEach(section => {
-            observer.observe(section);
-        });
+       document.querySelectorAll('.about-idealism, .principles, footer').forEach(section => {
+    observer.observe(section);
+});
 
         // Функция для обновления счетчика корзины
         function updateCartCount() {
