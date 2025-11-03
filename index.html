@@ -1027,13 +1027,13 @@
 
     <script>
         // УВЕДОМЛЕНИЕ О COOKIES - ИСПРАВЛЕННАЯ ВЕРСИЯ
-        function initCookiesNotification() {
-            console.log('Initializing cookies notification...');
-            
-            // Для тестирования - раскомментируйте следующую строку:
-            // localStorage.removeItem('cookies_accepted');
-            
-            const cookiesAccepted = localStorage.getItem('cookies_accepted');
+function initCookiesNotification() {
+    console.log('Initializing cookies notification...');
+    
+    // Для тестирования - раскомментируйте следующую строку:
+    localStorage.removeItem('cookies_accepted');
+    
+    const cookiesAccepted = localStorage.getItem('cookies_accepted');
             console.log('Cookies accepted status:', cookiesAccepted);
             
             if (!cookiesAccepted) {
