@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Политика конфиденциальности | ИДЕАЛИЗМ</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root { --dark-bg: #0a0a0a; --darker-bg: #050505; --accent: #ffffff; }
+        body { font-family: 'Helvetica Neue', Arial, sans-serif; background: var(--darker-bg); color: #fff; line-height: 1.6; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        
+        header { 
+            background: rgba(10, 10, 10, 0.95); 
+            padding: 20px 0; 
+            position: fixed; 
+            width: 100%; 
+            top: 0; 
+            border-bottom: 1px solid rgba(255,255,255,0.1); 
+            z-index: 1000;
+        }
+        .header-container { display: flex; justify-content: space-between; align-items: center; position: relative; }
+        .logo { font-size: 1.5em; font-weight: bold; letter-spacing: 3px; color: var(--accent); text-decoration: none; }
+        
+        nav ul { list-style: none; display: flex; transition: all 0.3s ease; }
+        nav li { margin-left: 35px; }
+        nav a { color: #ccc; text-decoration: none; text-transform: uppercase; letter-spacing: 1.5px; transition: color 0.3s ease; font-size: 0.9em; }
+        nav a:hover { color: var(--accent); }
+
+        .menu-toggle { display: none; flex-direction: column; cursor: pointer; padding: 5px; z-index: 1001; }
+        .menu-toggle span { width: 25px; height: 3px; background: var(--accent); margin: 3px 0; transition: 0.3s; border-radius: 2px; }
+        .menu-toggle.active span:nth-child(1) { transform: rotate(-45deg) translate(-5px, 6px); }
+        .menu-toggle.active span:nth-child(2) { opacity: 0; }
+        .menu-toggle.active span:nth-child(3) { transform: rotate(45deg) translate(-5px, -6px); }
+
+        @media (max-width: 768px) {
+            .menu-toggle { display: flex; }
+            nav ul { 
+                position: fixed; top: 0; right: -100%; width: 80%; height: 100vh; 
+                background: var(--dark-bg); flex-direction: column; align-items: center; 
+                justify-content: center; padding: 50px 0; transition: right 0.3s ease; 
+                border-left: 1px solid rgba(255,255,255,0.1); 
+            }
+            nav ul.active { right: 0; }
+            nav li { margin: 15px 0; }
+            nav a { font-size: 1.1em; padding: 10px 20px; }
+            .header-container { padding: 0 15px; }
+        }
+
+        .content { margin-top: 120px; padding: 50px 0; min-height: 80vh; }
+        .privacy-content { background: rgba(255,255,255,0.05); padding: 40px; border-radius: 10px; backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1); }
+        .privacy-content h1 { color: var(--accent); margin-bottom: 30px; text-align: center; }
+        .privacy-content h2 { color: var(--accent); margin: 25px 0 15px; font-size: 1.3em; }
+        .privacy-content p { margin-bottom: 15px; color: #ccc; }
+        .privacy-content ul { margin: 15px 0; padding-left: 20px; }
+        .privacy-content li { margin-bottom: 8px; color: #ccc; }
+        .privacy-content .highlight { background: rgba(255,255,255,0.1); padding: 15px; border-radius: 5px; margin: 20px 0; border-left: 3px solid var(--accent); }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-container">
+            <a href="index.html" class="logo">ИДЕАЛИЗМ</a>
+            <nav>
+                <ul id="main-menu">
+                    <li><a href="index.html">Главная</a></li>
+                    <li><a href="policy.html">Политика</a></li>
+                    <li><a href="book.html">Книга</a></li>
+                    <li><a href="shop.html">Магазин</a></li>
+                    <li><a href="cart.html">Корзина</a></li>
+                    <li><a href="community.html">Сообщество</a></li>
+                </ul>
+            </nav>
+            <div class="menu-toggle" id="mobile-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </header>
+
+    <div class="container content">
+        <div class="privacy-content">
+            <h1>Политика конфиденциальности</h1>
+            
+            <div class="highlight">
+                <p><strong>Дата вступления в силу:</strong> 2025 год<br>
+                <strong>Последнее обновление:</strong> 2025 год</p>
+            </div>
+
+            <h2>1. Общие положения</h2>
+            <p>Настоящая Политика конфиденциальности регулирует порядок обработки и защиты персональных данных пользователей сайта "ИДЕАЛИЗМ".</p>
+
+            <h2>2. Какие данные мы собираем</h2>
+            <ul>
+                <li><strong>Данные корзины покупок:</strong> товары, выбранные размеры и цвета (локальное хранилище браузера)</li>
+                <li><strong>Контактная информация:</strong> имя, email, телефон, адрес доставки при оформлении заказа</li>
+                <li><strong>Технические данные:</strong> IP-адрес, тип браузера, операционная система, данные cookies</li>
+                <li><strong>Данные о взаимодействии:</strong> страницы просмотра, время на сайте, действия пользователя</li>
+            </ul>
+
+            <h2>3. Цели обработки данных</h2>
+            <ul>
+                <li>Обработка и доставка заказов из магазина</li>
+                <li>Связь с клиентами по вопросам заказов</li>
+                <li>Улучшение работы сайта и пользовательского опыта</li>
+                <li>Маркетинговые коммуникации (только с вашего согласия)</li>
+                <li>Выполнение юридических обязательств</li>
+            </ul>
+
+            <h2>4. Правовые основания обработки</h2>
+            <p>Обработка данных осуществляется на следующих основаниях:</p>
+            <ul>
+                <li>Согласие субъекта персональных данных</li>
+                <li>Заключение и исполнение договора купли-продажи</li>
+                <li>Выполнение юридических обязательств</li>
+                <li>Законные интересы компании</li>
+            </ul>
+
+            <h2>5. Защита данных</h2>
+            <p>Мы принимаем необходимые технические и организационные меры для защиты ваших персональных данных:</p>
+            <ul>
+                <li>Шифрование передаваемых данных (SSL)</li>
+                <li>Регулярное обновление систем безопасности</li>
+                <li>Ограничение доступа к персональным данным</li>
+                <li>Регулярное резервное копирование данных</li>
+            </ul>
+
+            <h2>6. Cookies и аналогичные технологии</h2>
+            <p>Наш сайт использует cookies для:</p>
+            <ul>
+                <li>Работы корзины покупок</li>
+                <li>Запоминания предпочтений пользователя</li>
+                <li>Анализа посещаемости и улучшения сайта</li>
+                <li>Персонализации контента</li>
+            </ul>
+
+            <h2>7. Ваши права</h2>
+            <p>Вы имеете право:</p>
+            <ul>
+                <li>На доступ к вашим персональным данным</li>
+                <li>На исправление неточных данных</li>
+                <li>На удаление ваших персональных данных</li>
+                <li>На отзыв согласия на обработку данных</li>
+                <li>На ограничение обработки данных</li>
+                <li>На перенос данных другому оператору</li>
+                <li>На обращение в уполномоченный орган</li>
+            </ul>
+
+            <h2>8. Передача данных третьим лицам</h2>
+            <p>Мы не передаем ваши персональные данные третьим лицам, за исключением:</p>
+            <ul>
+                <li>Служб доставки для выполнения заказов</li>
+                <li>Платежных систем для обработки оплат</li>
+                <li>По требованию законодательства</li>
+            </ul>
+
+            <h2>9. Хранение данных</h2>
+            <p>Мы храним персональные данные только в течение времени, необходимого для достижения целей обработки, или в соответствии с требованиями законодательства.</p>
+
+            <h2>10. Контакты</h2>
+            <p>По всем вопросам, связанным с защитой персональных данных, обращайтесь:</p>
+            <ul>
+                <li>Email: vetyutnev.maksim@gmail.com</li>
+                <li>Телефон: +7-937-537-31-21</li>
+                <li>Адрес: г. Москва, ул. Севильский бульвар, д.3</li>
+            </ul>
+
+            <h2>11. Изменения в политике</h2>
+            <p>Мы оставляем за собой право вносить изменения в настоящую Политику конфиденциальности. Актуальная версия всегда доступна на этой странице.</p>
+
+            <div class="highlight">
+                <p>Используя наш сайт и совершая покупки в магазине, вы подтверждаете свое согласие с условиями настоящей Политики конфиденциальности.</p>
+            </div>
+        </div>
+    </div>
+
+    <footer style="background: var(--darker-bg); padding: 60px 0 30px; border-top: 1px solid rgba(255,255,255,0.1); margin-top: 80px;">
+        <div class="container">
+            <div style="text-align: center;">
+                <h3 style="color: var(--accent); margin-bottom: 30px; font-size: 1.5em;">Контактная информация</h3>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; margin-bottom: 40px;">
+                    <div class="contact-item">
+                        <h4 style="color: var(--accent); margin-bottom: 10px;">Телефон</h4>
+                        <p style="color: #ccc;">+7-937-537-31-21</p>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <h4 style="color: var(--accent); margin-bottom: 10px;">Email</h4>
+                        <p style="color: #ccc;">vetyutnev.maksim@gmail.com</p>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <h4 style="color: var(--accent); margin-bottom: 10px;">Адрес</h4>
+                        <p style="color: #ccc;">г. Москва, ул. Севильский бульвар, д.3</p>
+                    </div>
+                </div>
+                
+                <div style="background: rgba(255,255,255,0.05); padding: 20px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.1); margin-bottom: 20px;">
+                    <p style="color: #ccc; font-size: 1.1em;">ИНН: 342701870105</p>
+                </div>
+
+                <!-- ✅ ДОБАВЛЕНЫ ССЫЛКИ НА ЮРИДИЧЕСКИЕ ДОКУМЕНТЫ -->
+                <div style="margin: 20px 0;">
+                    <a href="privacy.html" style="color: #ccc; margin: 0 15px; text-decoration: none;">Политика конфиденциальности</a>
+                    <a href="terms.html" style="color: #ccc; margin: 0 15px; text-decoration: none;">Пользовательское соглашение</a>
+                    <a href="cookies.html" style="color: #ccc; margin: 0 15px; text-decoration: none;">Политика cookies</a>
+                </div>
+                
+                <p style="color: #999; margin-top: 40px; font-size: 0.9em;">
+                    &copy; 2025 ИДЕАЛИЗМ. Стремление. Процесс. Результат
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Бургер-меню
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            const mainMenu = document.getElementById('main-menu');
+            
+            if (mobileMenu && mainMenu) {
+                mobileMenu.addEventListener('click', function() {
+                    mobileMenu.classList.toggle('active');
+                    mainMenu.classList.toggle('active');
+                    document.body.style.overflow = mainMenu.classList.contains('active') ? 'hidden' : '';
+                });
+                
+                const menuLinks = mainMenu.querySelectorAll('a');
+                menuLinks.forEach(link => {
+                    link.addEventListener('click', function() {
+                        mobileMenu.classList.remove('active');
+                        mainMenu.classList.remove('active');
+                        document.body.style.overflow = '';
+                    });
+                });
+            }
+        });
+    </script>
+</body>
+</html>
