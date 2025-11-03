@@ -574,15 +574,6 @@
             .footer-links a {
                 margin: 5px 0;
             }
-
-            /* Адаптивное cookies уведомление */
-            .cookie-notification {
-                left: 20px;
-                right: 20px;
-                max-width: none;
-                transform: none;
-                bottom: 20px;
-            }
         }
 
         @media (max-width: 480px) {
@@ -769,13 +760,6 @@
             </div>
         </div>
     </footer>
-
-    <!-- УВЕДОМЛЕНИЕ О COOKIES -->
-    <div id="cookie-notification" class="cookie-notification">
-        <p class="cookie-text">Мы используем cookies для работы корзины и улучшения сайта. Продолжая использовать сайт, вы соглашаетесь с этим.</p>
-        <button id="accept-cookies" class="cookie-accept">Принять</button>
-        <a href="privacy.html" class="cookie-more">Подробнее</a>
-    </div>
 
     <script>
         // Функция для расчета доставки
@@ -1024,22 +1008,6 @@
             }, 3000);
         }
 
-        // COOKIES УВЕДОМЛЕНИЕ
-        document.addEventListener('DOMContentLoaded', function() {
-            const cookieNotification = document.getElementById('cookie-notification');
-            const acceptCookies = document.getElementById('accept-cookies');
-            
-            if (!localStorage.getItem('cookies_accepted')) {
-                setTimeout(() => {
-                    cookieNotification.style.display = 'block';
-                }, 1000);
-            }
-            
-            acceptCookies.addEventListener('click', function() {
-                localStorage.setItem('cookies_accepted', 'true');
-                cookieNotification.style.display = 'none';
-            });
-        });
         
         // Загружаем корзину когда страница загрузилась
         document.addEventListener('DOMContentLoaded', function() {
