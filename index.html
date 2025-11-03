@@ -546,28 +546,30 @@
         font-size: 0.9em;
     }
 
-    /* УВЕДОМЛЕНИЕ О COOKIES */
+    /* УВЕДОМЛЕНИЕ О COOKIES - ИСПРАВЛЕННАЯ ВЕРСИЯ */
     .cookies-notification {
         position: fixed;
         bottom: 20px;
         left: 50%;
         transform: translateX(-50%);
-        background: rgba(10, 10, 10, 0.95);
-        border: 1px solid rgba(255, 255, 255, 0.2);
+        background: rgba(10, 10, 10, 0.98);
+        border: 1px solid rgba(255, 255, 255, 0.3);
         border-radius: 10px;
         padding: 20px;
         max-width: 500px;
         width: 90%;
         z-index: 10000;
-        backdrop-filter: blur(10px);
+        backdrop-filter: blur(20px);
         opacity: 0;
         visibility: hidden;
-        transition: all 0.3s ease;
+        transition: all 0.5s ease;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
     }
 
     .cookies-notification.show {
         opacity: 1;
         visibility: visible;
+        transform: translateX(-50%) translateY(0);
     }
 
     .cookies-content {
@@ -579,14 +581,15 @@
 
     .cookies-text {
         flex: 1;
-        color: #ccc;
-        font-size: 0.9em;
+        color: #e0e0e0;
+        font-size: 0.95em;
         line-height: 1.5;
     }
 
     .cookies-text a {
         color: var(--accent);
         text-decoration: none;
+        font-weight: 500;
     }
 
     .cookies-text a:hover {
@@ -597,18 +600,20 @@
         background: var(--accent);
         color: var(--dark-bg);
         border: none;
-        padding: 10px 20px;
-        border-radius: 5px;
+        padding: 12px 24px;
+        border-radius: 6px;
         cursor: pointer;
         font-size: 0.9em;
-        font-weight: 500;
+        font-weight: 600;
         transition: all 0.3s ease;
         white-space: nowrap;
+        min-width: 100px;
     }
 
     .cookies-accept:hover {
         background: #e0e0e0;
         transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(255, 255, 255, 0.2);
     }
 
     /* Анимации */
@@ -810,6 +815,7 @@
             right: 10px;
             transform: none;
             width: auto;
+            max-width: none;
         }
 
         .cookies-content {
@@ -1008,6 +1014,43 @@
     </div>
 
     <script>
+        // УВЕДОМЛЕНИЕ О COOKIES - ГАРАНТИРОВАННО РАБОЧАЯ ВЕРСИЯ
+        function initCookiesNotification() {
+            console.log('Initializing cookies notification...');
+            
+            // Принудительно сбрасываем для тестирования (удалите в продакшене)
+            // localStorage.removeItem('cookies_accepted');
+            
+            const cookiesAccepted = localStorage.getItem('cookies_accepted');
+            console.log('Cookies accepted status:', cookiesAccepted);
+            
+            if (!cookiesAccepted) {
+                console.log('Showing cookies notification');
+                const notification = document.getElementById('cookiesNotification');
+                const acceptButton = document.getElementById('cookiesAccept');
+                
+                if (notification && acceptButton) {
+                    // Показываем уведомление через 1 секунду
+                    setTimeout(() => {
+                        notification.classList.add('show');
+                        console.log('Cookies notification is now visible');
+                    }, 1000);
+                    
+                    // Обработчик для кнопки принятия
+                    acceptButton.addEventListener('click', function() {
+                        console.log('Cookies accepted by user');
+                        localStorage.setItem('cookies_accepted', 'true');
+                        notification.classList.remove('show');
+                    });
+                } else {
+                    console.error('Cookies notification elements not found!');
+                }
+            } else {
+                console.log('Cookies already accepted, notification hidden');
+            }
+        }
+
+        // Остальной код без изменений
         // Параллакс эффект
         window.addEventListener('scroll', function() {
             const scrolled = window.pageYOffset;
@@ -1100,47 +1143,6 @@
             }
         }
 
-    // Уведомление о cookies
-    function showCookiesNotification() {
-        const cookiesAccepted = localStorage.getItem('cookies_accepted');
-        if (!cookiesAccepted) {
-            setTimeout(() => {
-                const notification = document.getElementById('cookiesNotification');
-                if (notification) {
-                    notification.classList.add('show');
-                    
-                    // Добавляем обработчик для закрытия при клике вне уведомления
-                    document.addEventListener('click', function closeOnOutsideClick(e) {
-                        if (!notification.contains(e.target) && e.target.id !== 'cookiesAccept') {
-                            acceptCookies();
-                            document.removeEventListener('click', closeOnOutsideClick);
-                        }
-                    });
-                }
-            }, 1000); // Увеличиваем задержку до 1 секунды
-        }
-    }
-
-    function acceptCookies() {
-        localStorage.setItem('cookies_accepted', 'true');
-        const notification = document.getElementById('cookiesNotification');
-        if (notification) {
-            notification.classList.remove('show');
-        }
-    }
-
-    // Обновляем счетчик при загрузке страницы
-    document.addEventListener('DOMContentLoaded', function() {
-        updateCartCount();
-        showCookiesNotification();
-
-        // Обработчик для кнопки принятия cookies
-        const cookiesAccept = document.getElementById('cookiesAccept');
-        if (cookiesAccept) {
-            cookiesAccept.addEventListener('click', acceptCookies);
-        }
-    });
-
         // БУРГЕР-МЕНЮ
         document.addEventListener('DOMContentLoaded', function() {
             const mobileMenu = document.getElementById('mobile-menu');
@@ -1162,6 +1164,10 @@
                     });
                 });
             }
+            
+            // Инициализация уведомления о cookies
+            initCookiesNotification();
+            updateCartCount();
         });
     </script>
 </body>
