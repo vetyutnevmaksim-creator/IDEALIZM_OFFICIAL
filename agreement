@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Пользовательское соглашение | ИДЕАЛИЗМ</title>
+    <style>
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+        }
+        
+        :root {
+            --dark-bg: #0a0a0a;
+            --darker-bg: #050505;
+            --accent: #ffffff;
+            --accent-glow: rgba(255, 255, 255, 0.1);
+        }
+        
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background: var(--darker-bg);
+            color: #fff;
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* HEADER */
+        header {
+            background: rgba(10, 10, 10, 0.95);
+            padding: 20px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+        }
+        
+        .logo {
+            font-size: 1.5em;
+            font-weight: bold;
+            letter-spacing: 3px;
+            color: var(--accent);
+            text-decoration: none;
+        }
+        
+        nav ul {
+            list-style: none;
+            display: flex;
+        }
+        
+        nav li {
+            margin-left: 35px;
+        }
+        
+        nav a {
+            color: #ccc;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            transition: color 0.3s ease;
+            font-size: 0.9em;
+            position: relative;
+        }
+        
+        nav a:hover {
+            color: var(--accent);
+        }
+
+        /* CONTENT */
+        .content {
+            margin-top: 120px;
+            padding: 80px 0;
+        }
+
+        .terms-hero {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .terms-hero h1 {
+            font-size: 3.5em;
+            margin-bottom: 20px;
+            color: var(--accent);
+            font-weight: 300;
+            letter-spacing: 3px;
+        }
+        
+        .terms-hero .subtitle {
+            font-size: 1.3em;
+            color: #ccc;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* TERMS CONTENT */
+        .terms-content {
+            max-width: 900px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 20px;
+            padding: 60px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .terms-section {
+            margin-bottom: 50px;
+        }
+
+        .terms-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .terms-section h2 {
+            color: var(--accent);
+            font-size: 1.8em;
+            margin-bottom: 25px;
+            font-weight: 400;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 15px;
+        }
+
+        .terms-section h3 {
+            color: var(--accent);
+            font-size: 1.3em;
+            margin: 30px 0 15px 0;
+            font-weight: 400;
+        }
+
+        .terms-section p {
+            color: #e0e0e0;
+            margin-bottom: 20px;
+            line-height: 1.8;
+            text-align: justify;
+        }
+
+        .terms-section ul {
+            color: #e0e0e0;
+            margin-bottom: 20px;
+            padding-left: 30px;
+        }
+
+        .terms-section li {
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+
+        .highlight {
+            color: var(--accent);
+            font-weight: 500;
+        }
+
+        .last-updated {
+            text-align: center;
+            color: #999;
+            font-style: italic;
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* ФУТЕР */
+        footer {
+            background: var(--darker-bg);
+            padding: 60px 0 30px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            margin-top: 80px;
+        }
+
+        .footer-content {
+            text-align: center;
+        }
+
+        .footer-title {
+            color: var(--accent);
+            margin-bottom: 30px;
+            font-size: 1.5em;
+        }
+
+        .footer-contacts {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .contact-item h4 {
+            color: var(--accent);
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .contact-item p {
+            color: #ccc;
+        }
+
+        .inn-block {
+            background: rgba(255,255,255,0.05);
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.1);
+            margin-bottom: 20px;
+        }
+
+        .footer-links {
+            margin: 20px 0;
+        }
+
+        .footer-links a {
+            color: #ccc;
+            margin: 0 15px;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            font-size: 0.95em;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent);
+        }
+
+        .copyright {
+            color: #999;
+            margin-top: 40px;
+            font-size: 0.9em;
+        }
+
+        /* BURGER MENU */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 4px;
+            padding: 5px;
+            z-index: 1001;
+            position: absolute;
+            top: 50%;
+            right: 0;
+            transform: translateY(-50%);
+        }
+
+        .menu-toggle span {
+            width: 25px;
+            height: 2px;
+            background: var(--accent);
+            transition: all 0.3s ease;
+        }
+
+        .menu-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(6px, 6px);
+        }
+
+        .menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .menu-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(6px, -6px);
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: flex;
+            }
+            
+            nav ul {
+                display: none;
+            }
+            
+            #main-menu {
+                position: fixed;
+                top: 0;
+                left: -100%;
+                width: 80%;
+                max-width: 300px;
+                height: 100vh;
+                background: rgba(5, 5, 5, 0.98);
+                backdrop-filter: blur(20px);
+                flex-direction: column;
+                justify-content: flex-start;
+                align-items: center;
+                padding-top: 100px;
+                transition: left 0.3s ease;
+                z-index: 1000;
+                border-right: 1px solid rgba(255,255,255,0.1);
+            }
+            
+            #main-menu.active {
+                left: 0;
+                display: flex;
+            }
+            
+            #main-menu li {
+                margin: 20px 0;
+                opacity: 0;
+                transform: translateX(-50px);
+                transition: all 0.3s ease;
+            }
+            
+            #main-menu.active li {
+                opacity: 1;
+                transform: translateX(0);
+            }
+            
+            #main-menu.active li:nth-child(1) { transition-delay: 0.1s; }
+            #main-menu.active li:nth-child(2) { transition-delay: 0.15s; }
+            #main-menu.active li:nth-child(3) { transition-delay: 0.2s; }
+            #main-menu.active li:nth-child(4) { transition-delay: 0.25s; }
+            #main-menu.active li:nth-child(5) { transition-delay: 0.3s; }
+            #main-menu.active li:nth-child(6) { transition-delay: 0.35s; }
+            
+            #main-menu a {
+                font-size: 1.1em;
+                padding: 12px 30px;
+                display: block;
+                border: 1px solid rgba(255,255,255,0.1);
+                border-radius: 25px;
+                min-width: 200px;
+                text-align: center;
+                transition: all 0.3s ease;
+            }
+            
+            #main-menu a:hover {
+                background: rgba(255,255,255,0.1);
+                border-color: var(--accent);
+            }
+
+            .content {
+                margin-top: 140px;
+                padding: 40px 0;
+            }
+            
+            .terms-hero h1 {
+                font-size: 2.5em;
+            }
+            
+            .terms-content {
+                padding: 30px;
+            }
+            
+            .terms-section h2 {
+                font-size: 1.5em;
+            }
+
+            /* Адаптивный футер */
+            .footer-contacts {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .footer-links {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .footer-links a {
+                margin: 5px 0;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .terms-hero h1 {
+                font-size: 2em;
+            }
+            
+            .terms-content {
+                padding: 20px;
+            }
+            
+            .terms-section h2 {
+                font-size: 1.3em;
+            }
+            
+            .terms-section h3 {
+                font-size: 1.1em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-container">
+            <a href="index.html" class="logo">ИДЕАЛИЗМ</a>
+            <nav>
+                <ul id="main-menu">
+                    <li><a href="index.html">Главная</a></li>
+                    <li><a href="policy.html">Политика</a></li>
+                    <li><a href="book.html">Книга</a></li>
+                    <li><a href="shop.html">Магазин</a></li>
+                    <li><a href="cart.html">Корзина</a></li>
+                    <li><a href="community.html">Сообщество</a></li>
+                </ul>
+            </nav>
+            <!-- БУРГЕР-МЕНЮ -->
+            <div class="menu-toggle" id="mobile-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </header>
+
+    <div class="container content">
+        <section class="terms-hero">
+            <h1>Пользовательское соглашение</h1>
+            <p class="subtitle">Правила использования сайта и услуг ИДЕАЛИЗМ</p>
+        </section>
+
+        <div class="terms-content">
+            <div class="terms-section">
+                <h2>1. Общие положения</h2>
+                <p>1.1. Настоящее Пользовательское соглашение (далее — «Соглашение») регулирует отношения между администрацией сайта «ИДЕАЛИЗМ» (далее — «Администрация») и пользователем (далее — «Пользователь») при использовании сайта и связанных услуг.</p>
+                <p>1.2. Используя сайт и услуги «ИДЕАЛИЗМ», Пользователь подтверждает свое согласие с условиями настоящего Соглашения.</p>
+                <p>1.3. Администрация оставляет за собой право вносить изменения в настоящее Соглашение в любое время без предварительного уведомления.</p>
+            </div>
+
+            <div class="terms-section">
+                <h2>2. Условия использования</h2>
+                
+                <h3>2.1. Права и обязанности Пользователя</h3>
+                <p>Пользователь имеет право:</p>
+                <ul>
+                    <li>Осуществлять покупки товаров в интернет-магазине</li>
+                    <li>Получать информацию о философии Идеализма</li>
+                    <li>Участвовать в сообществе единомышленников</li>
+                    <li>Обращаться за консультацией и поддержкой</li>
+                </ul>
+
+                <p>Пользователь обязуется:</p>
+                <ul>
+                    <li>Не нарушать права интеллектуальной собственности</li>
+                    <li>Не распространять недостоверную информацию</li>
+                    <li>Не использовать сайт для противоправной деятельности</li>
+                    <li>Соблюдать конфиденциальность полученной информации</li>
+                </ul>
+
+                <h3>2.2. Интеллектуальная собственность</h3>
+                <p>Все материалы сайта, включая тексты, изображения, логотипы и дизайн, являются интеллектуальной собственностью «ИДЕАЛИЗМ» и защищены законодательством об авторском праве.</p>
+            </div>
+
+            <div class="terms-section">
+                <h2>3. Политика конфиденциальности</h2>
+                <p>3.1. Администрация обязуется защищать персональные данные Пользователей в соответствии с законодательством РФ.</p>
+                <p>3.2. Подробная информация о сборе и обработке персональных данных изложена в <a href="privacy.html" class="highlight">Политике конфиденциальности</a>.</p>
+            </div>
+
+            <div class="terms-section">
+                <h2>4. Условия продажи</h2>
+                
+                <h3>4.1. Порядок оформления заказа</h3>
+                <p>Заказ считается оформленным после подтверждения Пользователем всех деталей заказа и оплаты.</p>
+
+                <h3>4.2. Доставка и возврат</h3>
+                <p>Условия доставки и возврата товаров описаны в соответствующих разделах сайта и могут быть изменены Администрацией.</p>
+
+                <h3>4.3. Цены и оплата</h3>
+                <p>Все цены указаны в рублях. Администрация оставляет за собой право изменять цены без предварительного уведомления.</p>
+            </div>
+
+            <div class="terms-section">
+                <h2>5. Ответственность</h2>
+                <p>5.1. Администрация не несет ответственности за:</p>
+                <ul>
+                    <li>Неправомерные действия Пользователей</li>
+                    <li>Технические сбои в работе сайта</li>
+                    <li>Убытки, возникшие в результате использования сайта</li>
+                    <li>Действия третьих лиц</li>
+                </ul>
+                <p>5.2. Пользователь несет полную ответственность за достоверность предоставляемой информации.</p>
+            </div>
+
+            <div class="terms-section">
+                <h2>6. Заключительные положения</h2>
+                <p>6.1. Настоящее Соглашение вступает в силу с момента начала использования сайта Пользователем.</p>
+                <p>6.2. Все споры решаются путем переговоров, а при невозможности достижения согласия — в судебном порядке по законодательству РФ.</p>
+                <p>6.3. Признание отдельных положений Соглашения недействительными не влечет недействительности Соглашения в целом.</p>
+            </div>
+
+            <div class="last-updated">
+    <p>Дата последнего обновления: <span id="current-date"></span></p>
+</div>
+
+<script>
+    // Автоматическое обновление даты
+    document.addEventListener('DOMContentLoaded', function() {
+        const currentDate = new Date();
+        const options = { day: 'numeric', month: 'long', year: 'numeric' };
+        const formattedDate = currentDate.toLocaleDateString('ru-RU', options);
+        document.getElementById('current-date').textContent = formattedDate;
+    });
+</script>
+        </div>
+    </div>
+
+    <!-- ФУТЕР -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <h3 class="footer-title">Контактная информация</h3>
+                
+                <div class="footer-contacts">
+                    <div class="contact-item">
+                        <h4>Телефон</h4>
+                        <p>+7-937-537-31-21</p>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <h4>Email</h4>
+                        <p>vetyutnev.maksim@gmail.com</p>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <h4>Адрес</h4>
+                        <p>г. Москва, ул. Севильский бульвар, д.3</p>
+                    </div>
+                </div>
+                
+                <div class="inn-block">
+                    <p>ИНН: 342701870105</p>
+                </div>
+
+                <!-- Ссылки на политику конфиденциальности -->
+                <div class="footer-links">
+                    <a href="privacy.html">Политика конфиденциальности</a>
+                    <a href="terms.html" style="color: var(--accent);">Пользовательское соглашение</a>
+                </div>
+                
+                <p class="copyright">
+                    &copy; 2025 ИДЕАЛИЗМ. Стремление. Процесс. Результат
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // БУРГЕР-МЕНЮ
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            const mainMenu = document.getElementById('main-menu');
+            
+            if (mobileMenu && mainMenu) {
+                mobileMenu.addEventListener('click', function() {
+                    mobileMenu.classList.toggle('active');
+                    mainMenu.classList.toggle('active');
+                    document.body.style.overflow = mainMenu.classList.contains('active') ? 'hidden' : '';
+                });
+                
+                const menuLinks = mainMenu.querySelectorAll('a');
+                menuLinks.forEach(link => {
+                    link.addEventListener('click', function() {
+                        mobileMenu.classList.remove('active');
+                        mainMenu.classList.remove('active');
+                        document.body.style.overflow = '';
+                    });
+                });
+            }
+        });
+    </script>
+</body>
+</html>
