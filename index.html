@@ -546,87 +546,61 @@
         font-size: 0.9em;
     }
 
-    /* УВЕДОМЛЕНИЕ О COOKIES - ИСПРАВЛЕННАЯ ВЕРСИЯ */
+/* УВЕДОМЛЕНИЕ О COOKIES - ИСПРАВЛЕННАЯ ВЕРСИЯ */
+.cookies-notification {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(10, 10, 10, 0.98);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 10px;
+    padding: 20px;
+    max-width: 500px;
+    width: 90%;
+    z-index: 10000;
+    backdrop-filter: blur(20px);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.5s ease;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.cookies-notification.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+}
+
+/* МОБИЛЬНЫЕ СТИЛИ - ИСПРАВЛЕННАЯ ВЕРСИЯ */
+@media (max-width: 768px) {
+    /* ... остальные стили ... */
+
+    /* Адаптивное уведомление о cookies - ИСПРАВЛЕНО */
     .cookies-notification {
-        position: fixed;
-        bottom: 20px;
-        left: 50%;
-        transform: translateX(-50%);
-        background: rgba(10, 10, 10, 0.98);
-        border: 1px solid rgba(255, 255, 255, 0.3);
-        border-radius: 10px;
-        padding: 20px;
-        max-width: 500px;
+        bottom: 10px;
+        left: 5%;
+        right: 5%;
+        transform: none;
         width: 90%;
-        z-index: 10000;
-        backdrop-filter: blur(20px);
-        opacity: 0;
-        visibility: hidden;
-        transition: all 0.5s ease;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        max-width: none;
+        margin: 0 auto;
     }
 
     .cookies-notification.show {
-        opacity: 1;
-        visibility: visible;
-        transform: translateX(-50%) translateY(0);
+        transform: none;
     }
 
     .cookies-content {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 20px;
-    }
-
-    .cookies-text {
-        flex: 1;
-        color: #e0e0e0;
-        font-size: 0.95em;
-        line-height: 1.5;
-    }
-
-    .cookies-text a {
-        color: var(--accent);
-        text-decoration: none;
-        font-weight: 500;
-    }
-
-    .cookies-text a:hover {
-        text-decoration: underline;
+        flex-direction: column;
+        text-align: center;
+        gap: 15px;
     }
 
     .cookies-accept {
-        background: var(--accent);
-        color: var(--dark-bg);
-        border: none;
-        padding: 12px 24px;
-        border-radius: 6px;
-        cursor: pointer;
-        font-size: 0.9em;
-        font-weight: 600;
-        transition: all 0.3s ease;
-        white-space: nowrap;
-        min-width: 100px;
+        width: 100%;
     }
-
-    .cookies-accept:hover {
-        background: #e0e0e0;
-        transform: translateY(-2px);
-        box-shadow: 0 5px 15px rgba(255, 255, 255, 0.2);
-    }
-
-    /* Анимации */
-    @keyframes fadeInUp {
-        from {
-            opacity: 0;
-            transform: translateY(50px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
+}
 
     .section-animate {
         opacity: 0;
