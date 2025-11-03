@@ -1019,7 +1019,7 @@
             console.log('Initializing cookies notification...');
             
             // Принудительно сбрасываем для тестирования (удалите в продакшене)
-            // localStorage.removeItem('cookies_accepted');
+            localStorage.removeItem('cookies_accepted');
             
             const cookiesAccepted = localStorage.getItem('cookies_accepted');
             console.log('Cookies accepted status:', cookiesAccepted);
