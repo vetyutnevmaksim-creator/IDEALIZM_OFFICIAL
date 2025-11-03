@@ -1100,38 +1100,46 @@
             }
         }
 
-        // Уведомление о cookies
-        function showCookiesNotification() {
-            const cookiesAccepted = localStorage.getItem('cookies_accepted');
-            if (!cookiesAccepted) {
-                setTimeout(() => {
-                    const notification = document.getElementById('cookiesNotification');
-                    if (notification) {
-                        notification.classList.add('show');
-                    }
-                }, 2000);
-            }
+    // Уведомление о cookies
+    function showCookiesNotification() {
+        const cookiesAccepted = localStorage.getItem('cookies_accepted');
+        if (!cookiesAccepted) {
+            setTimeout(() => {
+                const notification = document.getElementById('cookiesNotification');
+                if (notification) {
+                    notification.classList.add('show');
+                    
+                    // Добавляем обработчик для закрытия при клике вне уведомления
+                    document.addEventListener('click', function closeOnOutsideClick(e) {
+                        if (!notification.contains(e.target) && e.target.id !== 'cookiesAccept') {
+                            acceptCookies();
+                            document.removeEventListener('click', closeOnOutsideClick);
+                        }
+                    });
+                }
+            }, 1000); // Увеличиваем задержку до 1 секунды
         }
+    }
 
-        function acceptCookies() {
-            localStorage.setItem('cookies_accepted', 'true');
-            const notification = document.getElementById('cookiesNotification');
-            if (notification) {
-                notification.classList.remove('show');
-            }
+    function acceptCookies() {
+        localStorage.setItem('cookies_accepted', 'true');
+        const notification = document.getElementById('cookiesNotification');
+        if (notification) {
+            notification.classList.remove('show');
         }
+    }
 
-        // Обновляем счетчик при загрузке страницы
-        document.addEventListener('DOMContentLoaded', function() {
-            updateCartCount();
-            showCookiesNotification();
+    // Обновляем счетчик при загрузке страницы
+    document.addEventListener('DOMContentLoaded', function() {
+        updateCartCount();
+        showCookiesNotification();
 
-            // Обработчик для кнопки принятия cookies
-            const cookiesAccept = document.getElementById('cookiesAccept');
-            if (cookiesAccept) {
-                cookiesAccept.addEventListener('click', acceptCookies);
-            }
-        });
+        // Обработчик для кнопки принятия cookies
+        const cookiesAccept = document.getElementById('cookiesAccept');
+        if (cookiesAccept) {
+            cookiesAccept.addEventListener('click', acceptCookies);
+        }
+    });
 
         // БУРГЕР-МЕНЮ
         document.addEventListener('DOMContentLoaded', function() {
