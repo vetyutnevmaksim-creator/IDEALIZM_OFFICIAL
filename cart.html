@@ -421,7 +421,75 @@
             margin-top: 40px;
             font-size: 0.9em;
         }
+        /* === СТИЛИ ДЛЯ ВЫБОРА ДОСТАВКИ === */
+        .delivery-options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 10px;
+        }
 
+        .delivery-option {
+            position: relative;
+        }
+
+        .delivery-option input[type="radio"] {
+            position: absolute;
+            opacity: 0;
+        }
+
+        .delivery-option label {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .delivery-option label:hover {
+            background: rgba(255,255,255,0.08);
+            border-color: rgba(255,255,255,0.3);
+        }
+
+        .delivery-option input[type="radio"]:checked + label {
+            background: rgba(255,255,255,0.1);
+            border-color: var(--accent);
+            box-shadow: 0 0 0 1px var(--accent);
+        }
+
+        .delivery-title {
+            font-weight: 500;
+            color: var(--accent);
+            flex: 1;
+        }
+
+        .delivery-time {
+            color: #ccc;
+            font-size: 0.9em;
+            margin-right: 15px;
+        }
+
+        .delivery-price {
+            color: var(--accent);
+            font-weight: 500;
+        }
+
+        /* Адаптив для доставки на мобильных */
+        @media (max-width: 768px) {
+            .delivery-option label {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 5px;
+            }
+            
+            .delivery-time {
+                margin-right: 0;
+            }
+        }
         @media (max-width: 768px) {
             .menu-toggle {
                 display: flex !important;
@@ -693,6 +761,28 @@
                     <label class="form-label">Адрес доставки *</label>
                     <input type="text" class="form-input" name="address" required placeholder="Город, улица, дом, квартира">
                 </div>
+
+                <!-- БЛОК ВЫБОРА ДОСТАВКИ -->
+<div class="form-group">
+    <label class="form-label">Способ доставки *</label>
+    <div class="delivery-options">
+        <div class="delivery-option">
+            <input type="radio" id="delivery-cdek" name="delivery_method" value="cdek" required>
+            <label for="delivery-cdek">
+                <span class="delivery-title">СДЭК</span>
+                <span class="delivery-time">2-5 дней</span>
+                <span class="delivery-price">500 ₽</span>
+            </label>
+        </div>
+        <div class="delivery-option">
+            <input type="radio" id="delivery-post" name="delivery_method" value="post" required>
+            <label for="delivery-post">
+                <span class="delivery-title">Почта России</span>
+                <span class="delivery-time">7-14 дней</span>
+                <span class="delivery-price">250 ₽</span>
+            </label>
+        </div>
+
                 
                 <div class="form-group">
                     <label class="form-label">Комментарий к заказу</label>
@@ -763,20 +853,22 @@
 
     <script>
         // Функция для расчета доставки
-        function calculateShipping(subtotal) {
-            // Бесплатная доставка от 5000 рублей
-            if (subtotal >= 5000) {
-                return 0;
-            }
-            // Минимальная доставка для мелких заказов
-            else if (subtotal < 1000) {
-                return 250;
-            }
-            // Стандартная доставка
-            else {
-                return 500;
-            }
-        }
+function calculateShipping(subtotal, deliveryMethod = null) {
+    // Бесплатная доставка от 5000 рублей для любого способа
+    if (subtotal >= 5000) {
+        return 0;
+    }
+    
+    // Если способ доставки выбран в форме
+    if (deliveryMethod === 'cdek') {
+        return 500;
+    } else if (deliveryMethod === 'post') {
+        return 250;
+    }
+    
+    // По умолчанию (до выбора способа) - показываем минимальную
+    return 250;
+}
         
         // Функция для загрузки корзины
         function loadCart() {
@@ -851,7 +943,39 @@
             
             document.getElementById('total').textContent = total.toLocaleString() + ' ₽';
         }
-        
+                // Обработчик изменения способа доставки
+        function initDeliveryHandlers() {
+            const deliveryRadios = document.querySelectorAll('input[name="delivery_method"]');
+            
+            deliveryRadios.forEach(radio => {
+                radio.addEventListener('change', function() {
+                    if (this.checked) {
+                        updateShippingCost(this.value);
+                    }
+                });
+            });
+        }
+
+        // Функция обновления стоимости доставки
+        function updateShippingCost(deliveryMethod) {
+            const cart = JSON.parse(localStorage.getItem('idealism_cart')) || [];
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            
+            const shippingCost = calculateShipping(subtotal, deliveryMethod);
+            const total = subtotal + shippingCost;
+            
+            // Обновляем отображение в корзине
+            const shippingElement = document.getElementById('shipping-cost');
+            if (shippingCost === 0) {
+                shippingElement.textContent = 'БЕСПЛАТНО';
+                shippingElement.className = 'free-shipping';
+            } else {
+                shippingElement.textContent = shippingCost.toLocaleString() + ' ₽';
+                shippingElement.className = '';
+            }
+            
+            document.getElementById('total').textContent = total.toLocaleString() + ' ₽';
+        }
         // Функция для обновления количества товара
         function updateQuantity(index, change) {
             const cart = JSON.parse(localStorage.getItem('idealism_cart')) || [];
@@ -1009,9 +1133,10 @@
         }
 
         
-        // Загружаем корзину когда страница загрузилась
+                // Загружаем корзину когда страница загрузилась
         document.addEventListener('DOMContentLoaded', function() {
             loadCart();
+            initDeliveryHandlers(); // ← ДОБАВЬ ЭТУ СТРОЧКУ
             
             // Обработчики для формы заказа
             document.getElementById('open-checkout-form').addEventListener('click', showCheckoutForm);
