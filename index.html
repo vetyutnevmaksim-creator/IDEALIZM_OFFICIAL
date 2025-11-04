@@ -1040,14 +1040,14 @@
         
         setTimeout(() => {
             console.log('🎯 Активируем уведомление...');
-            notification.classList.add('active');
+            notification.classList.add('show');
             console.log('✅ Уведомление активировано');
         }, 2000);
         
         // Обработчик кнопки принятия
         acceptButton.addEventListener('click', function() {
             console.log('🖱️ Кнопка "Принять" нажата');
-            notification.classList.remove('active');
+            notification.classList.remove('show');
             console.log('✅ Уведомление скрыто');
         });
     }
