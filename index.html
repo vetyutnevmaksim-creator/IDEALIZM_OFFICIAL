@@ -1014,158 +1014,174 @@
     </div>
 
     <script>
-        // COOKIES NOTIFICATION - ГАРАНТИРОВАННО РАБОТАЮЩИЙ КОД
-        document.addEventListener('DOMContentLoaded', function() {
-            // Проверяем, были ли cookies уже приняты
-            if (!localStorage.getItem('cookies_accepted')) {
-                // Показываем уведомление через 2 секунды
-                setTimeout(function() {
-                    const notification = document.getElementById('cookiesNotification');
-                    if (notification) {
-                        notification.classList.add('show');
-                    }
-                }, 2000);
-            }
+    // COOKIES NOTIFICATION - ПОКАЗЫВАЕТСЯ КАЖДЫЙ РАЗ
+    function initCookies() {
+        console.log('🔧 Инициализация cookies...');
+        
+        // Проверяем элементы в DOM
+        const notification = document.getElementById('cookiesNotification');
+        const acceptButton = document.getElementById('cookiesAccept');
+        
+        console.log('📋 Элемент уведомления:', notification);
+        console.log('📋 Кнопка принятия:', acceptButton);
+        
+        if (!notification) {
+            console.error('❌ Элемент cookiesNotification не найден в DOM!');
+            return;
+        }
+        
+        if (!acceptButton) {
+            console.error('❌ Элемент cookiesAccept не найден в DOM!');
+            return;
+        }
+        
+        // ПОКАЗЫВАЕМ УВЕДОМЛЕНИЕ КАЖДЫЙ РАЗ
+        console.log('🔄 Показываем уведомление каждый раз через 2 секунды...');
+        
+        setTimeout(() => {
+            console.log('🎯 Активируем уведомление...');
+            notification.classList.add('active');
+            console.log('✅ Уведомление активировано');
+        }, 2000);
+        
+        // Обработчик кнопки принятия
+        acceptButton.addEventListener('click', function() {
+            console.log('🖱️ Кнопка "Принять" нажата');
+            notification.classList.remove('active');
+            console.log('✅ Уведомление скрыто');
+        });
+    }
+    
+    // Запускаем когда DOM полностью загружен
+    document.addEventListener('DOMContentLoaded', function() {
+        console.log('🚀 DOM загружен, запускаем инициализацию...');
+        initCookies();
+        initPageFunctions();
+    });
 
-            // Обработчик кнопки принятия cookies
-            const acceptButton = document.getElementById('cookiesAccept');
-            if (acceptButton) {
-                acceptButton.addEventListener('click', function() {
-                    localStorage.setItem('cookies_accepted', 'true');
-                    const notification = document.getElementById('cookiesNotification');
-                    if (notification) {
-                        notification.classList.remove('show');
-                    }
-                });
+    function initPageFunctions() {
+        // Parallax effect
+        window.addEventListener('scroll', function() {
+            const scrolled = window.pageYOffset;
+            const parallax = document.querySelector('.parallax-bg');
+            if (parallax) {
+                parallax.style.transform = `translateY(${scrolled * 0.5}px) scale(1.15)`;
             }
-
-            // Инициализируем остальные функции
-            initPageFunctions();
         });
 
-        function initPageFunctions() {
-            // Parallax effect
-            window.addEventListener('scroll', function() {
-                const scrolled = window.pageYOffset;
-                const parallax = document.querySelector('.parallax-bg');
-                if (parallax) {
-                    parallax.style.transform = `translateY(${scrolled * 0.5}px) scale(1.15)`;
+        // Header scroll effect
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
                 }
             });
+        });
 
-            // Header scroll effect
-            window.addEventListener('scroll', function() {
-                const header = document.querySelector('header');
-                if (window.scrollY > 100) {
-                    header.classList.add('scrolled');
-                } else {
-                    header.classList.remove('scrolled');
-                }
-            });
-
-            // Smooth scrolling
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    const target = document.querySelector(this.getAttribute('href'));
-                    if (target) {
-                        target.scrollIntoView({
-                            behavior: 'smooth',
-                            block: 'start'
+        // Section animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    
+                    // About section animations
+                    if (entry.target.id === 'about') {
+                        const aboutTitle = entry.target.querySelector('.about-title');
+                        const unifiedBlock = entry.target.querySelector('.unified-idealism-block');
+                        
+                        setTimeout(() => {
+                            if (aboutTitle) {
+                                aboutTitle.style.opacity = "1";
+                                aboutTitle.style.transform = "translateY(0)";
+                            }
+                        }, 200);
+                        
+                        setTimeout(() => {
+                            if (unifiedBlock) {
+                                unifiedBlock.style.opacity = "1";
+                                unifiedBlock.style.transform = "translateY(0)";
+                            }
+                        }, 500);
+                    }
+                    
+                    // Principles section animations
+                    if (entry.target.id === 'principles') {
+                        const principlesTitle = entry.target.querySelector('h2');
+                        const cards = entry.target.querySelectorAll('.principle-card');
+                        
+                        setTimeout(() => {
+                            if (principlesTitle) {
+                                principlesTitle.style.opacity = "1";
+                                principlesTitle.style.transform = "translateY(0)";
+                            }
+                        }, 200);
+                        
+                        cards.forEach((card, index) => {
+                            setTimeout(() => {
+                                card.style.opacity = "1";
+                                card.style.transform = "translateY(0) rotateX(0deg)";
+                            }, 500 + (index * 200));
                         });
                     }
-                });
-            });
-
-            // Section animations
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                        
-                        // About section animations
-                        if (entry.target.id === 'about') {
-                            const aboutTitle = entry.target.querySelector('.about-title');
-                            const unifiedBlock = entry.target.querySelector('.unified-idealism-block');
-                            
-                            setTimeout(() => {
-                                if (aboutTitle) {
-                                    aboutTitle.style.opacity = "1";
-                                    aboutTitle.style.transform = "translateY(0)";
-                                }
-                            }, 200);
-                            
-                            setTimeout(() => {
-                                if (unifiedBlock) {
-                                    unifiedBlock.style.opacity = "1";
-                                    unifiedBlock.style.transform = "translateY(0)";
-                                }
-                            }, 500);
-                        }
-                        
-                        // Principles section animations
-                        if (entry.target.id === 'principles') {
-                            const principlesTitle = entry.target.querySelector('h2');
-                            const cards = entry.target.querySelectorAll('.principle-card');
-                            
-                            setTimeout(() => {
-                                if (principlesTitle) {
-                                    principlesTitle.style.opacity = "1";
-                                    principlesTitle.style.transform = "translateY(0)";
-                                }
-                            }, 200);
-                            
-                            cards.forEach((card, index) => {
-                                setTimeout(() => {
-                                    card.style.opacity = "1";
-                                    card.style.transform = "translateY(0) rotateX(0deg)";
-                                }, 500 + (index * 200));
-                            });
-                        }
-                    }
-                });
-            }, { threshold: 0.1 });
-
-            // Observe sections
-            document.querySelectorAll('.about-idealism, .principles, footer').forEach(section => {
-                observer.observe(section);
-            });
-
-            // Cart count
-            function updateCartCount() {
-                const cart = JSON.parse(localStorage.getItem('idealism_cart')) || [];
-                const totalCount = cart.reduce((sum, item) => sum + item.quantity, 0);
-                const cartCount = document.getElementById('cart-count');
-                
-                if (cartCount) {
-                    cartCount.textContent = totalCount;
-                    cartCount.style.display = totalCount > 0 ? 'flex' : 'none';
                 }
-            }
+            });
+        }, { threshold: 0.1 });
 
-            // Burger menu
-            const mobileMenu = document.getElementById('mobile-menu');
-            const mainMenu = document.getElementById('main-menu');
+        // Observe sections
+        document.querySelectorAll('.about-idealism, .principles, footer').forEach(section => {
+            observer.observe(section);
+        });
+
+        // Cart count
+        function updateCartCount() {
+            const cart = JSON.parse(localStorage.getItem('idealism_cart')) || [];
+            const totalCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+            const cartCount = document.getElementById('cart-count');
             
-            if (mobileMenu && mainMenu) {
-                mobileMenu.addEventListener('click', function() {
-                    mobileMenu.classList.toggle('active');
-                    mainMenu.classList.toggle('active');
-                    document.body.style.overflow = mainMenu.classList.contains('active') ? 'hidden' : '';
-                });
-                
-                const menuLinks = mainMenu.querySelectorAll('a');
-                menuLinks.forEach(link => {
-                    link.addEventListener('click', function() {
-                        mobileMenu.classList.remove('active');
-                        mainMenu.classList.remove('active');
-                        document.body.style.overflow = '';
-                    });
-                });
+            if (cartCount) {
+                cartCount.textContent = totalCount;
+                cartCount.style.display = totalCount > 0 ? 'flex' : 'none';
             }
-            
-            updateCartCount();
         }
-    </script>
+
+        // Burger menu
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mainMenu = document.getElementById('main-menu');
+        
+        if (mobileMenu && mainMenu) {
+            mobileMenu.addEventListener('click', function() {
+                mobileMenu.classList.toggle('active');
+                mainMenu.classList.toggle('active');
+                document.body.style.overflow = mainMenu.classList.contains('active') ? 'hidden' : '';
+            });
+            
+            const menuLinks = mainMenu.querySelectorAll('a');
+            menuLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    mobileMenu.classList.remove('active');
+                    mainMenu.classList.remove('active');
+                    document.body.style.overflow = '';
+                });
+            });
+        }
+        
+        updateCartCount();
+    }
+</script>
 </body>
 </html>
