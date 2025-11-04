@@ -544,26 +544,30 @@
             font-size: 0.9em;
         }
 
-        /* COOKIES NOTIFICATION - ПРОСТОЙ И РАБОЧИЙ */
+        /* COOKIES NOTIFICATION */
         .cookies-notification {
             position: fixed;
             bottom: 20px;
             left: 50%;
-            transform: translateX(-50%);
-            background: #0a0a0a;
+            transform: translateX(-50%) translateY(100px);
+            background: rgba(10, 10, 10, 0.98);
             border: 1px solid rgba(255, 255, 255, 0.3);
             border-radius: 10px;
             padding: 20px;
             max-width: 500px;
             width: 90%;
             z-index: 10000;
+            backdrop-filter: blur(20px);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.5s ease;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            display: none;
         }
 
         .cookies-notification.show {
-            display: block;
-            animation: slideUp 0.5s ease;
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
         }
 
         .cookies-content {
@@ -607,17 +611,7 @@
         .cookies-accept:hover {
             background: #e0e0e0;
             transform: translateY(-2px);
-        }
-
-        @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateX(-50%) translateY(100px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(-50%) translateY(0);
-            }
+            box-shadow: 0 5px 15px rgba(255, 255, 255, 0.2);
         }
 
         /* ANIMATIONS */
@@ -810,12 +804,11 @@
                 right: 5%;
                 width: 90%;
                 max-width: none;
-                transform: none;
+                transform: translateY(100px);
             }
 
             .cookies-notification.show {
-                transform: none;
-                animation: slideUpMobile 0.5s ease;
+                transform: translateY(0);
             }
 
             .cookies-content {
@@ -826,17 +819,6 @@
 
             .cookies-accept {
                 width: 100%;
-            }
-
-            @keyframes slideUpMobile {
-                from {
-                    opacity: 0;
-                    transform: translateY(100px);
-                }
-                to {
-                    opacity: 1;
-                    transform: translateY(0);
-                }
             }
         }
 
@@ -1031,28 +1013,21 @@
         </div>
     </div>
 
-    <!-- КНОПКА ДЛЯ ТЕСТИРОВАНИЯ -->
-    <button onclick="resetCookies()" style="position: fixed; top: 10px; right: 10px; z-index: 10000; padding: 10px; background: #fff; color: #000; border: none; border-radius: 5px; cursor: pointer; font-size: 12px;">
-        Сбросить Cookies
-    </button>
-
     <script>
-        // ПРОСТОЙ И РАБОЧИЙ КОД ДЛЯ COOKIES
+        // COOKIES NOTIFICATION - ГАРАНТИРОВАННО РАБОТАЮЩИЙ КОД
         document.addEventListener('DOMContentLoaded', function() {
-            // Ждем 2 секунды и показываем уведомление
-            setTimeout(function() {
-                const cookiesAccepted = localStorage.getItem('cookies_accepted');
-                
-                if (!cookiesAccepted) {
+            // Проверяем, были ли cookies уже приняты
+            if (!localStorage.getItem('cookies_accepted')) {
+                // Показываем уведомление через 2 секунды
+                setTimeout(function() {
                     const notification = document.getElementById('cookiesNotification');
                     if (notification) {
                         notification.classList.add('show');
-                        console.log('Уведомление о cookies показано');
                     }
-                }
-            }, 2000);
+                }, 2000);
+            }
 
-            // Обработчик кнопки принятия
+            // Обработчик кнопки принятия cookies
             const acceptButton = document.getElementById('cookiesAccept');
             if (acceptButton) {
                 acceptButton.addEventListener('click', function() {
@@ -1060,7 +1035,6 @@
                     const notification = document.getElementById('cookiesNotification');
                     if (notification) {
                         notification.classList.remove('show');
-                        console.log('Cookies приняты, уведомление скрыто');
                     }
                 });
             }
@@ -1191,13 +1165,6 @@
             }
             
             updateCartCount();
-        }
-
-        // Функция для сброса cookies
-        function resetCookies() {
-            localStorage.removeItem('cookies_accepted');
-            alert('Cookies сброшены. Страница перезагрузится.');
-            location.reload();
         }
     </script>
 </body>
