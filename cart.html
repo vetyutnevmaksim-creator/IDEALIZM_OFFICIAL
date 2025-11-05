@@ -36,7 +36,7 @@
         }
         .header-container { 
             display: flex; 
-            justify-content: space-between; А
+            justify-content: space-between; 
             align-items: center; 
         }
         .logo { 
@@ -731,7 +731,7 @@
             <button class="checkout-btn" id="open-checkout-form">ОФОРМИТЬ ЗАКАЗ</button>
         </div>
         
-               <!-- НОВАЯ ФОРМА ПРЕДЗАКАЗА -->
+        <!-- НОВАЯ ФОРМА ПРЕДЗАКАЗА -->
         <div id="preorder-form" class="checkout-form" style="display: none;">
             <h2 class="form-title">ОФОРМЛЕНИЕ ПРЕДЗАКАЗА</h2>
             
@@ -767,22 +767,45 @@
                     <input type="text" class="form-input" name="address" required placeholder="Город, улица, дом, квартира">
                 </div>
 
+                <!-- ВЫБОР СПОСОБА ДОСТАВКИ -->
+                <div class="form-group">
+                    <label class="form-label">Способ доставки *</label>
+                    <div class="delivery-options">
+                        <div class="delivery-option">
+                            <input type="radio" id="delivery-post" name="delivery_method" value="post" required>
+                            <label for="delivery-post">
+                                <span class="delivery-title">Почта России</span>
+                                <span class="delivery-time">2-14 дней</span>
+                                <span class="delivery-price">250 ₽</span>
+                            </label>
+                        </div>
+                        <div class="delivery-option">
+                            <input type="radio" id="delivery-cdek" name="delivery_method" value="cdek" required checked>
+                            <label for="delivery-cdek">
+                                <span class="delivery-title">СДЭК</span>
+                                <span class="delivery-time">2-7 дней</span>
+                                <span class="delivery-price">500 ₽</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- СПОСОБ ОПЛАТЫ -->
-<div class="form-group">
-    <label class="form-label">Способ оплаты</label>
-    <div class="delivery-options">
-        <div class="delivery-option">
-            <input type="radio" id="payment-sbp" name="payment_method" value="sbp" required checked style="display: none;">
-            <label for="payment-sbp" style="cursor: default;">
-                <span class="delivery-title">СБП (Система быстрых платежей)</span>
-                <span class="delivery-time">Моментально</span>
-            </label>
-        </div>
-    </div>
-    <p style="color: #ccc; font-size: 0.9em; margin-top: 10px;">
-        После оформления заказа вы получите реквизиты для оплаты по СБП
-    </p>
-</div>
+                <div class="form-group">
+                    <label class="form-label">Способ оплаты</label>
+                    <div class="delivery-options">
+                        <div class="delivery-option">
+                            <input type="radio" id="payment-sbp" name="payment_method" value="sbp" required checked style="display: none;">
+                            <label for="payment-sbp" style="cursor: default;">
+                                <span class="delivery-title">СБП (Система быстрых платежей)</span>
+                                <span class="delivery-time">Моментально</span>
+                            </label>
+                        </div>
+                    </div>
+                    <p style="color: #ccc; font-size: 0.9em; margin-top: 10px;">
+                        После оформления заказа вы получите реквизиты для оплаты по СБП
+                    </p>
+                </div>
 
                 <button type="submit" class="submit-btn">
                     ПОЛУЧИТЬ РЕКВИЗИТЫ ДЛЯ ОПЛАТЫ
@@ -839,19 +862,21 @@
 
     <script>
         // Функция для расчета доставки
-        function calculateShipping(subtotal) {
-            // Бесплатная доставка от 5000 рублей
+        function calculateShipping(subtotal, deliveryMethod = 'cdek') {
+            // Бесплатная доставка от 5000 рублей для любого способа
             if (subtotal >= 5000) {
                 return 0;
             }
-            // Минимальная доставка для мелких заказов
-            else if (subtotal < 1000) {
+            
+            // Расчет стоимости доставки по выбранному способу
+            if (deliveryMethod === 'post') {
                 return 250;
-            }
-            // Стандартная доставка
-            else {
+            } else if (deliveryMethod === 'cdek') {
                 return 500;
             }
+            
+            // По умолчанию СДЭК
+            return 500;
         }
         
         // Функция для загрузки корзины
@@ -909,7 +934,7 @@
                 cartItems.appendChild(cartItem);
             });
             
-            // Расчет доставки
+            // Расчет доставки (по умолчанию СДЭК)
             const shipping = calculateShipping(subtotal);
             const total = subtotal + shipping;
             
@@ -958,12 +983,47 @@
             preorderForm.scrollIntoView({ behavior: 'smooth' });
         }
 
+        // Обработчик изменения способа доставки
+        function initDeliveryHandlers() {
+            const deliveryRadios = document.querySelectorAll('input[name="delivery_method"]');
+            
+            deliveryRadios.forEach(radio => {
+                radio.addEventListener('change', function() {
+                    if (this.checked) {
+                        updateShippingCost(this.value);
+                    }
+                });
+            });
+        }
+
+        // Функция обновления стоимости доставки
+        function updateShippingCost(deliveryMethod) {
+            const cart = JSON.parse(localStorage.getItem('idealism_cart')) || [];
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            
+            const shippingCost = calculateShipping(subtotal, deliveryMethod);
+            const total = subtotal + shippingCost;
+            
+            // Обновляем отображение в корзине
+            const shippingElement = document.getElementById('shipping-cost');
+            if (shippingCost === 0) {
+                shippingElement.textContent = 'БЕСПЛАТНО';
+                shippingElement.className = 'free-shipping';
+            } else {
+                shippingElement.textContent = shippingCost.toLocaleString() + ' ₽';
+                shippingElement.className = '';
+            }
+            
+            document.getElementById('total').textContent = total.toLocaleString() + ' ₽';
+        }
+
         // Обработчик предзаказа
         document.getElementById('preorder-form-data').addEventListener('submit', function(e) {
             e.preventDefault();
             
             const formData = new FormData(this);
             const paymentMethod = formData.get('payment_method');
+            const deliveryMethod = formData.get('delivery_method');
             const cart = JSON.parse(localStorage.getItem('idealism_cart')) || [];
             
             if (cart.length === 0) {
@@ -978,7 +1038,8 @@
                     phone: formData.get('phone'),
                     email: formData.get('email'),
                     address: formData.get('address'),
-                    payment_method: paymentMethod
+                    payment_method: paymentMethod,
+                    delivery_method: deliveryMethod
                 },
                 cart: cart,
                 total: document.getElementById('total').textContent,
@@ -990,146 +1051,152 @@
         });
 
         // Функция показа реквизитов
-function showPaymentDetails(orderData, paymentMethod) {
-    const total = document.getElementById('total').textContent;
-    
-    // Только СБП
-    const paymentInfo = `
-        <div style="text-align: center; padding: 20px;">
-            <h3 style="color: var(--accent); margin-bottom: 20px;">💳 ОПЛАТА ПО СБП</h3>
-            <div style="background: rgba(255,255,255,0.05); padding: 25px; border-radius: 10px; margin: 15px 0; border: 1px solid rgba(255,255,255,0.2);">
-                <div style="margin-bottom: 15px;">
-                    <p style="color: #ccc; margin-bottom: 5px;"><strong>Банк:</strong></p>
-                    <p style="color: var(--accent); font-size: 1.1em;">Тинькофф</p>
+        function showPaymentDetails(orderData, paymentMethod) {
+            const total = document.getElementById('total').textContent;
+            
+            // Только СБП
+            const paymentInfo = `
+                <div style="text-align: center; padding: 20px;">
+                    <h3 style="color: var(--accent); margin-bottom: 20px;">💳 ОПЛАТА ПО СБП</h3>
+                    <div style="background: rgba(255,255,255,0.05); padding: 25px; border-radius: 10px; margin: 15px 0; border: 1px solid rgba(255,255,255,0.2);">
+                        <div style="margin-bottom: 15px;">
+                            <p style="color: #ccc; margin-bottom: 5px;"><strong>Банк:</strong></p>
+                            <p style="color: var(--accent); font-size: 1.1em;">Тинькофф</p>
+                        </div>
+                        <div style="margin-bottom: 15px;">
+                            <p style="color: #ccc; margin-bottom: 5px;"><strong>Номер телефона:</strong></p>
+                            <p style="color: var(--accent); font-size: 1.3em; font-weight: bold;">+7-937-537-31-21</p>
+                        </div>
+                        <div style="margin-bottom: 15px;">
+                            <p style="color: #ccc; margin-bottom: 5px;"><strong>Сумма к оплате:</strong></p>
+                            <p style="color: #4CAF50; font-size: 1.4em; font-weight: bold;">${total}</p>
+                        </div>
+                        <div>
+                            <p style="color: #ccc; margin-bottom: 5px;"><strong>Получатель:</strong></p>
+                            <p style="color: var(--accent); font-size: 1.1em;">Максим В.</p>
+                        </div>
+                    </div>
+                    <div style="background: rgba(255,255,255,0.03); padding: 15px; border-radius: 8px; margin-top: 20px;">
+                        <p style="color: #ccc; font-size: 0.9em; margin-bottom: 10px;">
+                            📱 <strong>Как оплатить:</strong>
+                        </p>
+                        <ol style="color: #ccc; font-size: 0.9em; text-align: left; padding-left: 20px; margin: 0;">
+                            <li>Откройте приложение вашего банка</li>
+                            <li>Выберите "Перевод по СБП"</li>
+                            <li>Введите номер телефона: <strong>+7-937-537-31-21</strong></li>
+                            <li>Укажите сумму: <strong>${total}</strong></li>
+                            <li>Подтвердите перевод</li>
+                        </ol>
+                    </div>
                 </div>
-                <div style="margin-bottom: 15px;">
-                    <p style="color: #ccc; margin-bottom: 5px;"><strong>Номер телефона:</strong></p>
-                    <p style="color: var(--accent); font-size: 1.3em; font-weight: bold;">+7-937-537-31-21</p>
+            `;
+            
+            // Показываем модальное окно с реквизитами
+            const modal = document.createElement('div');
+            modal.id = 'payment-modal';
+            modal.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0,0,0,0.95);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 10000;
+                padding: 20px;
+            `;
+            
+            modal.innerHTML = `
+                <div style="background: var(--darker-bg); padding: 30px; border-radius: 15px; max-width: 500px; width: 100%; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+                    <h2 style="color: var(--accent); text-align: center; margin-bottom: 25px; font-size: 1.8em;">✅ ЗАКАЗ ПРИНЯТ!</h2>
+                    ${paymentInfo}
+                    <div style="margin-top: 30px;">
+                        <button onclick="closePaymentModal()" style="background: transparent; color: var(--accent); border: 2px solid var(--accent); padding: 15px 30px; width: 100%; border-radius: 8px; cursor: pointer; font-size: 1.1em; font-weight: bold; transition: all 0.3s ease;">
+                            Я ОПЛАТИЛ(А)
+                        </button>
+                        <p style="color: #666; font-size: 0.8em; text-align: center; margin-top: 15px;">
+                            Нажмите после завершения перевода
+                        </p>
+                    </div>
                 </div>
-                <div style="margin-bottom: 15px;">
-                    <p style="color: #ccc; margin-bottom: 5px;"><strong>Сумма к оплате:</strong></p>
-                    <p style="color: #4CAF50; font-size: 1.4em; font-weight: bold;">${total}</p>
-                </div>
-                <div>
-                    <p style="color: #ccc; margin-bottom: 5px;"><strong>Получатель:</strong></p>
-                    <p style="color: var(--accent); font-size: 1.1em;">Максим В.</p>
-                </div>
-            </div>
-            <div style="background: rgba(255,255,255,0.03); padding: 15px; border-radius: 8px; margin-top: 20px;">
-                <p style="color: #ccc; font-size: 0.9em; margin-bottom: 10px;">
-                    📱 <strong>Как оплатить:</strong>
-                </p>
-                <ol style="color: #ccc; font-size: 0.9em; text-align: left; padding-left: 20px; margin: 0;">
-                    <li>Откройте приложение вашего банка</li>
-                    <li>Выберите "Перевод по СБП"</li>
-                    <li>Введите номер телефона: <strong>+7-937-537-31-21</strong></li>
-                    <li>Укажите сумму: <strong>${total}</strong></li>
-                    <li>Подтвердите перевод</li>
-                </ol>
-            </div>
-        </div>
-    `;
-    
-    // Показываем модальное окно с реквизитами
-    const modal = document.createElement('div');
-    modal.id = 'payment-modal';
-    modal.style.cssText = `
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0,0,0,0.95);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        z-index: 10000;
-        padding: 20px;
-    `;
-    
-    modal.innerHTML = `
-        <div style="background: var(--darker-bg); padding: 30px; border-radius: 15px; max-width: 500px; width: 100%; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
-            <h2 style="color: var(--accent); text-align: center; margin-bottom: 25px; font-size: 1.8em;">✅ ЗАКАЗ ПРИНЯТ!</h2>
-            ${paymentInfo}
-            <div style="margin-top: 30px;">
-                <button onclick="closePaymentModal()" style="background: transparent; color: var(--accent); border: 2px solid var(--accent); padding: 15px 30px; width: 100%; border-radius: 8px; cursor: pointer; font-size: 1.1em; font-weight: bold; transition: all 0.3s ease;">
-                    Я ОПЛАТИЛ(А)
-                </button>
-                <p style="color: #666; font-size: 0.8em; text-align: center; margin-top: 15px;">
-                    Нажмите после завершения перевода
-                </p>
-            </div>
-        </div>
-    `;
-    
-    document.body.appendChild(modal);
-    
-    // Отправляем уведомление в Telegram
-    sendToTelegram(orderData);
-}
+            `;
+            
+            document.body.appendChild(modal);
+            
+            // Отправляем уведомление в Telegram
+            sendToTelegram(orderData);
+        }
+
         function closePaymentModal() {
-    const modal = document.getElementById('payment-modal');
-    if (modal) {
-        document.body.removeChild(modal);
-    }
-    
-    // Очищаем корзину после оплаты
-    localStorage.removeItem('idealism_cart');
-    loadCart();
-    
-    showNotification('Спасибо за заказ! Мы свяжемся с вами для подтверждения оплаты.');
-    
-    // Скрываем форму предзаказа
-    document.getElementById('preorder-form').style.display = 'none';
-}
+            const modal = document.getElementById('payment-modal');
+            if (modal) {
+                document.body.removeChild(modal);
+            }
+            
+            // Очищаем корзину после оплаты
+            localStorage.removeItem('idealism_cart');
+            loadCart();
+            
+            showNotification('Спасибо за заказ! Мы свяжемся с вами для подтверждения оплаты.');
+            
+            // Скрываем форму предзаказа
+            document.getElementById('preorder-form').style.display = 'none';
+        }
 
         // Функция отправки в Telegram
-function sendToTelegram(orderData) {
-    const botToken = '8104087941:AAEnnNfCu7p-xQ3dT0MH64JEpVfnNHekhO8';
-    const chatId = '1300812670';
-    
-    // Формируем сообщение
-    let message = `🛍️ *НОВЫЙ ПРЕДЗАКАЗ* 🛍️\n\n`;
-    message += `*Клиент:* ${orderData.customer.name}\n`;
-    message += `*Телефон:* ${orderData.customer.phone}\n`;
-    message += `*Email:* ${orderData.customer.email}\n`;
-    message += `*Адрес:* ${orderData.customer.address}\n`;
-    message += `*Оплата:* СБП\n`;
-    
-    message += `\n*Товары:*\n`;
-    orderData.cart.forEach(item => {
-        message += `- ${item.name} (${item.size || 'без размера'}) x${item.quantity} - ${item.price * item.quantity}₽\n`;
-    });
-    
-    message += `\n*Итого:* ${orderData.total}\n`;
-    message += `*Дата:* ${orderData.order_date}\n`;
-    message += `*ID заказа:* #${Math.random().toString(36).substr(2, 9).toUpperCase()}\n\n`;
-    message += `💳 *Ожидает оплаты по СБП*\n`;
-    message += `📞 *Телефон для перевода:* +7-937-537-31-21`;
-    
-    // Отправляем запрос в Telegram
-    fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-            chat_id: chatId,
-            text: message,
-            parse_mode: 'Markdown'
-        })
-    })
-    .then(response => response.json())
-    .then(data => {
-        console.log('Сообщение отправлено в Telegram:', data);
-        if (!data.ok) {
-            console.error('Ошибка Telegram:', data);
+        function sendToTelegram(orderData) {
+            const botToken = '8104087941:AAEnnNfCu7p-xQ3dT0MH64JEpVfnNHekhO8';
+            const chatId = '1300812670';
+            
+            // Определяем способ доставки
+            const deliveryText = orderData.customer.delivery_method === 'post' ? 
+                'Почта России (250 ₽)' : 'СДЭК (500 ₽)';
+            
+            // Формируем сообщение
+            let message = `🛍️ *НОВЫЙ ПРЕДЗАКАЗ* 🛍️\n\n`;
+            message += `*Клиент:* ${orderData.customer.name}\n`;
+            message += `*Телефон:* ${orderData.customer.phone}\n`;
+            message += `*Email:* ${orderData.customer.email}\n`;
+            message += `*Адрес:* ${orderData.customer.address}\n`;
+            message += `*Доставка:* ${deliveryText}\n`;
+            message += `*Оплата:* СБП\n`;
+            
+            message += `\n*Товары:*\n`;
+            orderData.cart.forEach(item => {
+                message += `- ${item.name} (${item.size || 'без размера'}) x${item.quantity} - ${item.price * item.quantity}₽\n`;
+            });
+            
+            message += `\n*Итого:* ${orderData.total}\n`;
+            message += `*Дата:* ${orderData.order_date}\n`;
+            message += `*ID заказа:* #${Math.random().toString(36).substr(2, 9).toUpperCase()}\n\n`;
+            message += `💳 *Ожидает оплаты по СБП*\n`;
+            message += `📞 *Телефон для перевода:* +7-937-537-31-21`;
+            
+            // Отправляем запрос в Telegram
+            fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    chat_id: chatId,
+                    text: message,
+                    parse_mode: 'Markdown'
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Сообщение отправлено в Telegram:', data);
+                if (!data.ok) {
+                    console.error('Ошибка Telegram:', data);
+                }
+            })
+            .catch(error => {
+                console.error('Ошибка отправки в Telegram:', error);
+            });
         }
-    })
-    .catch(error => {
-        console.error('Ошибка отправки в Telegram:', error);
-    });
-}
         
         // Функция для показа уведомления
         function showNotification(message) {
@@ -1168,6 +1235,7 @@ function sendToTelegram(orderData) {
         // Загружаем корзину когда страница загрузилась
         document.addEventListener('DOMContentLoaded', function() {
             loadCart();
+            initDeliveryHandlers();
             
             // Обработчики для формы предзаказа
             document.getElementById('open-checkout-form').addEventListener('click', showPreorderForm);
