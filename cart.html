@@ -731,25 +731,25 @@
             <button class="checkout-btn" id="open-checkout-form">ОФОРМИТЬ ЗАКАЗ</button>
         </div>
         
-        <!-- Форма оформления заказа -->
-        <div id="checkout-form" class="checkout-form">
-            <h2 class="form-title">Оформление заказа</h2>
-            <form id="order-form">
+               <!-- НОВАЯ ФОРМА ПРЕДЗАКАЗА -->
+        <div id="preorder-form" class="checkout-form" style="display: none;">
+            <h2 class="form-title">ОФОРМЛЕНИЕ ПРЕДЗАКАЗА</h2>
+            
+            <div style="background: rgba(76, 175, 80, 0.1); padding: 20px; border-radius: 10px; margin-bottom: 20px; border: 1px solid #4CAF50;">
+                <h3 style="color: #4CAF50; margin-bottom: 10px;">🎯 УСЛОВИЯ ПРЕДЗАКАЗА:</h3>
+                <ul style="color: #ccc; list-style: none; padding: 0;">
+                    <li>✓ Вносите 100% предоплату</li>
+                    <li>✓ Производство: 3-5 рабочих дней</li>
+                    <li>✓ Доставка: 2-7 дней по России</li>
+                    <li>✓ Отслеживание заказа в Telegram</li>
+                </ul>
+            </div>
+
+            <form id="preorder-form-data">
                 <div class="form-row">
                     <div class="form-group">
                         <label class="form-label">Имя *</label>
                         <input type="text" class="form-input" name="name" required>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Фамилия *</label>
-                        <input type="text" class="form-input" name="surname" required>
-                    </div>
-                </div>
-                
-                <div class="form-row">
-                    <div class="form-group">
-                        <label class="form-label">Email *</label>
-                        <input type="email" class="form-input" name="email" required>
                     </div>
                     <div class="form-group">
                         <label class="form-label">Телефон *</label>
@@ -758,50 +758,38 @@
                 </div>
                 
                 <div class="form-group">
+                    <label class="form-label">Email *</label>
+                    <input type="email" class="form-input" name="email" required>
+                </div>
+                
+                <div class="form-group">
                     <label class="form-label">Адрес доставки *</label>
                     <input type="text" class="form-input" name="address" required placeholder="Город, улица, дом, квартира">
                 </div>
 
-                              <!-- БЛОК ВЫБОРА ДОСТАВКИ -->
+                <!-- СПОСОБ ОПЛАТЫ -->
                 <div class="form-group">
-                    <label class="form-label">Способ доставки *</label>
+                    <label class="form-label">Способ оплаты *</label>
                     <div class="delivery-options">
                         <div class="delivery-option">
-                            <input type="radio" id="delivery-cdek" name="delivery_method" value="cdek" required>
-                            <label for="delivery-cdek">
-                                <span class="delivery-title">СДЭК</span>
-                                <span class="delivery-time">2-5 дней</span>
-                                <span class="delivery-price">500 ₽</span>
+                            <input type="radio" id="payment-sbp" name="payment_method" value="sbp" required checked>
+                            <label for="payment-sbp">
+                                <span class="delivery-title">СБП (Система быстрых платежей)</span>
+                                <span class="delivery-time">Моментально</span>
                             </label>
                         </div>
                         <div class="delivery-option">
-                            <input type="radio" id="delivery-post" name="delivery_method" value="post" required>
-                            <label for="delivery-post">
-                                <span class="delivery-title">Почта России</span>
-                                <span class="delivery-time">7-14 дней</span>
-                                <span class="delivery-price">250 ₽</span>
+                            <input type="radio" id="payment-tinkoff" name="payment_method" value="tinkoff" required>
+                            <label for="payment-tinkoff">
+                                <span class="delivery-title">Тинькофф-перевод</span>
+                                <span class="delivery-time">По ссылке</span>
                             </label>
                         </div>
-                    </div> <!-- Закрывающий тег для delivery-options -->
-                </div> <!-- Закрывающий тег для form-group -->
+                    </div>
+                </div>
 
-                
-                <div class="form-group">
-                    <label class="form-label">Комментарий к заказу</label>
-                    <textarea class="form-input" name="comment" rows="3" placeholder="Дополнительные пожелания..."></textarea>
-                </div>
-                
-                <div class="form-group">
-                    <label class="form-label">Способ оплаты</label>
-                    <select class="form-input" name="payment_method" required>
-                        <option value="">Выберите способ оплаты</option>
-                        <option value="card">Банковская карта</option>
-                        <option value="sbp">СБП</option>
-                    </select>
-                </div>
-                
-                <button type="submit" class="submit-btn" id="submit-order">
-                    ПОДТВЕРДИТЬ ЗАКАЗ
+                <button type="submit" class="submit-btn">
+                    ПОЛУЧИТЬ РЕКВИЗИТЫ ДЛЯ ОПЛАТЫ
                 </button>
             </form>
         </div>
@@ -855,22 +843,20 @@
 
     <script>
         // Функция для расчета доставки
-function calculateShipping(subtotal, deliveryMethod = null) {
-    // Бесплатная доставка от 5000 рублей для любого способа
-    if (subtotal >= 5000) {
-        return 0;
-    }
-    
-    // Если способ доставки выбран в форме
-    if (deliveryMethod === 'cdek') {
-        return 500;
-    } else if (deliveryMethod === 'post') {
-        return 250;
-    }
-    
-    // По умолчанию (до выбора способа) - показываем минимальную
-    return 250;
-}
+        function calculateShipping(subtotal) {
+            // Бесплатная доставка от 5000 рублей
+            if (subtotal >= 5000) {
+                return 0;
+            }
+            // Минимальная доставка для мелких заказов
+            else if (subtotal < 1000) {
+                return 250;
+            }
+            // Стандартная доставка
+            else {
+                return 500;
+            }
+        }
         
         // Функция для загрузки корзины
         function loadCart() {
@@ -878,13 +864,13 @@ function calculateShipping(subtotal, deliveryMethod = null) {
             const cartItems = document.getElementById('cart-items');
             const cartSummary = document.getElementById('cart-summary');
             const emptyCart = document.getElementById('empty-cart');
-            const checkoutForm = document.getElementById('checkout-form');
+            const preorderForm = document.getElementById('preorder-form');
             
             // Если корзина пуста
             if (cart.length === 0) {
                 cartSummary.style.display = 'none';
                 emptyCart.style.display = 'block';
-                checkoutForm.classList.remove('active');
+                preorderForm.style.display = 'none';
                 cartItems.innerHTML = '';
                 return;
             }
@@ -892,7 +878,7 @@ function calculateShipping(subtotal, deliveryMethod = null) {
             // Если есть товары
             emptyCart.style.display = 'none';
             cartSummary.style.display = 'block';
-            checkoutForm.classList.remove('active');
+            preorderForm.style.display = 'none';
             cartItems.innerHTML = '';
             
             let subtotal = 0;
@@ -945,39 +931,7 @@ function calculateShipping(subtotal, deliveryMethod = null) {
             
             document.getElementById('total').textContent = total.toLocaleString() + ' ₽';
         }
-                // Обработчик изменения способа доставки
-        function initDeliveryHandlers() {
-            const deliveryRadios = document.querySelectorAll('input[name="delivery_method"]');
-            
-            deliveryRadios.forEach(radio => {
-                radio.addEventListener('change', function() {
-                    if (this.checked) {
-                        updateShippingCost(this.value);
-                    }
-                });
-            });
-        }
-
-        // Функция обновления стоимости доставки
-        function updateShippingCost(deliveryMethod) {
-            const cart = JSON.parse(localStorage.getItem('idealism_cart')) || [];
-            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-            
-            const shippingCost = calculateShipping(subtotal, deliveryMethod);
-            const total = subtotal + shippingCost;
-            
-            // Обновляем отображение в корзине
-            const shippingElement = document.getElementById('shipping-cost');
-            if (shippingCost === 0) {
-                shippingElement.textContent = 'БЕСПЛАТНО';
-                shippingElement.className = 'free-shipping';
-            } else {
-                shippingElement.textContent = shippingCost.toLocaleString() + ' ₽';
-                shippingElement.className = '';
-            }
-            
-            document.getElementById('total').textContent = total.toLocaleString() + ' ₽';
-        }
+        
         // Функция для обновления количества товара
         function updateQuantity(index, change) {
             const cart = JSON.parse(localStorage.getItem('idealism_cart')) || [];
@@ -1001,116 +955,170 @@ function calculateShipping(subtotal, deliveryMethod = null) {
             loadCart();
         }
         
-        // Функция для показа формы заказа
-        function showCheckoutForm() {
-            const checkoutForm = document.getElementById('checkout-form');
-            checkoutForm.classList.add('active');
-            checkoutForm.scrollIntoView({ behavior: 'smooth' });
+        // Функция для показа формы предзаказа
+        function showPreorderForm() {
+            const preorderForm = document.getElementById('preorder-form');
+            preorderForm.style.display = 'block';
+            preorderForm.scrollIntoView({ behavior: 'smooth' });
         }
-        
-        // Функция для отправки заказа
-function submitOrder(event) {
-    event.preventDefault();
-    
-    const cart = JSON.parse(localStorage.getItem('idealism_cart')) || [];
-    if (cart.length === 0) {
-        alert('Корзина пуста!');
-        return;
-    }
-    
-    const formData = new FormData(document.getElementById('order-form'));
-    const selectedDelivery = document.querySelector('input[name="delivery_method"]:checked');
-    const deliveryMethod = selectedDelivery ? selectedDelivery.value : 'не указан';
-    
-    const orderData = {
-        customer: {
-            name: formData.get('name'),
-            surname: formData.get('surname'),
-            email: formData.get('email'),
-            phone: formData.get('phone'),
-            address: formData.get('address'),
-            comment: formData.get('comment'),
-            payment_method: formData.get('payment_method'),
-            delivery_method: deliveryMethod // ← ДОБАВЛЕНО
-        },
-        cart: cart,
-        total: document.getElementById('total').textContent,
-        order_date: new Date().toLocaleString('ru-RU')
-    };
-    
-    // Показываем уведомление
-    showNotification('Заказ отправлен! Мы свяжемся с вами в ближайшее время.');
-    
-    // Отправляем в Telegram
-    sendToTelegram(orderData);
-    
-    // Очищаем корзину после заказа
-    localStorage.removeItem('idealism_cart');
-    
-    // Показываем сообщение об успехе
-    setTimeout(() => {
-        alert('Заказ успешно оформлен! Номер заказа: #' + Math.random().toString(36).substr(2, 9).toUpperCase());
-        loadCart();
-    }, 1000);
-}
 
-       // Функция отправки в Telegram
-function sendToTelegram(orderData) {
-    const botToken = '8104087941:AAEnnNfCu7p-xQ3dT0MH64JEpVfnNHekhO8';
-    const chatId = '1300812670';
-    
-    // Получаем выбранный способ доставки
-    const selectedDelivery = document.querySelector('input[name="delivery_method"]:checked');
-    const deliveryMethod = selectedDelivery ? selectedDelivery.value : 'не указан';
-    const deliveryText = deliveryMethod === 'cdek' ? 'СДЭК (500 ₽)' : 
-                        deliveryMethod === 'post' ? 'Почта России (250 ₽)' : 
-                        'не указан';
-    
-    // Формируем сообщение
-    let message = `🛍️ *НОВЫЙ ЗАКАЗ* 🛍️\n\n`;
-    message += `*Клиент:* ${orderData.customer.name} ${orderData.customer.surname}\n`;
-    message += `*Телефон:* ${orderData.customer.phone}\n`;
-    message += `*Email:* ${orderData.customer.email}\n`;
-    message += `*Адрес:* ${orderData.customer.address}\n`;
-    message += `*Способ доставки:* ${deliveryText}\n`; // ← ДОБАВЛЕНО
-    message += `*Способ оплаты:* ${orderData.customer.payment_method}\n`;
-    
-    if (orderData.customer.comment) {
-        message += `*Комментарий:* ${orderData.customer.comment}\n`;
-    }
-    
-    message += `\n*Товары:*\n`;
-    orderData.cart.forEach(item => {
-        message += `- ${item.name} (${item.size || 'без размера'}) x${item.quantity} - ${item.price * item.quantity}₽\n`;
-    });
-    
-    message += `\n*Итого:* ${orderData.total}\n`;
-    message += `*Дата:* ${orderData.order_date}\n`;
-    message += `*ID заказа:* #${Math.random().toString(36).substr(2, 9).toUpperCase()}`;
-    
-    // Отправляем запрос в Telegram
-    fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-            chat_id: chatId,
-            text: message,
-            parse_mode: 'Markdown'
-        })
-    })
-    .then(response => response.json())
-    .then(data => {
-        console.log('Сообщение отправлено в Telegram:', data);
-        if (!data.ok) {
-            console.error('Ошибка Telegram:', data);
+        // Обработчик предзаказа
+        document.getElementById('preorder-form-data').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            const paymentMethod = formData.get('payment_method');
+            const cart = JSON.parse(localStorage.getItem('idealism_cart')) || [];
+            
+            if (cart.length === 0) {
+                alert('Корзина пуста!');
+                return;
+            }
+            
+            // Собираем данные заказа
+            const orderData = {
+                customer: {
+                    name: formData.get('name'),
+                    phone: formData.get('phone'),
+                    email: formData.get('email'),
+                    address: formData.get('address'),
+                    payment_method: paymentMethod
+                },
+                cart: cart,
+                total: document.getElementById('total').textContent,
+                order_date: new Date().toLocaleString('ru-RU')
+            };
+            
+            // Показываем реквизиты для оплаты
+            showPaymentDetails(orderData, paymentMethod);
+        });
+
+        // Функция показа реквизитов
+        function showPaymentDetails(orderData, paymentMethod) {
+            const total = document.getElementById('total').textContent;
+            
+            let paymentInfo = '';
+            
+            if (paymentMethod === 'sbp') {
+                paymentInfo = `
+                    <div style="text-align: center; padding: 20px;">
+                        <h3 style="color: var(--accent); margin-bottom: 20px;">💳 ОПЛАТА ПО СБП</h3>
+                        <div style="background: rgba(255,255,255,0.05); padding: 20px; border-radius: 10px; margin: 15px 0;">
+                            <p><strong>Банк:</strong> Тинькофф</p>
+                            <p><strong>Номер телефона:</strong> +7-937-537-31-21</p>
+                            <p><strong>Сумма:</strong> ${total}</p>
+                            <p><strong>Получатель:</strong> Максим В.</p>
+                        </div>
+                        <p style="color: #ccc; font-size: 0.9em;">После оплаты пришлите скриншот в Telegram: @ваш_аккаунт</p>
+                    </div>
+                `;
+            } else if (paymentMethod === 'tinkoff') {
+                paymentInfo = `
+                    <div style="text-align: center; padding: 20px;">
+                        <h3 style="color: var(--accent); margin-bottom: 20px;">📱 ТИНЬКОФФ-ПЕРЕВОД</h3>
+                        <div style="background: rgba(255,255,255,0.05); padding: 20px; border-radius: 10px; margin: 15px 0;">
+                            <p><strong>Ссылка для оплаты:</strong></p>
+                            <a href="https://tinkoff.ru/..." style="color: var(--accent); word-break: break-all;">https://tinkoff.ru/...</a>
+                            <p><strong>Сумма:</strong> ${total}</p>
+                        </div>
+                        <p style="color: #ccc; font-size: 0.9em;">Или переведите на карту: 2200 7001 2345 6789</p>
+                    </div>
+                `;
+            }
+            
+            // Показываем модальное окно с реквизитами
+            const modal = document.createElement('div');
+            modal.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0,0,0,0.9);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 10000;
+                padding: 20px;
+            `;
+            
+            modal.innerHTML = `
+                <div style="background: var(--darker-bg); padding: 30px; border-radius: 15px; max-width: 500px; width: 100%; border: 1px solid rgba(255,255,255,0.1);">
+                    <h2 style="color: var(--accent); text-align: center; margin-bottom: 20px;">✅ ЗАКАЗ ПРИНЯТ!</h2>
+                    ${paymentInfo}
+                    <div style="margin-top: 25px;">
+                        <button onclick="closePaymentModal()" style="background: transparent; color: var(--accent); border: 1px solid var(--accent); padding: 12px 30px; width: 100%; border-radius: 5px; cursor: pointer;">
+                            Я ОПЛАТИЛ(А)
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            document.body.appendChild(modal);
+            
+            // Отправляем уведомление в Telegram
+            sendToTelegram(orderData);
         }
-    })
-    .catch(error => {
-        console.error('Ошибка отправки в Telegram:', error);
-    });
-}
+
+        function closePaymentModal() {
+            const modal = document.querySelector('div[style*="position: fixed; top: 0; left: 0;"]');
+            if (modal) {
+                document.body.removeChild(modal);
+            }
+            
+            // Очищаем корзину после оплаты
+            localStorage.removeItem('idealism_cart');
+            loadCart();
+            
+            showNotification('Спасибо за заказ! Мы свяжемся с вами для подтверждения оплаты.');
+        }
+
+        // Функция отправки в Telegram
+        function sendToTelegram(orderData) {
+            const botToken = '8104087941:AAEnnNfCu7p-xQ3dT0MH64JEpVfnNHekhO8';
+            const chatId = '1300812670';
+            
+            // Формируем сообщение
+            let message = `🛍️ *НОВЫЙ ПРЕДЗАКАЗ* 🛍️\n\n`;
+            message += `*Клиент:* ${orderData.customer.name}\n`;
+            message += `*Телефон:* ${orderData.customer.phone}\n`;
+            message += `*Email:* ${orderData.customer.email}\n`;
+            message += `*Адрес:* ${orderData.customer.address}\n`;
+            message += `*Способ оплаты:* ${orderData.customer.payment_method}\n`;
+            
+            message += `\n*Товары:*\n`;
+            orderData.cart.forEach(item => {
+                message += `- ${item.name} (${item.size || 'без размера'}) x${item.quantity} - ${item.price * item.quantity}₽\n`;
+            });
+            
+            message += `\n*Итого:* ${orderData.total}\n`;
+            message += `*Дата:* ${orderData.order_date}\n`;
+            message += `*ID заказа:* #${Math.random().toString(36).substr(2, 9).toUpperCase()}\n\n`;
+            message += `💳 *Ожидает оплаты по ${orderData.customer.payment_method === 'sbp' ? 'СБП' : 'Тинькофф'}*`;
+            
+            // Отправляем запрос в Telegram
+            fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    chat_id: chatId,
+                    text: message,
+                    parse_mode: 'Markdown'
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Сообщение отправлено в Telegram:', data);
+                if (!data.ok) {
+                    console.error('Ошибка Telegram:', data);
+                }
+            })
+            .catch(error => {
+                console.error('Ошибка отправки в Telegram:', error);
+            });
+        }
         
         // Функция для показа уведомления
         function showNotification(message) {
@@ -1146,15 +1154,12 @@ function sendToTelegram(orderData) {
             }, 3000);
         }
 
-        
-                // Загружаем корзину когда страница загрузилась
+        // Загружаем корзину когда страница загрузилась
         document.addEventListener('DOMContentLoaded', function() {
             loadCart();
-            initDeliveryHandlers(); // ← ДОБАВЬ ЭТУ СТРОЧКУ
             
-            // Обработчики для формы заказа
-            document.getElementById('open-checkout-form').addEventListener('click', showCheckoutForm);
-            document.getElementById('order-form').addEventListener('submit', submitOrder);
+            // Обработчики для формы предзаказа
+            document.getElementById('open-checkout-form').addEventListener('click', showPreorderForm);
         });
         
         // БУРГЕР-МЕНЮ
