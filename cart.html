@@ -36,7 +36,7 @@
         }
         .header-container { 
             display: flex; 
-            justify-content: space-between; 
+            justify-content: space-between; А
             align-items: center; 
         }
         .logo { 
@@ -1028,6 +1028,7 @@
             
             // Показываем модальное окно с реквизитами
             const modal = document.createElement('div');
+            modal.id = 'payment-modal';
             modal.style.cssText = `
                 position: fixed;
                 top: 0;
