@@ -1061,17 +1061,20 @@
         }
 
         function closePaymentModal() {
-            const modal = document.querySelector('div[style*="position: fixed; top: 0; left: 0;"]');
-            if (modal) {
-                document.body.removeChild(modal);
-            }
-            
-            // Очищаем корзину после оплаты
-            localStorage.removeItem('idealism_cart');
-            loadCart();
-            
-            showNotification('Спасибо за заказ! Мы свяжемся с вами для подтверждения оплаты.');
-        }
+    const modal = document.getElementById('payment-modal');
+    if (modal) {
+        document.body.removeChild(modal);
+    }
+    
+    // Очищаем корзину после оплаты
+    localStorage.removeItem('idealism_cart');
+    loadCart();
+    
+    showNotification('Спасибо за заказ! Мы свяжемся с вами для подтверждения оплаты.');
+    
+    // Скрываем форму предзаказа
+    document.getElementById('preorder-form').style.display = 'none';
+}
 
         // Функция отправки в Telegram
         function sendToTelegram(orderData) {
