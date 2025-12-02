@@ -267,7 +267,7 @@
             left: 0;
         }
 
-        /* ABOUT SECTION */
+        /* ABOUT SECTION - ПЕРЕРАБОТАНА */
         .about-idealism {
             padding: 120px 0;
             background: rgba(15, 15, 15, 0.7);
@@ -301,7 +301,7 @@
             transform: translateY(30px);
         }
         
-        /* UNIFIED IDEALISM BLOCK */
+        /* UNIFIED IDEALISM BLOCK - РАСШИРЕН */
         .unified-idealism-block {
             background: rgba(255, 255, 255, 0.03);
             border-radius: 20px;
@@ -338,46 +338,62 @@
             font-style: italic;
         }
 
+        .quote-highlight {
+            color: var(--accent);
+            font-weight: 500;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+        }
+
+        /* НОВАЯ СЕТКА 3x2 ДЛЯ СУЩНОСТЕЙ */
         .idealism-essence {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 40px;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
         }
 
         .essence-item {
             display: flex;
-            align-items: flex-start;
-            gap: 20px;
-            padding: 25px;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 35px 25px;
             background: rgba(255, 255, 255, 0.02);
             border-radius: 15px;
             border: 1px solid rgba(255, 255, 255, 0.05);
             transition: all 0.3s ease;
+            min-height: 280px;
         }
 
         .essence-item:hover {
             background: rgba(255, 255, 255, 0.05);
-            border-color: rgba(255, 255, 255, 0.1);
-            transform: translateY(-5px);
+            border-color: rgba(255, 255, 255, 0.15);
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
         }
 
         .essence-icon {
-            font-size: 2.5em;
-            flex-shrink: 0;
-            filter: drop-shadow(0 0 10px var(--accent-glow));
+            font-size: 3em;
+            margin-bottom: 25px;
+            filter: drop-shadow(0 0 15px var(--accent-glow));
+            transition: all 0.3s ease;
+        }
+
+        .essence-item:hover .essence-icon {
+            transform: scale(1.2);
         }
 
         .essence-content h3 {
             color: var(--accent);
-            font-size: 1.3em;
-            margin-bottom: 10px;
+            font-size: 1.4em;
+            margin-bottom: 15px;
             font-weight: 500;
             letter-spacing: 1px;
+            line-height: 1.3;
         }
 
         .essence-content p {
             color: #ccc;
-            line-height: 1.6;
+            line-height: 1.7;
             font-size: 1.05em;
         }
 
@@ -638,6 +654,12 @@
         }
 
         /* MOBILE STYLES */
+        @media (max-width: 1024px) {
+            .idealism-essence {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
         @media (max-width: 768px) {
             .container {
                 padding: 0 15px;
@@ -761,12 +783,18 @@
             }
             
             .idealism-essence {
-                grid-template-columns: 1fr;
+                grid-template-columns: 1fr !important;
                 gap: 20px;
             }
             
             .essence-item {
-                padding: 20px;
+                padding: 25px 20px;
+                min-height: auto;
+            }
+            
+            .essence-icon {
+                font-size: 2.5em;
+                margin-bottom: 20px;
             }
             
             .principles h2 {
@@ -799,7 +827,6 @@
             }
 
             .cookies-notification {
-                bottom: 10px;
                 left: 5%;
                 right: 5%;
                 width: 90%;
@@ -843,7 +870,7 @@
             }
         }
     </style>
-
+</head>
 
 <body>
     <!-- PARALLAX BACKGROUND -->
@@ -889,35 +916,68 @@
         </div>
     </section>
 
-    <!-- ABOUT SECTION -->
+    <!-- ABOUT SECTION - ПЕРЕРАБОТАНА -->
     <section class="about-idealism section-animate" id="about">
         <div class="container">
             <div class="about-content">
-                <h2 class="about-title">Что такое ИДЕАЛИЗМ?</h2>
+                <h2 class="about-title">Философия ИДЕАЛИЗМА</h2>
                 
                 <div class="unified-idealism-block">
                     <div class="main-paradox">
                         <p class="paradox-text">
-                            «21 век поставил человечество перед парадоксом: имея невиданный доступ к знаниям и технологиям, 
-                            люди всё чаще становятся пассивными потребителями цифрового контента. 
-                            <span class="quote-highlight">Идеализм — это ответ на этот вызов. Это философия создателя в эпоху потребителя.</span>»
+                            «В эпоху цифрового потребительства Идеализм — это бунт против пассивности. 
+                            Это осознанный выбор становиться создателем в мире, где большинство предпочитает лишь потреблять. 
+                            <span class="quote-highlight">Не просто мечтать, а воплощать. Не просто хотеть, а достигать.</span>»
                         </p>
                     </div>
                     
+                    <!-- РАСШИРЕННАЯ СЕТКА 3x2 -->
                     <div class="idealism-essence">
                         <div class="essence-item">
-                            <div class="essence-icon">💭</div>
+                            <div class="essence-icon">⚡</div>
                             <div class="essence-content">
-                                <h3>Внутренняя составляющая</h3>
-                                <p>Идеализм выводит на первый план стремления и мысли людей, ставя на первое место их внутреннюю составляющую</p>
+                                <h3>Сознательное Действие</h3>
+                                <p>Идеализм — это осознанный выбор активности над пассивностью. Каждое решение, каждое действие — шаг к созданию реальности, а не просто реакция на неё.</p>
                             </div>
                         </div>
                         
                         <div class="essence-item">
-                            <div class="essence-icon">⚡</div>
+                            <div class="essence-icon">🎯</div>
                             <div class="essence-content">
-                                <h3>Сознательная активность</h3>
-                                <p>Идеализм - это про сознательную активность и цифровой суверенитет в современном мире</p>
+                                <h3>Приоритет Внутреннего</h3>
+                                <p>Мы ставим на первое место не внешние обстоятельства, а внутренние установки. Ваши убеждения, ценности и цели формируют реальность вокруг вас.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="essence-item">
+                            <div class="essence-icon">🚀</div>
+                            <div class="essence-content">
+                                <h3>Процесс как Ценность</h3>
+                                <p>Идеализм учит ценить путь, а не только конечную точку. Каждый этап развития — это возможность для роста, обучения и самопознания.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="essence-item">
+                            <div class="essence-icon">🛡️</div>
+                            <div class="essence-content">
+                                <h3>Цифровой Суверенитет</h3>
+                                <p>В мире алгоритмов и бесконечного контента мы выбираем сознательное взаимодействие с технологиями, а не зависимость от них.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="essence-item">
+                            <div class="essence-icon">🌱</div>
+                            <div class="essence-content">
+                                <h3>Эволюция Личности</h3>
+                                <p>Идеализм — это постоянное движение. Сравнение не с другими, а с собой вчерашним. Каждый день — возможность стать лучше, умнее, сильнее.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="essence-item">
+                            <div class="essence-icon">🌍</div>
+                            <div class="essence-content">
+                                <h3>Глобальное Влияние</h3>
+                                <p>Начиная с изменений в себе, мы создаём волну перемен в мире. Локальные действия с глобальным мышлением — формула идеалиста.</p>
                             </div>
                         </div>
                     </div>
@@ -1101,10 +1161,11 @@
                 if (entry.isIntersecting) {
                     entry.target.classList.add('visible');
                     
-                    // About section animations
+                    // About section animations - ОБНОВЛЕННЫЕ
                     if (entry.target.id === 'about') {
                         const aboutTitle = entry.target.querySelector('.about-title');
                         const unifiedBlock = entry.target.querySelector('.unified-idealism-block');
+                        const essenceItems = entry.target.querySelectorAll('.essence-item');
                         
                         setTimeout(() => {
                             if (aboutTitle) {
@@ -1119,6 +1180,14 @@
                                 unifiedBlock.style.transform = "translateY(0)";
                             }
                         }, 500);
+                        
+                        // Анимация для элементов сущности
+                        essenceItems.forEach((item, index) => {
+                            setTimeout(() => {
+                                item.style.opacity = "1";
+                                item.style.transform = "translateY(0)";
+                            }, 700 + (index * 100));
+                        });
                     }
                     
                     // Principles section animations
@@ -1139,6 +1208,12 @@
                                 card.style.transform = "translateY(0) rotateX(0deg)";
                             }, 500 + (index * 200));
                         });
+                    }
+                    
+                    // Footer animation
+                    if (entry.target.tagName === 'FOOTER') {
+                        entry.target.style.opacity = "1";
+                        entry.target.style.transform = "translateY(0)";
                     }
                 }
             });
@@ -1185,7 +1260,6 @@
         updateCartCount();
     }
 </script>
-        <!-- Остальной код head -->
 
     <!-- Yandex.Metrika counter -->
     <script type="text/javascript">
