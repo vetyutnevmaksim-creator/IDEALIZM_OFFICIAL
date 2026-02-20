@@ -126,35 +126,6 @@
             width: 100%;
         }
 
-        /* CART ICON */
-        .cart-icon {
-            position: relative;
-            font-size: 1.5em;
-            padding: 10px;
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-
-        .cart-icon:hover {
-            transform: scale(1.1);
-        }
-
-        .cart-count {
-            position: absolute;
-            top: 0;
-            right: 0;
-            background: var(--accent);
-            color: var(--dark-bg);
-            border-radius: 50%;
-            width: 20px;
-            height: 20px;
-            font-size: 0.7em;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-        }
-
         /* BURGER MENU */
         .menu-toggle {
             display: none;
@@ -724,8 +695,6 @@
             #main-menu.active li:nth-child(2) { transition-delay: 0.15s; }
             #main-menu.active li:nth-child(3) { transition-delay: 0.2s; }
             #main-menu.active li:nth-child(4) { transition-delay: 0.25s; }
-            #main-menu.active li:nth-child(5) { transition-delay: 0.3s; }
-            #main-menu.active li:nth-child(6) { transition-delay: 0.35s; }
             
             #main-menu a {
                 font-size: 1.1em;
@@ -741,10 +710,6 @@
             #main-menu a:hover {
                 background: rgba(255,255,255,0.1);
                 border-color: var(--accent);
-            }
-            
-            .cart-icon {
-                display: none;
             }
             
             .hero-content h1 {
@@ -885,17 +850,9 @@
                     <li><a href="index.html" style="color: var(--accent);">Главная</a></li>
                     <li><a href="policy.html">Политика</a></li>
                     <li><a href="book.html">Книга</a></li>
-                    <li><a href="shop.html">Магазин</a></li>
-                    <li><a href="cart.html">Корзина</a></li>
                     <li><a href="community.html">Сообщество</a></li>
                 </ul>
             </nav>
-            
-            <!-- CART ICON -->
-            <div class="cart-icon" onclick="location.href='cart.html'">
-                <span>🛒</span>
-                <span id="cart-count" class="cart-count">0</span>
-            </div>
             
             <!-- BURGER MENU -->
             <div class="menu-toggle" id="mobile-menu">
@@ -1224,18 +1181,6 @@
             observer.observe(section);
         });
 
-        // Cart count
-        function updateCartCount() {
-            const cart = JSON.parse(localStorage.getItem('idealism_cart')) || [];
-            const totalCount = cart.reduce((sum, item) => sum + item.quantity, 0);
-            const cartCount = document.getElementById('cart-count');
-            
-            if (cartCount) {
-                cartCount.textContent = totalCount;
-                cartCount.style.display = totalCount > 0 ? 'flex' : 'none';
-            }
-        }
-
         // Burger menu
         const mobileMenu = document.getElementById('mobile-menu');
         const mainMenu = document.getElementById('main-menu');
@@ -1256,8 +1201,6 @@
                 });
             });
         }
-        
-        updateCartCount();
     }
 </script>
 
@@ -1274,6 +1217,5 @@
     </script>
     <noscript><div><img src="https://mc.yandex.ru/watch/105196447" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
     <!-- /Yandex.Metrika counter -->
-</head>
 </body>
 </html>
